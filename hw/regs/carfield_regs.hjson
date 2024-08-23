@@ -155,8 +155,19 @@
       ],
     }
 
-    { name: "SPATZ_CLUSTER_RST",
-      desc: "Spatz Cluster reset -active high, inverted in HW-",
+    { name: "SPATZ_CLUSTER1_RST",
+      desc: "Spatz Cluster 1 reset -active high, inverted in HW-",
+      swaccess: "rw",
+      hwaccess: "hro",
+      resval: "0",
+      hwqe: "0",
+      fields: [
+        { bits: "0:0" }
+      ],
+    }
+
+    { name: "SPATZ_CLUSTER2_RST",
+      desc: "Spatz Cluster 2 reset -active high, inverted in HW-",
       swaccess: "rw",
       hwaccess: "hro",
       resval: "0",
@@ -221,8 +232,19 @@
       ],
     }
 
-    { name: "SPATZ_CLUSTER_ISOLATE",
-      desc: "Spatz Cluster AXI isolate",
+    { name: "SPATZ_CLUSTER1_ISOLATE",
+      desc: "Spatz Cluster1 AXI isolate",
+      swaccess: "rw",
+      hwaccess: "hro",
+      resval: "1",
+      hwqe: "0",
+      fields: [
+        { bits: "0:0" }
+      ],
+    }
+
+    { name: "SPATZ_CLUSTER2_ISOLATE",
+      desc: "Spatz Cluster2 AXI isolate",
       swaccess: "rw",
       hwaccess: "hro",
       resval: "1",
@@ -287,8 +309,19 @@
       ],
     }
 
-    { name: "SPATZ_CLUSTER_ISOLATE_STATUS",
-      desc: "Spatz Cluster AXI isolate status",
+    { name: "SPATZ_CLUSTER1_ISOLATE_STATUS",
+      desc: "Spatz Cluster1 AXI isolate status",
+      swaccess: "rw",
+      hwaccess: "hwo",
+      resval: "0",
+      hwqe: "0",
+      fields: [
+        { bits: "0:0" }
+      ],
+    }
+
+    { name: "SPATZ_CLUSTER2_ISOLATE_STATUS",
+      desc: "Spatz Cluster2 AXI isolate status",
       swaccess: "rw",
       hwaccess: "hwo",
       resval: "0",
@@ -628,8 +661,19 @@
       ],
     }
 
-    { name: "SPATZ_CLUSTER_BUSY",
-      desc: "Spatz Cluster busy",
+    { name: "SPATZ_CLUSTER1_BUSY",
+      desc: "Spatz Cluster1 busy",
+      swaccess: "ro",
+      hwaccess: "hrw",
+      resval: "0",
+      hwqe: "0",
+      fields: [
+        { bits: "0:0" }
+      ],
+    }
+
+    { name: "SPATZ_CLUSTER2_BUSY",
+      desc: "Spatz Cluster2 busy",
       swaccess: "ro",
       hwaccess: "hrw",
       resval: "0",

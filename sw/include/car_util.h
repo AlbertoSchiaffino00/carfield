@@ -63,8 +63,9 @@ enum car_rst {
     CAR_SAFETY_RST   = 1,
     CAR_SECURITY_RST = 2,
     CAR_PULP_RST     = 3,
-    CAR_SPATZ_RST    = 4,
-    CAR_L2_RST       = 5,
+    CAR_SPATZ_CL1_RST  = 4,
+    CAR_SPATZ_CL2_RST  = 5,
+    CAR_L2_RST       = 6,
 };
 
 #define CARFIELD_HOST_CLK_EN_REG_OFFSET -1
@@ -84,8 +85,10 @@ enum car_rst {
 	    return CARFIELD_SECURITY_ISLAND_##NAME##_REG_OFFSET;               \
 	case CAR_PULP_RST:                                                     \
 	    return CARFIELD_PULP_CLUSTER_##NAME##_REG_OFFSET;                  \
-	case CAR_SPATZ_RST:                                                    \
-	    return CARFIELD_SPATZ_CLUSTER_##NAME##_REG_OFFSET;                 \
+	case CAR_SPATZ_CL1_RST:                                                \
+	    return CARFIELD_SPATZ_CLUSTER1_##NAME##_REG_OFFSET;                \
+    case CAR_SPATZ_CL2_RST:                                                \
+	    return CARFIELD_SPATZ_CLUSTER2_##NAME##_REG_OFFSET;                \
 	case CAR_L2_RST:                                                       \
 	    return CARFIELD_L2_##NAME##_REG_OFFSET;                            \
 	default:                                                               \
@@ -113,7 +116,7 @@ X(ISOLATE_STATUS);
 	    return CARFIELD_SECURITY_ISLAND_##NAME##_REG_OFFSET;               \
 	case CAR_PULP_CLK:                                                     \
 	    return CARFIELD_PULP_CLUSTER_##NAME##_REG_OFFSET;                  \
-	case CAR_SPATZ_CLK:						       \
+	case CAR_SPATZ_CLK: 						                           \
 	    return CARFIELD_SPATZ_CLUSTER_##NAME##_REG_OFFSET;                 \
 	case CAR_L2_CLK:                                                       \
 	    return CARFIELD_L2_##NAME##_REG_OFFSET;                            \
@@ -138,7 +141,9 @@ static inline enum car_clk car_clkd_from_rstd(enum car_rst rst)
 	return CAR_SECURITY_CLK;
     case CAR_PULP_RST:
 	return CAR_PULP_CLK;
-    case CAR_SPATZ_RST:
+    case CAR_SPATZ_CL1_RST:
+	return CAR_SPATZ_CLK;
+    case CAR_SPATZ_CL2_RST:
 	return CAR_SPATZ_CLK;
     case CAR_L2_RST:
 	return CAR_L2_CLK;
@@ -221,7 +226,7 @@ void car_enable_all_domains()
     car_enable_domain(CAR_PULP_RST);
 
     // Spatz Island
-    car_enable_domain(CAR_SPATZ_RST);
+    car_enable_domain(CAR_SPATZ_CL1_RST);
 }
 
 void car_init_start()

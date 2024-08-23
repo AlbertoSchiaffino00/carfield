@@ -4,3 +4,4 @@
 *.memh
 *.slm
 benchmarks/
+payloads/

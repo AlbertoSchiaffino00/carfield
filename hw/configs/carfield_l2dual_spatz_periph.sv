@@ -32,8 +32,12 @@ localparam doub_bt PeriphBase = 'h20001000;
 localparam doub_bt PeriphSize = 'h00009000;
 // Spatz cluster
 localparam bit     SpatzClusterEnable = 1;
-localparam doub_bt SpatzClusterBase = 'h51000000;
-localparam doub_bt SpatzClusterSize = 'h00800000;
+// Spatz cluster 1
+localparam doub_bt SpatzCluster1Base = 'h51000000;
+localparam doub_bt SpatzCluster1Size = 'h00800000;
+// Sparz cluster 2
+localparam doub_bt SpatzCluster2Base = 'h52000000;
+localparam doub_bt SpatzCluster2Size = 'h00800000;
 // PULP cluster
 localparam bit     PulpClusterEnable = 0;
 localparam doub_bt PulpClusterBase = 'h50000000;

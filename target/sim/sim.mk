@@ -101,7 +101,8 @@ car-vsim-sim-run:
 	$(eval SECD_IMAGE_ABS := $(realpath $(SECD_IMAGE)))
 	$(eval SAFED_BINARY_ABS := $(realpath $(SAFED_BINARY)))
 	$(eval PULPD_BINARY_ABS := $(realpath $(PULPD_BINARY)))
-	$(eval SPATZD_BINARY_ABS := $(realpath $(SPATZD_BINARY)))
+	$(eval SPATZD_CL1_BINARY_ABS := $(realpath $(SPATZD_CL1_BINARY)))
+	$(eval SPATZD_CL2_BINARY_ABS := $(realpath $(SPATZD_CL2_BINARY)))
 	cd $(CAR_VSIM_DIR); $(QUESTA) vsim $(VSIM_FLAGS) -do \
 		"set HYP_USER_PRELOAD $(HYP_USER_PRELOAD); \
 		 set SECURE_BOOT $(SECURE_BOOT); \
@@ -116,8 +117,10 @@ car-vsim-sim-run:
 		 set SAFED_BOOTMODE $(SAFED_BOOTMODE); \
 		 set PULPD_BINARY $(PULPD_BINARY_ABS); \
 		 set PULPD_BOOTMODE $(PULPD_BOOTMODE); \
-		 set SPATZD_BINARY $(SPATZD_BINARY_ABS); \
-		 set SPATZD_BOOTMODE $(SPATZD_BOOTMODE);\
+		 set SPATZD_CL1_BINARY $(SPATZD_CL1_BINARY_ABS); \
+		 set SPATZD_CL1_BOOTMODE $(SPATZD_CL1_BOOTMODE);\
+		 set SPATZD_CL2_BINARY $(SPATZD_CL2_BINARY_ABS); \
+		 set SPATZD_CL2_BOOTMODE $(SPATZD_CL2_BOOTMODE);\
 		 set TESTBENCH $(TBENCH); \
 		 set VSIM_FLAGS \"$(VSIM_FLAGS)\"; \
 		 source $(CAR_VSIM_DIR)/start.carfield_soc.tcl ; \

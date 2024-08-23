@@ -18,20 +18,22 @@
 #include "car_util.h"
 #include "car_memory_map.h"
 
+int diyprintf(char *str, int size) {
+    // char str[] = "Hello World!\r\n";
+    uint32_t rtc_freq = *reg32(&__base_regs, CHESHIRE_RTC_FREQ_REG_OFFSET);
+    uint64_t reset_freq = clint_get_core_freq(rtc_freq, 2500);
+    uart_init(&__base_uart, reset_freq, 115200);
+    uart_write_str(&__base_uart, str, size);
+    uart_write_flush(&__base_uart);
+    return 0;
+}
+
+
 int main(void)
 {
-    // Safety Island
-    car_enable_domain(CAR_SAFETY_RST);
-
-    // Security Island
-//    car_enable_domain(CAR_SECURITY_RST);
-
-    // PULP Island
-    car_enable_domain(CAR_PULP_RST);
-
     // Spatz Island
-    car_enable_domain(CAR_SPATZ_RST);
-
+    car_enable_domain(CAR_SPATZ_CL1_RST);
+    car_enable_domain(CAR_SPATZ_CL2_RST);
     // Safety Island
 
     // We write a bunch of bytes to the safety island's boot register and check
@@ -39,50 +41,55 @@ int main(void)
     // the safety island's scratchpad for that since it is not resetable
     uint64_t magic = 0xcafebeef;
 
-    // Write a pattern to safety island boot addr
-    writew(magic, CAR_SAFETY_ISLAND_PERIPHS_BASE_ADDR(car_safety_island) +
-		      SAFETY_SOC_CTRL_BOOTADDR_REG_OFFSET);
 
-    // Double check
-    if (readw(CAR_SAFETY_ISLAND_PERIPHS_BASE_ADDR(car_safety_island) +
-	      SAFETY_SOC_CTRL_BOOTADDR_REG_OFFSET) != magic)
-	return ESAFEDNOACCES;
-
-    // engage reset sequence for safety island
-    car_reset_domain(CAR_SAFETY_RST);
-
-    // After the reset we should only see zeros
-    if (readw(CAR_SAFETY_ISLAND_PERIPHS_BASE_ADDR(car_safety_island) +
-	      SAFETY_SOC_CTRL_BOOTADDR_REG_OFFSET) !=
-	SAFETY_ISLAND_BOOT_ADDR_RSVAL)
-	return ESAFEDNOACCES;
-
-    // Spatz
-    writew(magic, CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster) +
+    // // Spatz CL1
+    writew(magic, CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster1) +
 		      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET);
-    if (readw(CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster) +
+    if (readw(CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster1) +
 	      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET) !=
-	magic)
-	return EFPCLNOACCES;
+	magic){
+        return EFPCLNOACCES;
+    }else{
+        char str[] = "Wrote to SPATZ CLUSTER 1 boot control\n";
+        diyprintf(str, sizeof(str));
+    } 
 
-    car_reset_domain(CAR_SPATZ_RST);
-    if (readw(CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster) +
-	      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET) != 0)
-	return EFPCLNOACCES;
+    magic +=1;
+    // // Spatz CL2
+    writew(magic, CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster2) +
+		      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET);
+    if (readw(CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster2) +
+	      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET) !=
+	magic){
+        return EFPCLNOACCES;
+    }else{
+        char str[] = "Wrote to SPATZ CLUSTER 2 boot control\n";
+        diyprintf(str, sizeof(str));
+    } 
 
-    // PULP Reset
-    writew(magic, CAR_INT_CLUSTER_BOOT_ADDR_REG(car_integer_cluster));
-    if (readw(CAR_INT_CLUSTER_BOOT_ADDR_REG(car_integer_cluster)) != magic)
-	return EINTCLNOACCES;
+    car_reset_domain(CAR_SPATZ_CL1_RST);
+    car_reset_domain(CAR_SPATZ_CL2_RST);
 
-    volatile uint32_t pulp_boot_addr_rst_value = 0x78008080;
-    car_reset_domain(CAR_PULP_RST);
-    if (readw(CAR_INT_CLUSTER_BOOT_ADDR_REG(car_integer_cluster)) != pulp_boot_addr_rst_value)
-	return EINTCLNOACCES;
+    if (readw(CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster1) +
+	      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET) != 0){
+        return EFPCLNOACCES;
+    }else{
+        char str[] = "Reset SPATZ CLUSTER 1\n";
+        diyprintf(str, sizeof(str));
+    }
 
-    // L2 Reset
-    // Memory doesn't have a reset so this needs to be checked manually
-    car_reset_domain(CAR_L2_RST);
+    if (readw(CAR_FP_CLUSTER_PERIPHS_BASE_ADDR(car_spatz_cluster2) +
+	      SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_REG_OFFSET) != 0){
+        return EFPCLNOACCES;
+    }else{
+        char str[] = "Reset SPATZ CLUSTER 2\n";
+        diyprintf(str, sizeof(str));
+    }
+	// return EFPCLNOACCES;
+
+    // // L2 Reset
+    // // Memory doesn't have a reset so this needs to be checked manually
+    // car_reset_domain(CAR_L2_RST);
 
     // Security Island
     // We can't access anything so this needs to be checked manually In secure boot mode, the

@@ -198,9 +198,12 @@ pulpd-sw-build: pulpd-sw-init
 # TODO: properly compile spatz tests from carfield. For now, we symlink to existing tests. If you
 #are a user external to ETH, the symlink will not work. We will integrate the compilation flow ASAP.
 
-#.PHONY: spatzd-sw-build spatzd-sw-build: $(MAKE) -C $(SPATZD_MAKEDIR) BENDER=$(BENDER_PATH)
-#LLVM_INSTALL_DIR=$(LLVM_SPATZ_DIR) GCC_INSTALL_DIR=$(GCC_SPATZ_DIR) −B
-#SPATZ_CLUSTER_CFG=$(SPATZD_MAKEDIR)/cfg/carfield.hjson HTIF_SERVER=NO sw.vsim
+LLVM_SPATZ_DIR := /scratch2/msc24h6/carfield/spatz/sw/toolchain/llvm-project
+GCC_INSTALL_DIR := /scratch2/msc24h6/carfield/spatz/sw/toolchain/riscv-gnu-toolchain
+.PHONY: spatzd-sw-build 
+spatzd-sw-build: 
+	$(MAKE) -C $(SPATZD_MAKEDIR) clean.sw
+	$(MAKE) -C $(SPATZD_MAKEDIR) BENDER=$(BENDER_PATH) SPATZ_CLUSTER_CFG=$(SPATZD_MAKEDIR)/cfg/carfield_spatzd.hjson HTIF_SERVER=NO  sw.vsim
 
 ###############
 # Generate HW #
@@ -222,20 +225,20 @@ car-hw-init: spatzd-hw-init chs-hw-init
 regenerate_soc_regs: $(CAR_ROOT)/hw/regs/carfield_reg_pkg.sv $(CAR_ROOT)/hw/regs/carfield_reg_top.sv $(CAR_SW_DIR)/include/regs/soc_ctrl.h $(CAR_HW_DIR)/regs/pcr.md
 
 .PHONY: $(CAR_ROOT)/hw/regs/carfield_regs.hjson
-$(CAR_ROOT)/hw/regs/carfield_regs.hjson: hw/regs/carfield_regs.csv | venv
-	$(VENV)/python ./scripts/csv_to_json.py --input $< --output $@
+$(CAR_ROOT)/hw/regs/carfield_regs.hjson: hw/regs/carfield_regs.csv 
+	python3 ./scripts/csv_to_json.py --input $< --output $@
 
 .PHONY: $(CAR_ROOT)/hw/regs/carfield_reg_pkg.sv hw/regs/carfield_reg_top.sv
-$(CAR_ROOT)/hw/regs/carfield_reg_pkg.sv $(CAR_ROOT)/hw/regs/carfield_reg_top.sv: $(CAR_ROOT)/hw/regs/carfield_regs.hjson | venv
-	$(VENV)/python utils/reggen/regtool.py -r $< --outdir $(dir $@)
+$(CAR_ROOT)/hw/regs/carfield_reg_pkg.sv $(CAR_ROOT)/hw/regs/carfield_reg_top.sv: $(CAR_ROOT)/hw/regs/carfield_regs.hjson 
+	python3 utils/reggen/regtool.py -r $< --outdir $(dir $@)
 
 .PHONY: $(CAR_SW_DIR)/include/regs/soc_ctrl.h
-$(CAR_SW_DIR)/include/regs/soc_ctrl.h: $(CAR_ROOT)/hw/regs/carfield_regs.hjson | venv
-	$(VENV)/python utils/reggen/regtool.py -D $<  > $@
+$(CAR_SW_DIR)/include/regs/soc_ctrl.h: $(CAR_ROOT)/hw/regs/carfield_regs.hjson 
+	python3 utils/reggen/regtool.py -D $<  > $@
 
 .PHONY: $(CAR_SW_DIR)/hw/regs/pcr.md
-$(CAR_HW_DIR)/regs/pcr.md: $(CAR_ROOT)/hw/regs/carfield_regs.hjson | venv
-	$(VENV)/python utils/reggen/regtool.py -d $<  > $@
+$(CAR_HW_DIR)/regs/pcr.md: $(CAR_ROOT)/hw/regs/carfield_regs.hjson 
+	python3 utils/reggen/regtool.py -d $<  > $@
 
 ## Update host domain PLIC and CLINT interrupt controllers configuration. The default configuration
 ## in cheshire allows for one interruptible hart. When the number of external interruptible harts is
@@ -258,7 +261,7 @@ update_serial_link: $(CHS_ROOT)/hw/serial_link.hjson
 .PHONY: spatzd-hw-init
 spatzd-hw-init:
 	$(MAKE) -C $(SPATZD_ROOT) hw/ip/snitch/src/riscv_instr.sv
-	$(MAKE) -C $(SPATZD_MAKEDIR) -B SPATZ_CLUSTER_CFG=$(SPATZD_MAKEDIR)/cfg/carfield.hjson bootrom
+	$(MAKE) -C $(SPATZD_MAKEDIR) generate_project
 	cp  $(SPATZD_ROOT)/sw/snRuntime/include/spatz_cluster_peripheral.h  $(CAR_SW_DIR)/include/regs/
 
 ## Generate Cheshire HW. This target has a prerequisite, i.e. the PLIC and serial link
@@ -303,7 +306,7 @@ SPYGLASS_DEFS += $(synth_defs)
 .PHONY:lint
 lint:
 	$(MAKE) -C scripts lint bender_defs="$(SPYGLASS_DEFS)" bender_targs="$(SPYGLASS_TARGS)" > make.log
-
+	
 #############
 # Emulation #
 #############

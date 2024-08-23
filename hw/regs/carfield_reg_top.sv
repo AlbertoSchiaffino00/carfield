@@ -10,7 +10,7 @@
 module carfield_reg_top #(
   parameter type reg_req_t = logic,
   parameter type reg_rsp_t = logic,
-  parameter int AW = 8
+  parameter int AW = 9
 ) (
   input logic clk_i,
   input logic rst_ni,
@@ -95,9 +95,12 @@ module carfield_reg_top #(
   logic pulp_cluster_rst_qs;
   logic pulp_cluster_rst_wd;
   logic pulp_cluster_rst_we;
-  logic spatz_cluster_rst_qs;
-  logic spatz_cluster_rst_wd;
-  logic spatz_cluster_rst_we;
+  logic spatz_cluster1_rst_qs;
+  logic spatz_cluster1_rst_wd;
+  logic spatz_cluster1_rst_we;
+  logic spatz_cluster2_rst_qs;
+  logic spatz_cluster2_rst_wd;
+  logic spatz_cluster2_rst_we;
   logic l2_rst_qs;
   logic l2_rst_wd;
   logic l2_rst_we;
@@ -113,9 +116,12 @@ module carfield_reg_top #(
   logic pulp_cluster_isolate_qs;
   logic pulp_cluster_isolate_wd;
   logic pulp_cluster_isolate_we;
-  logic spatz_cluster_isolate_qs;
-  logic spatz_cluster_isolate_wd;
-  logic spatz_cluster_isolate_we;
+  logic spatz_cluster1_isolate_qs;
+  logic spatz_cluster1_isolate_wd;
+  logic spatz_cluster1_isolate_we;
+  logic spatz_cluster2_isolate_qs;
+  logic spatz_cluster2_isolate_wd;
+  logic spatz_cluster2_isolate_we;
   logic l2_isolate_qs;
   logic l2_isolate_wd;
   logic l2_isolate_we;
@@ -131,9 +137,12 @@ module carfield_reg_top #(
   logic pulp_cluster_isolate_status_qs;
   logic pulp_cluster_isolate_status_wd;
   logic pulp_cluster_isolate_status_we;
-  logic spatz_cluster_isolate_status_qs;
-  logic spatz_cluster_isolate_status_wd;
-  logic spatz_cluster_isolate_status_we;
+  logic spatz_cluster1_isolate_status_qs;
+  logic spatz_cluster1_isolate_status_wd;
+  logic spatz_cluster1_isolate_status_we;
+  logic spatz_cluster2_isolate_status_qs;
+  logic spatz_cluster2_isolate_status_wd;
+  logic spatz_cluster2_isolate_status_we;
   logic l2_isolate_status_qs;
   logic l2_isolate_status_wd;
   logic l2_isolate_status_we;
@@ -222,7 +231,8 @@ module carfield_reg_top #(
   logic pulp_cluster_boot_enable_qs;
   logic pulp_cluster_boot_enable_wd;
   logic pulp_cluster_boot_enable_we;
-  logic spatz_cluster_busy_qs;
+  logic spatz_cluster1_busy_qs;
+  logic spatz_cluster2_busy_qs;
   logic pulp_cluster_busy_qs;
   logic pulp_cluster_eoc_qs;
   logic eth_rgmii_phy_clk_div_en_qs;
@@ -484,19 +494,19 @@ module carfield_reg_top #(
   );
 
 
-  // R[spatz_cluster_rst]: V(False)
+  // R[spatz_cluster1_rst]: V(False)
 
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_spatz_cluster_rst (
+  ) u_spatz_cluster1_rst (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (spatz_cluster_rst_we),
-    .wd     (spatz_cluster_rst_wd),
+    .we     (spatz_cluster1_rst_we),
+    .wd     (spatz_cluster1_rst_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -504,10 +514,37 @@ module carfield_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.spatz_cluster_rst.q ),
+    .q      (reg2hw.spatz_cluster1_rst.q ),
 
     // to register interface (read)
-    .qs     (spatz_cluster_rst_qs)
+    .qs     (spatz_cluster1_rst_qs)
+  );
+
+
+  // R[spatz_cluster2_rst]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_spatz_cluster2_rst (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (spatz_cluster2_rst_we),
+    .wd     (spatz_cluster2_rst_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.spatz_cluster2_rst.q ),
+
+    // to register interface (read)
+    .qs     (spatz_cluster2_rst_qs)
   );
 
 
@@ -646,19 +683,19 @@ module carfield_reg_top #(
   );
 
 
-  // R[spatz_cluster_isolate]: V(False)
+  // R[spatz_cluster1_isolate]: V(False)
 
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_spatz_cluster_isolate (
+  ) u_spatz_cluster1_isolate (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (spatz_cluster_isolate_we),
-    .wd     (spatz_cluster_isolate_wd),
+    .we     (spatz_cluster1_isolate_we),
+    .wd     (spatz_cluster1_isolate_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -666,10 +703,37 @@ module carfield_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.spatz_cluster_isolate.q ),
+    .q      (reg2hw.spatz_cluster1_isolate.q ),
 
     // to register interface (read)
-    .qs     (spatz_cluster_isolate_qs)
+    .qs     (spatz_cluster1_isolate_qs)
+  );
+
+
+  // R[spatz_cluster2_isolate]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h1)
+  ) u_spatz_cluster2_isolate (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (spatz_cluster2_isolate_we),
+    .wd     (spatz_cluster2_isolate_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.spatz_cluster2_isolate.q ),
+
+    // to register interface (read)
+    .qs     (spatz_cluster2_isolate_qs)
   );
 
 
@@ -808,30 +872,57 @@ module carfield_reg_top #(
   );
 
 
-  // R[spatz_cluster_isolate_status]: V(False)
+  // R[spatz_cluster1_isolate_status]: V(False)
 
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_spatz_cluster_isolate_status (
+  ) u_spatz_cluster1_isolate_status (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (spatz_cluster_isolate_status_we),
-    .wd     (spatz_cluster_isolate_status_wd),
+    .we     (spatz_cluster1_isolate_status_we),
+    .wd     (spatz_cluster1_isolate_status_wd),
 
     // from internal hardware
-    .de     (hw2reg.spatz_cluster_isolate_status.de),
-    .d      (hw2reg.spatz_cluster_isolate_status.d ),
+    .de     (hw2reg.spatz_cluster1_isolate_status.de),
+    .d      (hw2reg.spatz_cluster1_isolate_status.d ),
 
     // to internal hardware
     .qe     (),
     .q      (),
 
     // to register interface (read)
-    .qs     (spatz_cluster_isolate_status_qs)
+    .qs     (spatz_cluster1_isolate_status_qs)
+  );
+
+
+  // R[spatz_cluster2_isolate_status]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_spatz_cluster2_isolate_status (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (spatz_cluster2_isolate_status_we),
+    .wd     (spatz_cluster2_isolate_status_wd),
+
+    // from internal hardware
+    .de     (hw2reg.spatz_cluster2_isolate_status.de),
+    .d      (hw2reg.spatz_cluster2_isolate_status.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+
+    // to register interface (read)
+    .qs     (spatz_cluster2_isolate_status_qs)
   );
 
 
@@ -1644,13 +1735,13 @@ module carfield_reg_top #(
   );
 
 
-  // R[spatz_cluster_busy]: V(False)
+  // R[spatz_cluster1_busy]: V(False)
 
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RO"),
     .RESVAL  (1'h0)
-  ) u_spatz_cluster_busy (
+  ) u_spatz_cluster1_busy (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
@@ -1658,15 +1749,41 @@ module carfield_reg_top #(
     .wd     ('0  ),
 
     // from internal hardware
-    .de     (hw2reg.spatz_cluster_busy.de),
-    .d      (hw2reg.spatz_cluster_busy.d ),
+    .de     (hw2reg.spatz_cluster1_busy.de),
+    .d      (hw2reg.spatz_cluster1_busy.d ),
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.spatz_cluster_busy.q ),
+    .q      (reg2hw.spatz_cluster1_busy.q ),
 
     // to register interface (read)
-    .qs     (spatz_cluster_busy_qs)
+    .qs     (spatz_cluster1_busy_qs)
+  );
+
+
+  // R[spatz_cluster2_busy]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RO"),
+    .RESVAL  (1'h0)
+  ) u_spatz_cluster2_busy (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.spatz_cluster2_busy.de),
+    .d      (hw2reg.spatz_cluster2_busy.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.spatz_cluster2_busy.q ),
+
+    // to register interface (read)
+    .qs     (spatz_cluster2_busy_qs)
   );
 
 
@@ -1832,7 +1949,7 @@ module carfield_reg_top #(
 
 
 
-  logic [62:0] addr_hit;
+  logic [66:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[ 0] = (reg_addr == CARFIELD_VERSION0_OFFSET);
@@ -1848,56 +1965,60 @@ module carfield_reg_top #(
     addr_hit[10] = (reg_addr == CARFIELD_SAFETY_ISLAND_RST_OFFSET);
     addr_hit[11] = (reg_addr == CARFIELD_SECURITY_ISLAND_RST_OFFSET);
     addr_hit[12] = (reg_addr == CARFIELD_PULP_CLUSTER_RST_OFFSET);
-    addr_hit[13] = (reg_addr == CARFIELD_SPATZ_CLUSTER_RST_OFFSET);
-    addr_hit[14] = (reg_addr == CARFIELD_L2_RST_OFFSET);
-    addr_hit[15] = (reg_addr == CARFIELD_PERIPH_ISOLATE_OFFSET);
-    addr_hit[16] = (reg_addr == CARFIELD_SAFETY_ISLAND_ISOLATE_OFFSET);
-    addr_hit[17] = (reg_addr == CARFIELD_SECURITY_ISLAND_ISOLATE_OFFSET);
-    addr_hit[18] = (reg_addr == CARFIELD_PULP_CLUSTER_ISOLATE_OFFSET);
-    addr_hit[19] = (reg_addr == CARFIELD_SPATZ_CLUSTER_ISOLATE_OFFSET);
-    addr_hit[20] = (reg_addr == CARFIELD_L2_ISOLATE_OFFSET);
-    addr_hit[21] = (reg_addr == CARFIELD_PERIPH_ISOLATE_STATUS_OFFSET);
-    addr_hit[22] = (reg_addr == CARFIELD_SAFETY_ISLAND_ISOLATE_STATUS_OFFSET);
-    addr_hit[23] = (reg_addr == CARFIELD_SECURITY_ISLAND_ISOLATE_STATUS_OFFSET);
-    addr_hit[24] = (reg_addr == CARFIELD_PULP_CLUSTER_ISOLATE_STATUS_OFFSET);
-    addr_hit[25] = (reg_addr == CARFIELD_SPATZ_CLUSTER_ISOLATE_STATUS_OFFSET);
-    addr_hit[26] = (reg_addr == CARFIELD_L2_ISOLATE_STATUS_OFFSET);
-    addr_hit[27] = (reg_addr == CARFIELD_PERIPH_CLK_EN_OFFSET);
-    addr_hit[28] = (reg_addr == CARFIELD_SAFETY_ISLAND_CLK_EN_OFFSET);
-    addr_hit[29] = (reg_addr == CARFIELD_SECURITY_ISLAND_CLK_EN_OFFSET);
-    addr_hit[30] = (reg_addr == CARFIELD_PULP_CLUSTER_CLK_EN_OFFSET);
-    addr_hit[31] = (reg_addr == CARFIELD_SPATZ_CLUSTER_CLK_EN_OFFSET);
-    addr_hit[32] = (reg_addr == CARFIELD_L2_CLK_EN_OFFSET);
-    addr_hit[33] = (reg_addr == CARFIELD_PERIPH_CLK_SEL_OFFSET);
-    addr_hit[34] = (reg_addr == CARFIELD_SAFETY_ISLAND_CLK_SEL_OFFSET);
-    addr_hit[35] = (reg_addr == CARFIELD_SECURITY_ISLAND_CLK_SEL_OFFSET);
-    addr_hit[36] = (reg_addr == CARFIELD_PULP_CLUSTER_CLK_SEL_OFFSET);
-    addr_hit[37] = (reg_addr == CARFIELD_SPATZ_CLUSTER_CLK_SEL_OFFSET);
-    addr_hit[38] = (reg_addr == CARFIELD_L2_CLK_SEL_OFFSET);
-    addr_hit[39] = (reg_addr == CARFIELD_PERIPH_CLK_DIV_VALUE_OFFSET);
-    addr_hit[40] = (reg_addr == CARFIELD_SAFETY_ISLAND_CLK_DIV_VALUE_OFFSET);
-    addr_hit[41] = (reg_addr == CARFIELD_SECURITY_ISLAND_CLK_DIV_VALUE_OFFSET);
-    addr_hit[42] = (reg_addr == CARFIELD_PULP_CLUSTER_CLK_DIV_VALUE_OFFSET);
-    addr_hit[43] = (reg_addr == CARFIELD_SPATZ_CLUSTER_CLK_DIV_VALUE_OFFSET);
-    addr_hit[44] = (reg_addr == CARFIELD_L2_CLK_DIV_VALUE_OFFSET);
-    addr_hit[45] = (reg_addr == CARFIELD_HOST_FETCH_ENABLE_OFFSET);
-    addr_hit[46] = (reg_addr == CARFIELD_SAFETY_ISLAND_FETCH_ENABLE_OFFSET);
-    addr_hit[47] = (reg_addr == CARFIELD_SECURITY_ISLAND_FETCH_ENABLE_OFFSET);
-    addr_hit[48] = (reg_addr == CARFIELD_PULP_CLUSTER_FETCH_ENABLE_OFFSET);
-    addr_hit[49] = (reg_addr == CARFIELD_SPATZ_CLUSTER_DEBUG_REQ_OFFSET);
-    addr_hit[50] = (reg_addr == CARFIELD_HOST_BOOT_ADDR_OFFSET);
-    addr_hit[51] = (reg_addr == CARFIELD_SAFETY_ISLAND_BOOT_ADDR_OFFSET);
-    addr_hit[52] = (reg_addr == CARFIELD_SECURITY_ISLAND_BOOT_ADDR_OFFSET);
-    addr_hit[53] = (reg_addr == CARFIELD_PULP_CLUSTER_BOOT_ADDR_OFFSET);
-    addr_hit[54] = (reg_addr == CARFIELD_SPATZ_CLUSTER_BOOT_ADDR_OFFSET);
-    addr_hit[55] = (reg_addr == CARFIELD_PULP_CLUSTER_BOOT_ENABLE_OFFSET);
-    addr_hit[56] = (reg_addr == CARFIELD_SPATZ_CLUSTER_BUSY_OFFSET);
-    addr_hit[57] = (reg_addr == CARFIELD_PULP_CLUSTER_BUSY_OFFSET);
-    addr_hit[58] = (reg_addr == CARFIELD_PULP_CLUSTER_EOC_OFFSET);
-    addr_hit[59] = (reg_addr == CARFIELD_ETH_RGMII_PHY_CLK_DIV_EN_OFFSET);
-    addr_hit[60] = (reg_addr == CARFIELD_ETH_RGMII_PHY_CLK_DIV_VALUE_OFFSET);
-    addr_hit[61] = (reg_addr == CARFIELD_ETH_MDIO_CLK_DIV_EN_OFFSET);
-    addr_hit[62] = (reg_addr == CARFIELD_ETH_MDIO_CLK_DIV_VALUE_OFFSET);
+    addr_hit[13] = (reg_addr == CARFIELD_SPATZ_CLUSTER1_RST_OFFSET);
+    addr_hit[14] = (reg_addr == CARFIELD_SPATZ_CLUSTER2_RST_OFFSET);
+    addr_hit[15] = (reg_addr == CARFIELD_L2_RST_OFFSET);
+    addr_hit[16] = (reg_addr == CARFIELD_PERIPH_ISOLATE_OFFSET);
+    addr_hit[17] = (reg_addr == CARFIELD_SAFETY_ISLAND_ISOLATE_OFFSET);
+    addr_hit[18] = (reg_addr == CARFIELD_SECURITY_ISLAND_ISOLATE_OFFSET);
+    addr_hit[19] = (reg_addr == CARFIELD_PULP_CLUSTER_ISOLATE_OFFSET);
+    addr_hit[20] = (reg_addr == CARFIELD_SPATZ_CLUSTER1_ISOLATE_OFFSET);
+    addr_hit[21] = (reg_addr == CARFIELD_SPATZ_CLUSTER2_ISOLATE_OFFSET);
+    addr_hit[22] = (reg_addr == CARFIELD_L2_ISOLATE_OFFSET);
+    addr_hit[23] = (reg_addr == CARFIELD_PERIPH_ISOLATE_STATUS_OFFSET);
+    addr_hit[24] = (reg_addr == CARFIELD_SAFETY_ISLAND_ISOLATE_STATUS_OFFSET);
+    addr_hit[25] = (reg_addr == CARFIELD_SECURITY_ISLAND_ISOLATE_STATUS_OFFSET);
+    addr_hit[26] = (reg_addr == CARFIELD_PULP_CLUSTER_ISOLATE_STATUS_OFFSET);
+    addr_hit[27] = (reg_addr == CARFIELD_SPATZ_CLUSTER1_ISOLATE_STATUS_OFFSET);
+    addr_hit[28] = (reg_addr == CARFIELD_SPATZ_CLUSTER2_ISOLATE_STATUS_OFFSET);
+    addr_hit[29] = (reg_addr == CARFIELD_L2_ISOLATE_STATUS_OFFSET);
+    addr_hit[30] = (reg_addr == CARFIELD_PERIPH_CLK_EN_OFFSET);
+    addr_hit[31] = (reg_addr == CARFIELD_SAFETY_ISLAND_CLK_EN_OFFSET);
+    addr_hit[32] = (reg_addr == CARFIELD_SECURITY_ISLAND_CLK_EN_OFFSET);
+    addr_hit[33] = (reg_addr == CARFIELD_PULP_CLUSTER_CLK_EN_OFFSET);
+    addr_hit[34] = (reg_addr == CARFIELD_SPATZ_CLUSTER_CLK_EN_OFFSET);
+    addr_hit[35] = (reg_addr == CARFIELD_L2_CLK_EN_OFFSET);
+    addr_hit[36] = (reg_addr == CARFIELD_PERIPH_CLK_SEL_OFFSET);
+    addr_hit[37] = (reg_addr == CARFIELD_SAFETY_ISLAND_CLK_SEL_OFFSET);
+    addr_hit[38] = (reg_addr == CARFIELD_SECURITY_ISLAND_CLK_SEL_OFFSET);
+    addr_hit[39] = (reg_addr == CARFIELD_PULP_CLUSTER_CLK_SEL_OFFSET);
+    addr_hit[40] = (reg_addr == CARFIELD_SPATZ_CLUSTER_CLK_SEL_OFFSET);
+    addr_hit[41] = (reg_addr == CARFIELD_L2_CLK_SEL_OFFSET);
+    addr_hit[42] = (reg_addr == CARFIELD_PERIPH_CLK_DIV_VALUE_OFFSET);
+    addr_hit[43] = (reg_addr == CARFIELD_SAFETY_ISLAND_CLK_DIV_VALUE_OFFSET);
+    addr_hit[44] = (reg_addr == CARFIELD_SECURITY_ISLAND_CLK_DIV_VALUE_OFFSET);
+    addr_hit[45] = (reg_addr == CARFIELD_PULP_CLUSTER_CLK_DIV_VALUE_OFFSET);
+    addr_hit[46] = (reg_addr == CARFIELD_SPATZ_CLUSTER_CLK_DIV_VALUE_OFFSET);
+    addr_hit[47] = (reg_addr == CARFIELD_L2_CLK_DIV_VALUE_OFFSET);
+    addr_hit[48] = (reg_addr == CARFIELD_HOST_FETCH_ENABLE_OFFSET);
+    addr_hit[49] = (reg_addr == CARFIELD_SAFETY_ISLAND_FETCH_ENABLE_OFFSET);
+    addr_hit[50] = (reg_addr == CARFIELD_SECURITY_ISLAND_FETCH_ENABLE_OFFSET);
+    addr_hit[51] = (reg_addr == CARFIELD_PULP_CLUSTER_FETCH_ENABLE_OFFSET);
+    addr_hit[52] = (reg_addr == CARFIELD_SPATZ_CLUSTER_DEBUG_REQ_OFFSET);
+    addr_hit[53] = (reg_addr == CARFIELD_HOST_BOOT_ADDR_OFFSET);
+    addr_hit[54] = (reg_addr == CARFIELD_SAFETY_ISLAND_BOOT_ADDR_OFFSET);
+    addr_hit[55] = (reg_addr == CARFIELD_SECURITY_ISLAND_BOOT_ADDR_OFFSET);
+    addr_hit[56] = (reg_addr == CARFIELD_PULP_CLUSTER_BOOT_ADDR_OFFSET);
+    addr_hit[57] = (reg_addr == CARFIELD_SPATZ_CLUSTER_BOOT_ADDR_OFFSET);
+    addr_hit[58] = (reg_addr == CARFIELD_PULP_CLUSTER_BOOT_ENABLE_OFFSET);
+    addr_hit[59] = (reg_addr == CARFIELD_SPATZ_CLUSTER1_BUSY_OFFSET);
+    addr_hit[60] = (reg_addr == CARFIELD_SPATZ_CLUSTER2_BUSY_OFFSET);
+    addr_hit[61] = (reg_addr == CARFIELD_PULP_CLUSTER_BUSY_OFFSET);
+    addr_hit[62] = (reg_addr == CARFIELD_PULP_CLUSTER_EOC_OFFSET);
+    addr_hit[63] = (reg_addr == CARFIELD_ETH_RGMII_PHY_CLK_DIV_EN_OFFSET);
+    addr_hit[64] = (reg_addr == CARFIELD_ETH_RGMII_PHY_CLK_DIV_VALUE_OFFSET);
+    addr_hit[65] = (reg_addr == CARFIELD_ETH_MDIO_CLK_DIV_EN_OFFSET);
+    addr_hit[66] = (reg_addr == CARFIELD_ETH_MDIO_CLK_DIV_VALUE_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -1967,7 +2088,11 @@ module carfield_reg_top #(
                (addr_hit[59] & (|(CARFIELD_PERMIT[59] & ~reg_be))) |
                (addr_hit[60] & (|(CARFIELD_PERMIT[60] & ~reg_be))) |
                (addr_hit[61] & (|(CARFIELD_PERMIT[61] & ~reg_be))) |
-               (addr_hit[62] & (|(CARFIELD_PERMIT[62] & ~reg_be)))));
+               (addr_hit[62] & (|(CARFIELD_PERMIT[62] & ~reg_be))) |
+               (addr_hit[63] & (|(CARFIELD_PERMIT[63] & ~reg_be))) |
+               (addr_hit[64] & (|(CARFIELD_PERMIT[64] & ~reg_be))) |
+               (addr_hit[65] & (|(CARFIELD_PERMIT[65] & ~reg_be))) |
+               (addr_hit[66] & (|(CARFIELD_PERMIT[66] & ~reg_be)))));
   end
 
   assign jedec_idcode_we = addr_hit[5] & reg_we & !reg_error;
@@ -1991,142 +2116,151 @@ module carfield_reg_top #(
   assign pulp_cluster_rst_we = addr_hit[12] & reg_we & !reg_error;
   assign pulp_cluster_rst_wd = reg_wdata[0];
 
-  assign spatz_cluster_rst_we = addr_hit[13] & reg_we & !reg_error;
-  assign spatz_cluster_rst_wd = reg_wdata[0];
+  assign spatz_cluster1_rst_we = addr_hit[13] & reg_we & !reg_error;
+  assign spatz_cluster1_rst_wd = reg_wdata[0];
 
-  assign l2_rst_we = addr_hit[14] & reg_we & !reg_error;
+  assign spatz_cluster2_rst_we = addr_hit[14] & reg_we & !reg_error;
+  assign spatz_cluster2_rst_wd = reg_wdata[0];
+
+  assign l2_rst_we = addr_hit[15] & reg_we & !reg_error;
   assign l2_rst_wd = reg_wdata[0];
 
-  assign periph_isolate_we = addr_hit[15] & reg_we & !reg_error;
+  assign periph_isolate_we = addr_hit[16] & reg_we & !reg_error;
   assign periph_isolate_wd = reg_wdata[0];
 
-  assign safety_island_isolate_we = addr_hit[16] & reg_we & !reg_error;
+  assign safety_island_isolate_we = addr_hit[17] & reg_we & !reg_error;
   assign safety_island_isolate_wd = reg_wdata[0];
 
-  assign security_island_isolate_we = addr_hit[17] & reg_we & !reg_error;
+  assign security_island_isolate_we = addr_hit[18] & reg_we & !reg_error;
   assign security_island_isolate_wd = reg_wdata[0];
 
-  assign pulp_cluster_isolate_we = addr_hit[18] & reg_we & !reg_error;
+  assign pulp_cluster_isolate_we = addr_hit[19] & reg_we & !reg_error;
   assign pulp_cluster_isolate_wd = reg_wdata[0];
 
-  assign spatz_cluster_isolate_we = addr_hit[19] & reg_we & !reg_error;
-  assign spatz_cluster_isolate_wd = reg_wdata[0];
+  assign spatz_cluster1_isolate_we = addr_hit[20] & reg_we & !reg_error;
+  assign spatz_cluster1_isolate_wd = reg_wdata[0];
 
-  assign l2_isolate_we = addr_hit[20] & reg_we & !reg_error;
+  assign spatz_cluster2_isolate_we = addr_hit[21] & reg_we & !reg_error;
+  assign spatz_cluster2_isolate_wd = reg_wdata[0];
+
+  assign l2_isolate_we = addr_hit[22] & reg_we & !reg_error;
   assign l2_isolate_wd = reg_wdata[0];
 
-  assign periph_isolate_status_we = addr_hit[21] & reg_we & !reg_error;
+  assign periph_isolate_status_we = addr_hit[23] & reg_we & !reg_error;
   assign periph_isolate_status_wd = reg_wdata[0];
 
-  assign safety_island_isolate_status_we = addr_hit[22] & reg_we & !reg_error;
+  assign safety_island_isolate_status_we = addr_hit[24] & reg_we & !reg_error;
   assign safety_island_isolate_status_wd = reg_wdata[0];
 
-  assign security_island_isolate_status_we = addr_hit[23] & reg_we & !reg_error;
+  assign security_island_isolate_status_we = addr_hit[25] & reg_we & !reg_error;
   assign security_island_isolate_status_wd = reg_wdata[0];
 
-  assign pulp_cluster_isolate_status_we = addr_hit[24] & reg_we & !reg_error;
+  assign pulp_cluster_isolate_status_we = addr_hit[26] & reg_we & !reg_error;
   assign pulp_cluster_isolate_status_wd = reg_wdata[0];
 
-  assign spatz_cluster_isolate_status_we = addr_hit[25] & reg_we & !reg_error;
-  assign spatz_cluster_isolate_status_wd = reg_wdata[0];
+  assign spatz_cluster1_isolate_status_we = addr_hit[27] & reg_we & !reg_error;
+  assign spatz_cluster1_isolate_status_wd = reg_wdata[0];
 
-  assign l2_isolate_status_we = addr_hit[26] & reg_we & !reg_error;
+  assign spatz_cluster2_isolate_status_we = addr_hit[28] & reg_we & !reg_error;
+  assign spatz_cluster2_isolate_status_wd = reg_wdata[0];
+
+  assign l2_isolate_status_we = addr_hit[29] & reg_we & !reg_error;
   assign l2_isolate_status_wd = reg_wdata[0];
 
-  assign periph_clk_en_we = addr_hit[27] & reg_we & !reg_error;
+  assign periph_clk_en_we = addr_hit[30] & reg_we & !reg_error;
   assign periph_clk_en_wd = reg_wdata[0];
 
-  assign safety_island_clk_en_we = addr_hit[28] & reg_we & !reg_error;
+  assign safety_island_clk_en_we = addr_hit[31] & reg_we & !reg_error;
   assign safety_island_clk_en_wd = reg_wdata[0];
 
-  assign security_island_clk_en_we = addr_hit[29] & reg_we & !reg_error;
+  assign security_island_clk_en_we = addr_hit[32] & reg_we & !reg_error;
   assign security_island_clk_en_wd = reg_wdata[0];
 
-  assign pulp_cluster_clk_en_we = addr_hit[30] & reg_we & !reg_error;
+  assign pulp_cluster_clk_en_we = addr_hit[33] & reg_we & !reg_error;
   assign pulp_cluster_clk_en_wd = reg_wdata[0];
 
-  assign spatz_cluster_clk_en_we = addr_hit[31] & reg_we & !reg_error;
+  assign spatz_cluster_clk_en_we = addr_hit[34] & reg_we & !reg_error;
   assign spatz_cluster_clk_en_wd = reg_wdata[0];
 
-  assign l2_clk_en_we = addr_hit[32] & reg_we & !reg_error;
+  assign l2_clk_en_we = addr_hit[35] & reg_we & !reg_error;
   assign l2_clk_en_wd = reg_wdata[0];
 
-  assign periph_clk_sel_we = addr_hit[33] & reg_we & !reg_error;
+  assign periph_clk_sel_we = addr_hit[36] & reg_we & !reg_error;
   assign periph_clk_sel_wd = reg_wdata[1:0];
 
-  assign safety_island_clk_sel_we = addr_hit[34] & reg_we & !reg_error;
+  assign safety_island_clk_sel_we = addr_hit[37] & reg_we & !reg_error;
   assign safety_island_clk_sel_wd = reg_wdata[1:0];
 
-  assign security_island_clk_sel_we = addr_hit[35] & reg_we & !reg_error;
+  assign security_island_clk_sel_we = addr_hit[38] & reg_we & !reg_error;
   assign security_island_clk_sel_wd = reg_wdata[1:0];
 
-  assign pulp_cluster_clk_sel_we = addr_hit[36] & reg_we & !reg_error;
+  assign pulp_cluster_clk_sel_we = addr_hit[39] & reg_we & !reg_error;
   assign pulp_cluster_clk_sel_wd = reg_wdata[1:0];
 
-  assign spatz_cluster_clk_sel_we = addr_hit[37] & reg_we & !reg_error;
+  assign spatz_cluster_clk_sel_we = addr_hit[40] & reg_we & !reg_error;
   assign spatz_cluster_clk_sel_wd = reg_wdata[1:0];
 
-  assign l2_clk_sel_we = addr_hit[38] & reg_we & !reg_error;
+  assign l2_clk_sel_we = addr_hit[41] & reg_we & !reg_error;
   assign l2_clk_sel_wd = reg_wdata[1:0];
 
-  assign periph_clk_div_value_we = addr_hit[39] & reg_we & !reg_error;
+  assign periph_clk_div_value_we = addr_hit[42] & reg_we & !reg_error;
   assign periph_clk_div_value_wd = reg_wdata[23:0];
 
-  assign safety_island_clk_div_value_we = addr_hit[40] & reg_we & !reg_error;
+  assign safety_island_clk_div_value_we = addr_hit[43] & reg_we & !reg_error;
   assign safety_island_clk_div_value_wd = reg_wdata[23:0];
 
-  assign security_island_clk_div_value_we = addr_hit[41] & reg_we & !reg_error;
+  assign security_island_clk_div_value_we = addr_hit[44] & reg_we & !reg_error;
   assign security_island_clk_div_value_wd = reg_wdata[23:0];
 
-  assign pulp_cluster_clk_div_value_we = addr_hit[42] & reg_we & !reg_error;
+  assign pulp_cluster_clk_div_value_we = addr_hit[45] & reg_we & !reg_error;
   assign pulp_cluster_clk_div_value_wd = reg_wdata[23:0];
 
-  assign spatz_cluster_clk_div_value_we = addr_hit[43] & reg_we & !reg_error;
+  assign spatz_cluster_clk_div_value_we = addr_hit[46] & reg_we & !reg_error;
   assign spatz_cluster_clk_div_value_wd = reg_wdata[23:0];
 
-  assign l2_clk_div_value_we = addr_hit[44] & reg_we & !reg_error;
+  assign l2_clk_div_value_we = addr_hit[47] & reg_we & !reg_error;
   assign l2_clk_div_value_wd = reg_wdata[23:0];
 
-  assign safety_island_fetch_enable_we = addr_hit[46] & reg_we & !reg_error;
+  assign safety_island_fetch_enable_we = addr_hit[49] & reg_we & !reg_error;
   assign safety_island_fetch_enable_wd = reg_wdata[0];
 
-  assign security_island_fetch_enable_we = addr_hit[47] & reg_we & !reg_error;
+  assign security_island_fetch_enable_we = addr_hit[50] & reg_we & !reg_error;
   assign security_island_fetch_enable_wd = reg_wdata[0];
 
-  assign pulp_cluster_fetch_enable_we = addr_hit[48] & reg_we & !reg_error;
+  assign pulp_cluster_fetch_enable_we = addr_hit[51] & reg_we & !reg_error;
   assign pulp_cluster_fetch_enable_wd = reg_wdata[0];
 
-  assign spatz_cluster_debug_req_we = addr_hit[49] & reg_we & !reg_error;
+  assign spatz_cluster_debug_req_we = addr_hit[52] & reg_we & !reg_error;
   assign spatz_cluster_debug_req_wd = reg_wdata[1:0];
 
-  assign host_boot_addr_we = addr_hit[50] & reg_we & !reg_error;
+  assign host_boot_addr_we = addr_hit[53] & reg_we & !reg_error;
   assign host_boot_addr_wd = reg_wdata[31:0];
 
-  assign safety_island_boot_addr_we = addr_hit[51] & reg_we & !reg_error;
+  assign safety_island_boot_addr_we = addr_hit[54] & reg_we & !reg_error;
   assign safety_island_boot_addr_wd = reg_wdata[31:0];
 
-  assign security_island_boot_addr_we = addr_hit[52] & reg_we & !reg_error;
+  assign security_island_boot_addr_we = addr_hit[55] & reg_we & !reg_error;
   assign security_island_boot_addr_wd = reg_wdata[31:0];
 
-  assign pulp_cluster_boot_addr_we = addr_hit[53] & reg_we & !reg_error;
+  assign pulp_cluster_boot_addr_we = addr_hit[56] & reg_we & !reg_error;
   assign pulp_cluster_boot_addr_wd = reg_wdata[31:0];
 
-  assign spatz_cluster_boot_addr_we = addr_hit[54] & reg_we & !reg_error;
+  assign spatz_cluster_boot_addr_we = addr_hit[57] & reg_we & !reg_error;
   assign spatz_cluster_boot_addr_wd = reg_wdata[31:0];
 
-  assign pulp_cluster_boot_enable_we = addr_hit[55] & reg_we & !reg_error;
+  assign pulp_cluster_boot_enable_we = addr_hit[58] & reg_we & !reg_error;
   assign pulp_cluster_boot_enable_wd = reg_wdata[0];
 
-  assign eth_rgmii_phy_clk_div_en_we = addr_hit[59] & reg_we & !reg_error;
+  assign eth_rgmii_phy_clk_div_en_we = addr_hit[63] & reg_we & !reg_error;
   assign eth_rgmii_phy_clk_div_en_wd = reg_wdata[0];
 
-  assign eth_rgmii_phy_clk_div_value_we = addr_hit[60] & reg_we & !reg_error;
+  assign eth_rgmii_phy_clk_div_value_we = addr_hit[64] & reg_we & !reg_error;
   assign eth_rgmii_phy_clk_div_value_wd = reg_wdata[19:0];
 
-  assign eth_mdio_clk_div_en_we = addr_hit[61] & reg_we & !reg_error;
+  assign eth_mdio_clk_div_en_we = addr_hit[65] & reg_we & !reg_error;
   assign eth_mdio_clk_div_en_wd = reg_wdata[0];
 
-  assign eth_mdio_clk_div_value_we = addr_hit[62] & reg_we & !reg_error;
+  assign eth_mdio_clk_div_value_we = addr_hit[66] & reg_we & !reg_error;
   assign eth_mdio_clk_div_value_wd = reg_wdata[19:0];
 
   // Read data return
@@ -2186,202 +2320,218 @@ module carfield_reg_top #(
       end
 
       addr_hit[13]: begin
-        reg_rdata_next[0] = spatz_cluster_rst_qs;
+        reg_rdata_next[0] = spatz_cluster1_rst_qs;
       end
 
       addr_hit[14]: begin
-        reg_rdata_next[0] = l2_rst_qs;
+        reg_rdata_next[0] = spatz_cluster2_rst_qs;
       end
 
       addr_hit[15]: begin
-        reg_rdata_next[0] = periph_isolate_qs;
+        reg_rdata_next[0] = l2_rst_qs;
       end
 
       addr_hit[16]: begin
-        reg_rdata_next[0] = safety_island_isolate_qs;
+        reg_rdata_next[0] = periph_isolate_qs;
       end
 
       addr_hit[17]: begin
-        reg_rdata_next[0] = security_island_isolate_qs;
+        reg_rdata_next[0] = safety_island_isolate_qs;
       end
 
       addr_hit[18]: begin
-        reg_rdata_next[0] = pulp_cluster_isolate_qs;
+        reg_rdata_next[0] = security_island_isolate_qs;
       end
 
       addr_hit[19]: begin
-        reg_rdata_next[0] = spatz_cluster_isolate_qs;
+        reg_rdata_next[0] = pulp_cluster_isolate_qs;
       end
 
       addr_hit[20]: begin
-        reg_rdata_next[0] = l2_isolate_qs;
+        reg_rdata_next[0] = spatz_cluster1_isolate_qs;
       end
 
       addr_hit[21]: begin
-        reg_rdata_next[0] = periph_isolate_status_qs;
+        reg_rdata_next[0] = spatz_cluster2_isolate_qs;
       end
 
       addr_hit[22]: begin
-        reg_rdata_next[0] = safety_island_isolate_status_qs;
+        reg_rdata_next[0] = l2_isolate_qs;
       end
 
       addr_hit[23]: begin
-        reg_rdata_next[0] = security_island_isolate_status_qs;
+        reg_rdata_next[0] = periph_isolate_status_qs;
       end
 
       addr_hit[24]: begin
-        reg_rdata_next[0] = pulp_cluster_isolate_status_qs;
+        reg_rdata_next[0] = safety_island_isolate_status_qs;
       end
 
       addr_hit[25]: begin
-        reg_rdata_next[0] = spatz_cluster_isolate_status_qs;
+        reg_rdata_next[0] = security_island_isolate_status_qs;
       end
 
       addr_hit[26]: begin
-        reg_rdata_next[0] = l2_isolate_status_qs;
+        reg_rdata_next[0] = pulp_cluster_isolate_status_qs;
       end
 
       addr_hit[27]: begin
-        reg_rdata_next[0] = periph_clk_en_qs;
+        reg_rdata_next[0] = spatz_cluster1_isolate_status_qs;
       end
 
       addr_hit[28]: begin
-        reg_rdata_next[0] = safety_island_clk_en_qs;
+        reg_rdata_next[0] = spatz_cluster2_isolate_status_qs;
       end
 
       addr_hit[29]: begin
-        reg_rdata_next[0] = security_island_clk_en_qs;
+        reg_rdata_next[0] = l2_isolate_status_qs;
       end
 
       addr_hit[30]: begin
-        reg_rdata_next[0] = pulp_cluster_clk_en_qs;
+        reg_rdata_next[0] = periph_clk_en_qs;
       end
 
       addr_hit[31]: begin
-        reg_rdata_next[0] = spatz_cluster_clk_en_qs;
+        reg_rdata_next[0] = safety_island_clk_en_qs;
       end
 
       addr_hit[32]: begin
-        reg_rdata_next[0] = l2_clk_en_qs;
+        reg_rdata_next[0] = security_island_clk_en_qs;
       end
 
       addr_hit[33]: begin
-        reg_rdata_next[1:0] = periph_clk_sel_qs;
+        reg_rdata_next[0] = pulp_cluster_clk_en_qs;
       end
 
       addr_hit[34]: begin
-        reg_rdata_next[1:0] = safety_island_clk_sel_qs;
+        reg_rdata_next[0] = spatz_cluster_clk_en_qs;
       end
 
       addr_hit[35]: begin
-        reg_rdata_next[1:0] = security_island_clk_sel_qs;
+        reg_rdata_next[0] = l2_clk_en_qs;
       end
 
       addr_hit[36]: begin
-        reg_rdata_next[1:0] = pulp_cluster_clk_sel_qs;
+        reg_rdata_next[1:0] = periph_clk_sel_qs;
       end
 
       addr_hit[37]: begin
-        reg_rdata_next[1:0] = spatz_cluster_clk_sel_qs;
+        reg_rdata_next[1:0] = safety_island_clk_sel_qs;
       end
 
       addr_hit[38]: begin
-        reg_rdata_next[1:0] = l2_clk_sel_qs;
+        reg_rdata_next[1:0] = security_island_clk_sel_qs;
       end
 
       addr_hit[39]: begin
-        reg_rdata_next[23:0] = periph_clk_div_value_qs;
+        reg_rdata_next[1:0] = pulp_cluster_clk_sel_qs;
       end
 
       addr_hit[40]: begin
-        reg_rdata_next[23:0] = safety_island_clk_div_value_qs;
+        reg_rdata_next[1:0] = spatz_cluster_clk_sel_qs;
       end
 
       addr_hit[41]: begin
-        reg_rdata_next[23:0] = security_island_clk_div_value_qs;
+        reg_rdata_next[1:0] = l2_clk_sel_qs;
       end
 
       addr_hit[42]: begin
-        reg_rdata_next[23:0] = pulp_cluster_clk_div_value_qs;
+        reg_rdata_next[23:0] = periph_clk_div_value_qs;
       end
 
       addr_hit[43]: begin
-        reg_rdata_next[23:0] = spatz_cluster_clk_div_value_qs;
+        reg_rdata_next[23:0] = safety_island_clk_div_value_qs;
       end
 
       addr_hit[44]: begin
-        reg_rdata_next[23:0] = l2_clk_div_value_qs;
+        reg_rdata_next[23:0] = security_island_clk_div_value_qs;
       end
 
       addr_hit[45]: begin
-        reg_rdata_next[0] = host_fetch_enable_qs;
+        reg_rdata_next[23:0] = pulp_cluster_clk_div_value_qs;
       end
 
       addr_hit[46]: begin
-        reg_rdata_next[0] = safety_island_fetch_enable_qs;
+        reg_rdata_next[23:0] = spatz_cluster_clk_div_value_qs;
       end
 
       addr_hit[47]: begin
-        reg_rdata_next[0] = security_island_fetch_enable_qs;
+        reg_rdata_next[23:0] = l2_clk_div_value_qs;
       end
 
       addr_hit[48]: begin
-        reg_rdata_next[0] = pulp_cluster_fetch_enable_qs;
+        reg_rdata_next[0] = host_fetch_enable_qs;
       end
 
       addr_hit[49]: begin
-        reg_rdata_next[1:0] = spatz_cluster_debug_req_qs;
+        reg_rdata_next[0] = safety_island_fetch_enable_qs;
       end
 
       addr_hit[50]: begin
-        reg_rdata_next[31:0] = host_boot_addr_qs;
+        reg_rdata_next[0] = security_island_fetch_enable_qs;
       end
 
       addr_hit[51]: begin
-        reg_rdata_next[31:0] = safety_island_boot_addr_qs;
+        reg_rdata_next[0] = pulp_cluster_fetch_enable_qs;
       end
 
       addr_hit[52]: begin
-        reg_rdata_next[31:0] = security_island_boot_addr_qs;
+        reg_rdata_next[1:0] = spatz_cluster_debug_req_qs;
       end
 
       addr_hit[53]: begin
-        reg_rdata_next[31:0] = pulp_cluster_boot_addr_qs;
+        reg_rdata_next[31:0] = host_boot_addr_qs;
       end
 
       addr_hit[54]: begin
-        reg_rdata_next[31:0] = spatz_cluster_boot_addr_qs;
+        reg_rdata_next[31:0] = safety_island_boot_addr_qs;
       end
 
       addr_hit[55]: begin
-        reg_rdata_next[0] = pulp_cluster_boot_enable_qs;
+        reg_rdata_next[31:0] = security_island_boot_addr_qs;
       end
 
       addr_hit[56]: begin
-        reg_rdata_next[0] = spatz_cluster_busy_qs;
+        reg_rdata_next[31:0] = pulp_cluster_boot_addr_qs;
       end
 
       addr_hit[57]: begin
-        reg_rdata_next[0] = pulp_cluster_busy_qs;
+        reg_rdata_next[31:0] = spatz_cluster_boot_addr_qs;
       end
 
       addr_hit[58]: begin
-        reg_rdata_next[0] = pulp_cluster_eoc_qs;
+        reg_rdata_next[0] = pulp_cluster_boot_enable_qs;
       end
 
       addr_hit[59]: begin
-        reg_rdata_next[0] = eth_rgmii_phy_clk_div_en_qs;
+        reg_rdata_next[0] = spatz_cluster1_busy_qs;
       end
 
       addr_hit[60]: begin
-        reg_rdata_next[19:0] = eth_rgmii_phy_clk_div_value_qs;
+        reg_rdata_next[0] = spatz_cluster2_busy_qs;
       end
 
       addr_hit[61]: begin
-        reg_rdata_next[0] = eth_mdio_clk_div_en_qs;
+        reg_rdata_next[0] = pulp_cluster_busy_qs;
       end
 
       addr_hit[62]: begin
+        reg_rdata_next[0] = pulp_cluster_eoc_qs;
+      end
+
+      addr_hit[63]: begin
+        reg_rdata_next[0] = eth_rgmii_phy_clk_div_en_qs;
+      end
+
+      addr_hit[64]: begin
+        reg_rdata_next[19:0] = eth_rgmii_phy_clk_div_value_qs;
+      end
+
+      addr_hit[65]: begin
+        reg_rdata_next[0] = eth_mdio_clk_div_en_qs;
+      end
+
+      addr_hit[66]: begin
         reg_rdata_next[19:0] = eth_mdio_clk_div_value_qs;
       end
 
@@ -2407,7 +2557,7 @@ endmodule
 
 module carfield_reg_top_intf
 #(
-  parameter int AW = 8,
+  parameter int AW = 9,
   localparam int DW = 32
 ) (
   input logic clk_i,

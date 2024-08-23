@@ -54,7 +54,7 @@ int carfield_platform_init(int fd) {
     if (carfield_mmap(fd, 200, 0x800000, &car_integer_cluster)) {
         printf("mmap() failed for car_integer_cluster\n");
     }
-    if (carfield_mmap(fd, 300, 0x800000, &car_spatz_cluster)) {
-        printf("mmap() failed for car_spatz_cluster\n");
+    if (carfield_mmap(fd, 300, 0x800000, &car_spatz_cluster1)) {
+        printf("mmap() failed for car_spatz_cluster1\n");
     }
 }

@@ -1,0 +1,2757 @@
+/*
+
+Xilinx Vivado v2020.2.1 (64-bit) [Major: 2020, Minor: 2]
+SW Build: 3080587 on Fri Dec 11 14:53:26 MST 2020
+IP Build: 3080454 on Sat Dec 12 02:19:03 MST 2020
+
+Process ID (PID): 6041
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Thu Aug 22 22:53:47 CEST 2024
+Time zone: 	Central European Standard Time (Europe/Zurich)
+
+OS: CentOS Linux release 7.9.2009 (Core)
+OS Version: 3.10.0-1160.71.1.el7.x86_64
+OS Architecture: amd64
+Available processors (cores): 28
+
+Display: localhost:10.0
+Screen size: 1920x1018
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.2 64-bit
+Java home: 	/usr/pack/vitis-2020.2-kgf/Vivado/2020.2/tps/lnx64/jre11.0.2
+Java executable location: 	/usr/pack/vitis-2020.2-kgf/Vivado/2020.2/tps/lnx64/jre11.0.2/bin/java
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	msc24h6
+User home directory: /home/msc24h6
+User working directory: /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /usr/pack/vitis-2020.2-kgf/Vivado
+HDI_APPROOT: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2
+RDI_DATADIR: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/data
+RDI_BINDIR: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/bin
+
+Vivado preferences file location: /home/msc24h6/.Xilinx/Vivado/2020.2/vivado.xml
+Vivado preferences directory: /home/msc24h6/.Xilinx/Vivado/2020.2/
+Vivado layouts directory: /home/msc24h6/.Xilinx/Vivado/2020.2/data/layouts
+PlanAhead jar file location: 	/usr/pack/vitis-2020.2-kgf/Vivado/2020.2/lib/classes/planAhead.jar
+Vivado log file location: 	/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/vivado.log
+Vivado journal file location: 	
+Engine tmp dir: 	./.Xil/Vivado-6041-pisoc13.ee.ethz.ch
+
+Xilinx Environment Variables
+----------------------------
+VIVADO_MODE: gui
+XILINX: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/ids_lite/ISE
+XILINX_BIT: /usr/scratch2/badile40/msc24h6/carfield/target//xilinx/out/carfield_bd_vcu128_carfield_l2dual_spatz_periph.bit
+XILINX_BOARD: vcu128
+XILINX_BOARD_LONG: xilinx.com:vcu128:part0:1.0
+XILINX_CHECK_TIMING: 0
+XILINX_DSP: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/ids_lite/ISE
+XILINX_ELABORATION_ONLY: 0
+XILINX_FLAVOR: bd
+XILINX_FPGA_PATH: xilinx_tcf/Xilinx/*
+XILINX_HLS: /usr/pack/vitis-2020.2-kgf/Vitis_HLS/2020.2
+XILINX_HOST: localhost
+XILINX_PART: xcvu37p-fsvh2892-2L-e
+XILINX_PLANAHEAD: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2
+XILINX_PORT: 3121
+XILINX_PROJECT: carfield
+XILINX_ROUTED_DCP: 
+XILINX_SDK: /usr/pack/vitis-2020.2-kgf/Vitis/2020.2
+XILINX_VITIS: /usr/pack/vitis-2020.2-kgf/Vitis/2020.2
+XILINX_VIVADO: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2
+XILINX_VIVADO_HLS: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2
+
+
+GUI allocated memory:	154 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 5,752 MB
+
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// TclEventType: START_PROGRESS_DIALOG
+// Tcl Message: start_gui 
+// TclEventType: START_PROGRESS_DIALOG
+// bz (cr):  Sourcing Tcl script 'scripts/run.tcl' : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: source scripts/run.tcl 
+// Tcl Message: # set project carfield_$::env(XILINX_BOARD) # create_project $project ./$project -force -part $::env(XILINX_PART) 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,764 MB. GUI used memory: 53 MB. Current time: 8/22/24, 10:53:48 PM CEST
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_ADD
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_NEW
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 100 MB (+102736kb) [00:00:20]
+// [Engine Memory]: 5,770 MB (+5898627kb) [00:00:20]
+// [GUI Memory]: 106 MB (+1004kb) [00:00:21]
+// WARNING: HEventQueue.dispatchEvent() is taking  2118 ms.
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/usr/pack/vitis-2020.2-kgf/Vivado/2020.2/data/ip'. 
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: BOARD_MODIFIED
+// Tcl Message: create_project: Time (s): cpu = 00:00:28 ; elapsed = 00:00:33 . Memory (MB): peak = 7541.637 ; gain = 71.156 ; free physical = 222551 ; free virtual = 541042 
+// Tcl Message: # set_property board_part $::env(XILINX_BOARD_LONG) [current_project] 
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: # set_property XPM_LIBRARIES XPM_MEMORY [current_project] # set_param general.maxThreads 8 # set_property ip_repo_paths ../xilinx_ips/carfield_ip [current_project] 
+// TclEventType: CREATE_IP_CATALOG
+// [GUI Memory]: 121 MB (+9781kb) [00:00:40]
+// TclEventType: CREATE_IP_CATALOG
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: # update_ip_catalog 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/xilinx_ips/carfield_ip'. 
+// Tcl Message: # import_files -fileset constrs_1 -norecurse constraints/$::env(XILINX_BOARD).xdc 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: # import_files -fileset constrs_1 -norecurse ../constraints/carfield_islands.tcl 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: LOAD_FEATURE
+// Tcl Message: INFO: [BD::TCL 103-2003] Currently there is no design <design_1> in project, so creating one... 
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: Wrote  : </usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/design_1.bd>  
+// TclEventType: RSB_OPEN_DIAGRAM
+// WARNING: HEventQueue.dispatchEvent() is taking  1384 ms.
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // v
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 7552.535 ; gain = 8.660 ; free physical = 222429 ; free virtual = 540919 
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// Tcl Message: INFO: [BD::TCL 103-2004] Making design <design_1> as current_bd_design. 
+// Tcl Message: ## common::send_gid_msg -ssname BD::TCL -id 2005 -severity "INFO" "Currently the variable <design_name> is equal to \"$design_name\"." 
+// Tcl Message: INFO: [BD::TCL 103-2005] Currently the variable <design_name> is equal to "design_1". 
+// Tcl Message: INFO: [BD::TCL 103-2011] Checking if the following IPs exist in the project's IP catalog:   xilinx.com:ip:axi_dma:7.1 xilinx.com:ip:axi_ethernet:7.2 ethz.ch:user:carfield_xilinx_ip:1.0 xilinx.com:ip:clk_wiz:6.0 xilinx.com:ip:xlconcat:2.1 xilinx.com:ip:ddr4:2.2 xilinx.com:ip:xlconstant:1.1 xilinx.com:ip:proc_sys_reset:5.0 xilinx.com:ip:util_ds_buf:2.1 xilinx.com:ip:vio:3.0 xilinx.com:ip:smartconnect:1.0 xilinx.com:ip:xdma:4.1  . 
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// [GUI Memory]: 127 MB (+84kb) [00:00:58]
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 7,181 MB. GUI used memory: 81 MB. Current time: 8/22/24, 10:54:38 PM CEST
+// [Engine Memory]: 7,181 MB (+1176743kb) [00:01:05]
+// HMemoryUtils.trashcanNow. Engine heap size: 8,020 MB. GUI used memory: 77 MB. Current time: 8/22/24, 10:54:58 PM CEST
+// Tcl Message: INFO: [Device 21-403] Loading part xcvu37p-fsvh2892-2L-e 
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// [Engine Memory]: 8,143 MB (+632267kb) [00:01:31]
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// Tcl Message: create_bd_cell: Time (s): cpu = 00:00:24 ; elapsed = 00:00:33 . Memory (MB): peak = 10211.691 ; gain = 2600.734 ; free physical = 221187 ; free virtual = 539678 
+// TclEventType: REPORT_IP_STATUS_STALE
+// Tcl Message: INFO: [xilinx.com:ip:gig_ethernet_pcs_pma:16.2-98989] bd_929b_pcs_pma_0: ARCHITECTURE : virtexuplusHBM INFO: [xilinx.com:ip:gig_ethernet_pcs_pma:16.2-98989] bd_929b_pcs_pma_0: PART : xcvu37p-fsvh2892-2L-e INFO: [xilinx.com:ip:gig_ethernet_pcs_pma:16.2-98989] bd_929b_pcs_pma_0: SPEEDGRADE : -2L INFO: [xilinx.com:ip:gig_ethernet_pcs_pma:16.2-98989] bd_929b_pcs_pma_0: Standard : 1000BASEX 
+// TclEventType: REPORT_IP_STATUS_STALE
+// Tcl Message: Sourcing the elaborate.xit file. Calling update_contents for BASEX . 
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// Tcl Message: Done sourcing the elaborate.xit file. 
+// Tcl Message: create_bd_cell: Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 10211.691 ; gain = 0.000 ; free physical = 221151 ; free virtual = 539642 
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// HMemoryUtils.trashcanNow. Engine heap size: 8,263 MB. GUI used memory: 77 MB. Current time: 8/22/24, 10:55:43 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 8,337 MB. GUI used memory: 77 MB. Current time: 8/22/24, 10:55:58 PM CEST
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// Tcl Message: create_bd_cell: Time (s): cpu = 00:00:20 ; elapsed = 00:00:50 . Memory (MB): peak = 10457.949 ; gain = 230.625 ; free physical = 220907 ; free virtual = 539398 
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// HMemoryUtils.trashcanNow. Engine heap size: 8,453 MB. GUI used memory: 77 MB. Current time: 8/22/24, 10:56:33 PM CEST
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: REPORT_IP_STATUS_STALE
+// Tcl Message: create_bd_cell: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 10588.688 ; gain = 54.445 ; free physical = 220825 ; free virtual = 539316 
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_cell: Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 10614.355 ; gain = 156.008 ; free physical = 220791 ; free virtual = 539282 
+// Tcl Message: INFO: [Common 17-14] Message 'Board 49-26' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. 
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// [Engine Memory]: 8,619 MB (+72320kb) [00:03:14]
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// HMemoryUtils.trashcanNow. Engine heap size: 8,619 MB. GUI used memory: 78 MB. Current time: 8/22/24, 10:56:53 PM CEST
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_cell: Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 10691.066 ; gain = 37.918 ; free physical = 220672 ; free virtual = 539163 
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// HMemoryUtils.trashcanNow. Engine heap size: 8,712 MB. GUI used memory: 78 MB. Current time: 8/22/24, 10:57:28 PM CEST
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: REPORT_IP_STATUS_STALE
+// HMemoryUtils.trashcanNow. Engine heap size: 8,748 MB. GUI used memory: 78 MB. Current time: 8/22/24, 10:58:08 PM CEST
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:xdma:4.1-3] /xdma_0 Preserving ID_WIDTH <4>  
+// Tcl Message: validate_bd_design: Time (s): cpu = 00:00:41 ; elapsed = 00:00:45 . Memory (MB): peak = 10862.105 ; gain = 135.574 ; free physical = 220520 ; free virtual = 539011 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Wrote  : </usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/design_1.bd>  Wrote  : </usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: save_bd_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:41 . Memory (MB): peak = 10874.594 ; gain = 10.488 ; free physical = 220462 ; free virtual = 539002 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: # if {![info exists ::env(GEN_NO_HYPERBUS)] || ($::env(GEN_NO_HYPERBUS)==0)} { #   import_files -fileset constrs_1 -norecurse constraints/$::env(XILINX_BOARD)_hyperbus.xdc # } else { #   delete_bd_objs [get_bd_ports pad_hyper*] # } # make_wrapper -files [get_files $project/$project.srcs/sources_1/bd/design_1/design_1.bd] -top 
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 135 MB (+1365kb) [00:05:20]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// HMemoryUtils.trashcanNow. Engine heap size: 8,868 MB. GUI used memory: 79 MB. Current time: 8/22/24, 10:59:03 PM CEST
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_CLOSE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:xdma:4.1-3] /xdma_0 Preserving ID_WIDTH <4>  INFO: [xilinx.com:ip:xdma:4.1-3] /xdma_0 Preserving ID_WIDTH <4>  
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Wrote  : </usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/design_1.bd>  
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: VHDL Output written to : /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/synth/design_1.v 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: VHDL Output written to : /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/sim/design_1.v VHDL Output written to : /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v 
+// Tcl Message: make_wrapper: Time (s): cpu = 00:00:35 ; elapsed = 00:01:00 . Memory (MB): peak = 10917.352 ; gain = 42.758 ; free physical = 220415 ; free virtual = 538956 
+// Tcl Message: # add_files -norecurse $project/$project.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v # generate_target all [get_files *design_1.bd] 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Wrote  : </usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/design_1.bd>  Wrote  : </usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  
+// Tcl Message: VHDL Output written to : /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/synth/design_1.v 
+// Tcl Message: VHDL Output written to : /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/sim/design_1.v 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: VHDL Output written to : /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_dma_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Exporting to file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_axi_ethernet_0_0/bd_0/hw_handoff/design_1_axi_ethernet_0_0.hwh Generated Block Design Tcl file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_axi_ethernet_0_0/bd_0/hw_handoff/design_1_axi_ethernet_0_0_bd.tcl 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Generated Hardware Definition File /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_axi_ethernet_0_0/bd_0/synth/design_1_axi_ethernet_0_0.hwdef 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_ethernet_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block carfield_xilinx_ip_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wiz_0 . 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block concat_irq . 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Exporting to file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_ddr4_0_0/bd_0/hw_handoff/design_1_ddr4_0_0_microblaze_mcs.hwh Generated Block Design Tcl file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_ddr4_0_0/bd_0/hw_handoff/design_1_ddr4_0_0_microblaze_mcs_bd.tcl 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Generated Hardware Definition File /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_ddr4_0_0/bd_0/synth/design_1_ddr4_0_0_microblaze_mcs.hwdef 
+// TclEventType: PACKAGER_OBJECT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 8,932 MB. GUI used memory: 80 MB. Current time: 8/22/24, 11:03:38 PM CEST
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block ddr4_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block high . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block low . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_10 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_333 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block util_ds_buf_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block util_ds_buf_1 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block vio_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Exporting to file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_dram_0/bd_0/hw_handoff/design_1_xbar_dram_0.hwh Generated Block Design Tcl file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_dram_0/bd_0/hw_handoff/design_1_xbar_dram_0_bd.tcl 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Generated Hardware Definition File /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_dram_0/bd_0/synth/design_1_xbar_dram_0.hwdef 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block xbar_dram . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Exporting to file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_periph_in_0/bd_0/hw_handoff/design_1_xbar_periph_in_0.hwh Generated Block Design Tcl file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_periph_in_0/bd_0/hw_handoff/design_1_xbar_periph_in_0_bd.tcl 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Generated Hardware Definition File /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_periph_in_0/bd_0/synth/design_1_xbar_periph_in_0.hwdef 
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block xbar_periph_in . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Exporting to file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_periph_out_0/bd_0/hw_handoff/design_1_xbar_periph_out_0.hwh Generated Block Design Tcl file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_periph_out_0/bd_0/hw_handoff/design_1_xbar_periph_out_0_bd.tcl 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Generated Hardware Definition File /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_xbar_periph_out_0/bd_0/synth/design_1_xbar_periph_out_0.hwdef 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block xbar_periph_out . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block xdma_0 . 
+// Tcl Message: Exporting to file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh 
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 8,965 MB. GUI used memory: 78 MB. Current time: 8/22/24, 11:06:03 PM CEST
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: Generated Block Design Tcl file /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/hw_handoff/design_1_bd.tcl Generated Hardware Definition File /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/synth/design_1.hwdef 
+// Tcl Message: generate_target: Time (s): cpu = 00:01:34 ; elapsed = 00:06:08 . Memory (MB): peak = 10999.746 ; gain = 82.395 ; free physical = 220259 ; free virtual = 538897 
+// Tcl Message: # export_ip_user_files -of_objects  [get_files *design_1.bd] -no_script 
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: export_ip_user_files: Time (s): cpu = 00:00:06 ; elapsed = 00:01:33 . Memory (MB): peak = 11001.758 ; gain = 0.000 ; free physical = 220257 ; free virtual = 538905 
+// TclEventType: RUN_ADD
+// Tcl Message: # create_ip_run [get_files *design_1.bd] 
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 9,027 MB. GUI used memory: 79 MB. Current time: 8/22/24, 11:07:43 PM CEST
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// [Engine Memory]: 9,053 MB (+3874kb) [00:14:13]
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 9,104 MB. GUI used memory: 82 MB. Current time: 8/22/24, 11:08:04 PM CEST
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: create_ip_run: Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 11138.824 ; gain = 137.066 ; free physical = 220223 ; free virtual = 538871 
+// Tcl Message: # set_property processing_order LATE [get_files carfield.xdc] # set synth_runs [get_runs *synth*] # set all_ooc_synth [lsearch -regexp -all -inline -not $synth_runs {^synth_1$|carfield}] # set runs_queued {} # foreach run $all_ooc_synth { #     if {[get_property PROGRESS [get_run $run]] != "100%"} { #         puts "Launching run $run" #         lappend runs_queued $run #         # Default synthesis strategy #         # set_property strategy Flow_RuntimeOptimized [get_runs $run] #     } else { #         puts "Skipping 100% complete run: $run" #     } # } 
+// Tcl Message: # if {[llength $runs_queued] != 0} { #     reset_run $runs_queued #     launch_runs $runs_queued -jobs 16 #     puts "Waiting on $runs_queued" #     foreach run $runs_queued { #         wait_on_run $run #     } #     # reset main synthesis #     reset_run synth_1 # } 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_runs: Time (s): cpu = 00:00:08 ; elapsed = 00:00:13 . Memory (MB): peak = 11142.840 ; gain = 4.016 ; free physical = 220216 ; free virtual = 538864 
+// Tcl Message: INFO: [IP_Flow 19-7066] Running IP cache check for IP design_1_axi_ethernet_0_0 INFO: [IP_Flow 19-7066] Running IP cache check for IP bd_929b_c_counter_binary_0_0 INFO: [IP_Flow 19-7066] Running IP cache check for IP bd_929b_c_shift_ram_0_0 INFO: [IP_Flow 19-7066] Running IP cache check for IP bd_929b_eth_buf_0 INFO: [IP_Flow 19-7066] Running IP cache check for IP bd_929b_mac_0 INFO: [IP_Flow 19-7066] Running IP cache check for IP bd_929b_pcs_pma_0 INFO: [IP_Flow 19-7066] Running IP cache check for IP bd_929b_util_vector_logic_0_0 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// [GUI Memory]: 143 MB (+1521kb) [00:14:52]
+// TclEventType: RUN_LAUNCH
+// WARNING: HEventQueue.dispatchEvent() is taking  6192 ms.
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 4237 ms. Increasing delay to 3000 ms.
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:08 ; elapsed = 00:00:46 . Memory (MB): peak = 11198.855 ; gain = 56.016 ; free physical = 219721 ; free virtual = 538371 
+// Tcl Message: Waiting on design_1_axi_dma_0_0_synth_1 design_1_axi_ethernet_0_0_synth_1 bd_929b_eth_buf_0_synth_1 bd_929b_mac_0_synth_1 bd_929b_pcs_pma_0_synth_1 bd_929b_c_shift_ram_0_0_synth_1 bd_929b_c_counter_binary_0_0_synth_1 bd_929b_util_vector_logic_0_0_synth_1 design_1_clk_wiz_0_0_synth_1 design_1_ddr4_0_0_synth_1 design_1_psr_10_0_synth_1 design_1_psr_333_0_synth_1 design_1_util_ds_buf_0_0_synth_1 design_1_util_ds_buf_1_0_synth_1 design_1_vio_0_0_synth_1 design_1_xbar_dram_0_synth_1 design_1_xbar_periph_in_0_synth_1 design_1_xbar_periph_out_0_synth_1 design_1_xdma_0_0_synth_1 
+// Tcl Message: [Thu Aug 22 23:09:04 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:09:09 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:09:14 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 600ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:09:20 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 610ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:09:31 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:09:41 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:09:51 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:10:03 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 604ms to process. Increasing delay to 3000 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 422ms to process. Increasing delay to 3000 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 762ms to process. Increasing delay to 3000 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 453ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:10:26 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 560ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:10:47 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1840ms to process. Increasing delay to 4000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1840 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 709ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:11:09 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 566ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:11:29 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 406ms to process. Increasing delay to 3000 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 787ms to process. Increasing delay to 3000 ms.
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 1833 ms. Increasing delay to 4000 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 621ms to process. Increasing delay to 4000 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 3366 ms. Increasing delay to 5000 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 720ms to process. Increasing delay to 4000 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 993ms to process. Increasing delay to 5000 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:12:14 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1016ms to process. Increasing delay to 3000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1016 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1099ms to process. Increasing delay to 4000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1099 ms.
+// Tcl Message: [Thu Aug 22 23:12:57 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1002ms to process. Increasing delay to 4000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1002 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1114ms to process. Increasing delay to 3000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1114 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1208ms to process. Increasing delay to 5000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1208 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:13:38 2024] Waiting for design_1_axi_dma_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1234ms to process. Increasing delay to 5000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1234 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:14:09 2024] design_1_axi_dma_0_0_synth_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 00:00:17 ; elapsed = 00:05:05 . Memory (MB): peak = 11198.855 ; gain = 0.000 ; free physical = 204517 ; free virtual = 523364 
+// Tcl Message: [Thu Aug 22 23:14:09 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1273ms to process. Increasing delay to 3000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1273 ms.
+// Tcl Message: [Thu Aug 22 23:14:14 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1339ms to process. Increasing delay to 6000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1339 ms.
+// Tcl Message: [Thu Aug 22 23:14:21 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 642ms to process. Increasing delay to 4000 ms.
+// Tcl Message: [Thu Aug 22 23:14:26 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1097ms to process. Increasing delay to 5000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1097 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1054 ms.
+// Tcl Message: [Thu Aug 22 23:14:37 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:14:49 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// [GUI Memory]: 165 MB (+15663kb) [00:21:15]
+// Tcl Message: [Thu Aug 22 23:15:02 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:15:13 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1541ms to process. Increasing delay to 6000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1541 ms.
+// Tcl Message: [Thu Aug 22 23:15:36 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:15:57 2024] Waiting for design_1_axi_ethernet_0_0_synth_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:16:03 2024] design_1_axi_ethernet_0_0_synth_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 00:00:06 ; elapsed = 00:01:54 . Memory (MB): peak = 11198.855 ; gain = 0.000 ; free physical = 201042 ; free virtual = 520115 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] Waiting for bd_929b_eth_buf_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] bd_929b_eth_buf_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for bd_929b_mac_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] bd_929b_mac_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for bd_929b_pcs_pma_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] bd_929b_pcs_pma_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for bd_929b_c_shift_ram_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] bd_929b_c_shift_ram_0_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for bd_929b_c_counter_binary_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] bd_929b_c_counter_binary_0_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for bd_929b_util_vector_logic_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] bd_929b_util_vector_logic_0_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for design_1_clk_wiz_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:03 2024] design_1_clk_wiz_0_0_synth_1 finished [Thu Aug 22 23:16:03 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:08 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:13 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:18 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:28 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:38 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:49 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:16:59 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:17:19 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:17:40 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:18:01 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:18:22 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:19:05 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:19:45 2024] Waiting for design_1_ddr4_0_0_synth_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_ddr4_0_0_synth_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 00:00:12 ; elapsed = 00:03:58 . Memory (MB): peak = 11198.855 ; gain = 0.000 ; free physical = 206791 ; free virtual = 525991 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] Waiting for design_1_psr_10_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_psr_10_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_psr_333_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_psr_333_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_util_ds_buf_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_util_ds_buf_0_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_util_ds_buf_1_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_util_ds_buf_1_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_vio_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_vio_0_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_xbar_dram_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_xbar_dram_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_xbar_periph_in_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_xbar_periph_in_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_xbar_periph_out_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:01 2024] design_1_xbar_periph_out_0_synth_1 finished [Thu Aug 22 23:20:01 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:06 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:12 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:17 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:27 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// WARNING: HEventQueue.dispatchEvent() is taking  1200 ms.
+// Tcl Message: [Thu Aug 22 23:20:37 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:47 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:20:57 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:21:17 2024] Waiting for design_1_xdma_0_0_synth_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_OPTIONS_MODIFIED
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_OPTIONS_MODIFIED
+// Tcl Message: [Thu Aug 22 23:21:24 2024] design_1_xdma_0_0_synth_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 00:42:52 ; elapsed = 00:01:23 . Memory (MB): peak = 11198.855 ; gain = 0.000 ; free physical = 219781 ; free virtual = 538827 
+// Tcl Message: # set_property STEPS.SYNTH_DESIGN.ARGS.RETIMING true [get_runs synth_1] # set_property -name {STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS} -value {-sfcu} -objects [get_runs synth_1] # launch_runs synth_1 
+// HMemoryUtils.trashcanNow. Engine heap size: 9,333 MB. GUI used memory: 116 MB. Current time: 8/22/24, 11:21:29 PM CEST
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: config_ip_cache: Time (s): cpu = 00:00:01 ; elapsed = 00:00:07 . Memory (MB): peak = 11527.930 ; gain = 0.000 ; free physical = 219764 ; free virtual = 538810 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Thu Aug 22 23:21:49 2024] Launched design_1_carfield_xilinx_ip_0_0_synth_1... Run output will be captured here: /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.runs/design_1_carfield_xilinx_ip_0_0_synth_1/runme.log [Thu Aug 22 23:21:49 2024] Launched synth_1... Run output will be captured here: /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.runs/synth_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:12 ; elapsed = 00:00:24 . Memory (MB): peak = 11527.930 ; gain = 329.074 ; free physical = 219745 ; free virtual = 538790 
+// Tcl Message: # wait_on_run synth_1 
+// Tcl Message: [Thu Aug 22 23:21:49 2024] Waiting for synth_1 to finish... 
+// TclEventType: RUN_STATUS_CHANGE
+// Tcl Message: [Thu Aug 22 23:21:54 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:21:59 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:22:04 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:22:15 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:22:25 2024] Waiting for synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 742ms to process. Increasing delay to 3000 ms.
+// Tcl Message: [Thu Aug 22 23:22:35 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:22:45 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:23:05 2024] Waiting for synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 633ms to process. Increasing delay to 4000 ms.
+// Tcl Message: [Thu Aug 22 23:23:25 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:23:46 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:24:07 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:24:49 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:25:31 2024] Waiting for synth_1 to finish... 
+// [GUI Memory]: 184 MB (+10858kb) [00:32:26]
+// Tcl Message: [Thu Aug 22 23:26:13 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:26:55 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:28:15 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:29:36 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:30:57 2024] Waiting for synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 864ms to process. Increasing delay to 5000 ms.
+// Tcl Message: [Thu Aug 22 23:32:18 2024] Waiting for synth_1 to finish... 
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 4122 ms. Increasing delay to 6000 ms.
+// Tcl Message: [Thu Aug 22 23:35:02 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:37:45 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:40:28 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:43:09 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:48:31 2024] Waiting for synth_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 9,108 MB. GUI used memory: 107 MB. Current time: 8/22/24, 11:51:29 PM CEST
+// Tcl Message: [Thu Aug 22 23:53:53 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Thu Aug 22 23:59:15 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Fri Aug 23 00:04:38 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Fri Aug 23 00:15:18 2024] Waiting for synth_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 9,108 MB. GUI used memory: 106 MB. Current time: 8/23/24, 12:21:29 AM CEST
+// Tcl Message: [Fri Aug 23 00:25:58 2024] Waiting for synth_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1079ms to process. Increasing delay to 6000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1079 ms.
+// Tcl Message: [Fri Aug 23 00:36:39 2024] Waiting for synth_1 to finish... 
+// Tcl Message: [Fri Aug 23 00:47:19 2024] Waiting for synth_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 9,108 MB. GUI used memory: 106 MB. Current time: 8/23/24, 12:51:29 AM CEST
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 577ms to process. Increasing delay to 3000 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: [Fri Aug 23 01:05:07 2024] synth_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 01:40:39 ; elapsed = 01:43:18 . Memory (MB): peak = 11527.930 ; gain = 0.000 ; free physical = 216499 ; free virtual = 538780 
+// Tcl Message: # open_run synth_1 -name synth_1 
+// Tcl Message: Design is defaulting to impl run constrset: constrs_1 Design is defaulting to synth run part: xcvu37p-fsvh2892-2L-e 
+// HMemoryUtils.trashcanNow. Engine heap size: 9,466 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:05:34 AM CEST
+// [Engine Memory]: 9,686 MB (+188158kb) [02:12:06]
+// HMemoryUtils.trashcanNow. Engine heap size: 9,931 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:05:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 10,337 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:06:14 AM CEST
+// [Engine Memory]: 10,370 MB (+209620kb) [02:12:36]
+// HMemoryUtils.trashcanNow. Engine heap size: 10,733 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:06:34 AM CEST
+// [Engine Memory]: 10,895 MB (+7380kb) [02:13:04]
+// HMemoryUtils.trashcanNow. Engine heap size: 11,081 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:06:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 11,351 MB. GUI used memory: 113 MB. Current time: 8/23/24, 1:08:24 AM CEST
+// [Engine Memory]: 11,699 MB (+271290kb) [02:15:00]
+// HMemoryUtils.trashcanNow. Engine heap size: 12,178 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:08:44 AM CEST
+// [Engine Memory]: 12,444 MB (+168095kb) [02:15:29]
+// HMemoryUtils.trashcanNow. Engine heap size: 12,542 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:09:29 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 12,667 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:11:04 AM CEST
+// TclEventType: DEBUG_PORT_ADD
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 13,566 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:12:24 AM CEST
+// [Engine Memory]: 13,626 MB (+586655kb) [02:18:51]
+// HMemoryUtils.trashcanNow. Engine heap size: 13,808 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:12:54 AM CEST
+// [Engine Memory]: 14,438 MB (+137112kb) [02:19:20]
+// HMemoryUtils.trashcanNow. Engine heap size: 15,125 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:13:09 AM CEST
+// [Engine Memory]: 15,328 MB (+175939kb) [02:19:49]
+// HMemoryUtils.trashcanNow. Engine heap size: 15,377 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:13:29 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 15,860 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:13:54 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 16,304 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:14:09 AM CEST
+// [Engine Memory]: 16,304 MB (+219823kb) [02:20:47]
+// HMemoryUtils.trashcanNow. Engine heap size: 16,562 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:14:44 AM CEST
+// [Engine Memory]: 17,245 MB (+132519kb) [02:21:17]
+// HMemoryUtils.trashcanNow. Engine heap size: 17,492 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:14:59 AM CEST
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: TIMING_RESULTS_STALE
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: POWER_CNS_STALE
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_INTERFACE_ADD
+// TclEventType: SIGNAL_HIERARCHY_CHANGED
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: TIMING_RESULTS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: POWER_CNS_STALE
+// HMemoryUtils.trashcanNow. Engine heap size: 17,577 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:18:14 AM CEST
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 17,428 MB. GUI used memory: 112 MB. Current time: 8/23/24, 1:18:25 AM CEST
+// Xgd.load filename: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/data/parts/xilinx/virtexuplusHBM/devint/virtexuplusHBM/xcvu37p/xcvu37p.xgd; ZipEntry: xcvu37p_floorplan.xgd elapsed time: 0.6s
+// Xgd.load filename: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/data/parts/xilinx/virtexuplusHBM/devint/virtexuplusHBM/xcvu37p/xcvu37p.xgd; ZipEntry: xcvu37p_detail.xgd elapsed time: 2.3s
+// [GUI Memory]: 243 MB (+52687kb) [02:24:53]
+// DeviceModel: Load Xgds SwingWorker Join Forever elapsed time: 2.9s
+// TclEventType: DESIGN_NEW
+// [GUI Memory]: 275 MB (+20710kb) [02:24:55]
+// Device: addNotify
+// [GUI Memory]: 292 MB (+3386kb) [02:24:59]
+// DeviceView Instantiated
+// WARNING: HEventQueue.dispatchEvent() is taking  6150 ms.
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 13337.215 ; gain = 0.000 ; free physical = 214337 ; free virtual = 536618 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 85072 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 5 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2020.2.1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: INFO: [Chipscope 16-324] Core: design_1_i/ddr4_0 UUID: 5055ccf3-ab28-5f28-a888-99587c896c7c  INFO: [Chipscope 16-324] Core: design_1_i/vio_0 UUID: 01a4b594-7c44-5fa6-bd66-f70f5f031273  
+// Tcl Message: Finished Parsing XDC File [/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_carfield_xilinx_ip_0_0/carfield_ip.srcs/constrs_1/imports/constraints/carfield_xilinx_ip.xdc] for cell 'design_1_i/carfield_xilinx_ip_0/inst' Parsing XDC File [/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_clk_wiz_0_0/design_1_clk_wiz_0_0_board.xdc] for cell 'design_1_i/clk_wiz_0/inst' 
+// Tcl Message: Finished Parsing XDC File [/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/constrs_1/imports/constraints/vcu128.xdc] Sourcing Tcl File [/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/constrs_1/imports/constraints/carfield_islands.tcl] 
+// Tcl Message: INFO: [Timing 38-2] Deriving generated clocks [/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/constrs_1/imports/constraints/carfield_islands.tcl:33] 
+// Tcl Message: Generated domain clock periph_domain_clk 
+// Tcl Message: Generated domain clock spatz_domain_clk 
+// Tcl Message: Generated domain clock l2_domain_clk 
+// Tcl Message: INFO: [Project 1-1715] 6 XPM XDC files have been applied to the design. INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s). 
+// Tcl Message: Generating merged BMM file for the design top 'design_1_wrapper'... Generating merged BMM file for the design top 'design_1_ddr4_0_0'... 
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:00.33 ; elapsed = 00:00:00.35 . Memory (MB): peak = 19852.355 ; gain = 0.000 ; free physical = 211115 ; free virtual = 533397 
+// Tcl Message: open_run: Time (s): cpu = 00:24:37 ; elapsed = 00:13:31 . Memory (MB): peak = 19852.355 ; gain = 8324.426 ; free physical = 210472 ; free virtual = 532753 
+// Device view-level: 0.0
+// [GUI Memory]: 307 MB (+361kb) [02:25:03]
+// [GUI Memory]: 323 MB (+117kb) [02:25:03]
+// WARNING: HEventQueue.dispatchEvent() is taking  1115 ms.
+// TclEventType: NETLIST_UPDATE
+// RouteApi: Load Engine Xgd Thread Join Forever
+// Tcl Message: get_nets: Time (s): cpu = 00:00:29 ; elapsed = 00:00:08 . Memory (MB): peak = 19852.355 ; gain = 0.000 ; free physical = 210327 ; free virtual = 532609 
+// Tcl Message: Creating debug core... 
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi::loadEngineXgdAndInitRouteStorage elapsed time: 39s
+// Device view-level: 0.0
+// TclEventType: NETLIST_UPDATE
+// TclEventType: DEBUG_PORT_ADD
+// TclEventType: DEBUG_CORE_ADD
+// TclEventType: DEBUG_GRAPH_STALE
+// TclEventType: DEBUG_CORE_CONFIG_CHANGE
+// Tcl Message: create_debug_core: Time (s): cpu = 00:00:33 ; elapsed = 00:00:26 . Memory (MB): peak = 19852.355 ; gain = 0.000 ; free physical = 210078 ; free virtual = 532359 
+// TclEventType: DEBUG_PORT_CONFIG_CHANGE
+// TclEventType: DEBUG_PORT_ADD
+// TclEventType: DEBUG_PORT_CONFIG_CHANGE
+// TclEventType: DEBUG_PORT_ADD
+// TclEventType: DEBUG_PORT_CONFIG_CHANGE
+// Tcl Message: get_nets: Time (s): cpu = 00:00:10 ; elapsed = 00:00:08 . Memory (MB): peak = 19852.355 ; gain = 0.000 ; free physical = 210110 ; free virtual = 532391 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// Tcl Message: Creating probe 0 with width 2 for signal 'design_1_i/vio_0_probe_out0' Creating probe 1 with width 2 for signal 'design_1_i/vio_0_probe_out1' Creating probe 2 with width 1 for signal 'design_1_i/vio_0_probe_out2' 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: DESIGN_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DESIGN_SAVE
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 17,484 MB. GUI used memory: 276 MB. Current time: 8/23/24, 1:19:30 AM CEST
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// Tcl Message: save_constraints: Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 19852.355 ; gain = 0.000 ; free physical = 210098 ; free virtual = 532380 
+// Tcl Message: INFO: [Chipscope 16-329] Generating Script for core instance : dbg_hub  INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:xsdbm:3.0 for cell dbg_hub_CV. INFO: [Chipscope 16-329] Generating Script for core instance : u_ila_0  INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:ila:6.2 for cell u_ila_0_CV. 
+// Tcl Message: INFO: [Chipscope 16-78] labtools_xsdbm_v3 netlist file is '/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/.Xil/Vivado-6041-pisoc13.ee.ethz.ch/dbg_hub_CV.0/out/dcp/dbg_hub_0.edf'. 
+// Tcl Message: INFO: [Chipscope 16-78] labtools_ila_v6 netlist file is '/usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/.Xil/Vivado-6041-pisoc13.ee.ethz.ch/u_ila_0_CV.0/out/dcp/u_ila_0_1.edf'. 
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: DEBUG_GRAPH_STALE
+// Tcl Message: implement_debug_core: Time (s): cpu = 00:09:02 ; elapsed = 00:09:34 . Memory (MB): peak = 19852.355 ; gain = 0.000 ; free physical = 208459 ; free virtual = 530761 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// Tcl Message: # if {[info exists ::env(ROUTED_DCP)] && [file exists $::env(ROUTED_DCP)]} { #   set_property incremental_checkpoint $::env(ROUTED_DCP) [get_runs impl_1] # } # launch_runs impl_1 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// Tcl Message: INFO: [Timing 38-480] Writing timing data to binary archive. 
+// Tcl Message: Writing placer database... 
+// Tcl Message: Writing XDEF routing. Writing XDEF routing logical nets. 
+// HMemoryUtils.trashcanNow. Engine heap size: 18,058 MB. GUI used memory: 250 MB. Current time: 8/23/24, 1:29:19 AM CEST
+// Tcl Message: Writing XDEF routing special nets. 
+// Tcl Message: Write XDEF Complete: Time (s): cpu = 00:00:30 ; elapsed = 00:00:07 . Memory (MB): peak = 20092.574 ; gain = 240.219 ; free physical = 207623 ; free virtual = 530278 
+// TclEventType: RUN_LAUNCH
+// Tcl Message: write_hwdef: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 20092.574 ; gain = 0.000 ; free physical = 208107 ; free virtual = 530750 
+// WARNING: HEventQueue.dispatchEvent() is taking  1002 ms.
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// Tcl Message: [Fri Aug 23 01:34:16 2024] Launched impl_1... Run output will be captured here: /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:07:10 ; elapsed = 00:05:12 . Memory (MB): peak = 20092.574 ; gain = 240.219 ; free physical = 208076 ; free virtual = 530719 
+// Tcl Message: # wait_on_run impl_1 
+// Tcl Message: [Fri Aug 23 01:34:17 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:34:22 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:34:27 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:34:32 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:34:42 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:34:52 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:35:02 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:35:12 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:35:32 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:35:52 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:36:13 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:36:33 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:37:13 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:37:53 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:38:34 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:39:14 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:40:35 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:41:55 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:43:16 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:44:37 2024] Waiting for impl_1 to finish... 
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Fri Aug 23 01:47:18 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:49:59 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:52:40 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 01:55:22 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 18,029 MB. GUI used memory: 250 MB. Current time: 8/23/24, 1:59:19 AM CEST
+// Tcl Message: [Fri Aug 23 02:00:44 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 02:06:07 2024] Waiting for impl_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1100ms to process. Increasing delay to 3000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1100 ms.
+// Tcl Message: [Fri Aug 23 02:11:30 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 02:16:52 2024] Waiting for impl_1 to finish... 
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 627ms to process. Increasing delay to 4000 ms.
+// Tcl Message: [Fri Aug 23 02:27:32 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 239 MB. Current time: 8/23/24, 2:29:19 AM CEST
+// Tcl Message: [Fri Aug 23 02:38:16 2024] Waiting for impl_1 to finish... 
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1179ms to process. Increasing delay to 5000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1179 ms.
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 1101ms to process. Increasing delay to 6000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1101 ms.
+// Tcl Message: [Fri Aug 23 02:48:56 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 239 MB. Current time: 8/23/24, 2:59:19 AM CEST
+// Tcl Message: [Fri Aug 23 02:59:36 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 03:20:57 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 239 MB. Current time: 8/23/24, 3:29:19 AM CEST
+// TclEventType: RUN_STEP_COMPLETED
+// Tcl Message: [Fri Aug 23 03:42:17 2024] Waiting for impl_1 to finish... 
+// TclEventType: RUN_STEP_COMPLETED
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 239 MB. Current time: 8/23/24, 3:59:19 AM CEST
+// Tcl Message: [Fri Aug 23 04:03:39 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 04:24:59 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 240 MB. Current time: 8/23/24, 4:29:19 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 240 MB. Current time: 8/23/24, 4:59:19 AM CEST
+// Tcl Message: [Fri Aug 23 05:07:40 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 240 MB. Current time: 8/23/24, 5:29:19 AM CEST
+// Tcl Message: [Fri Aug 23 05:50:21 2024] Waiting for impl_1 to finish... 
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 240 MB. Current time: 8/23/24, 5:59:19 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 17,981 MB. GUI used memory: 240 MB. Current time: 8/23/24, 6:29:19 AM CEST
+// Tcl Message: [Fri Aug 23 06:33:01 2024] Waiting for impl_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// HMemoryUtils.trashcanNow. Engine heap size: 18,023 MB. GUI used memory: 240 MB. Current time: 8/23/24, 6:59:20 AM CEST
+// Tcl Message: [Fri Aug 23 06:59:34 2024] impl_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 00:11:51 ; elapsed = 05:25:17 . Memory (MB): peak = 20092.574 ; gain = 0.000 ; free physical = 206065 ; free virtual = 530743 
+// Tcl Message: # launch_runs impl_1 -to_step write_bitstream 
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// Tcl Message: [Fri Aug 23 06:59:38 2024] Launched impl_1... Run output will be captured here: /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.runs/impl_1/runme.log 
+// Tcl Message: # wait_on_run impl_1 
+// Tcl Message: [Fri Aug 23 06:59:38 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 06:59:43 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 06:59:48 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 06:59:54 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:00:04 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:00:14 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:00:24 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:00:34 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:00:54 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:01:14 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:01:34 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:01:55 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:02:35 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:03:15 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:03:56 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:04:36 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:05:57 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:07:17 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:08:39 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:09:59 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:12:41 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:15:22 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:18:04 2024] Waiting for impl_1 to finish... 
+// Tcl Message: [Fri Aug 23 07:20:46 2024] Waiting for impl_1 to finish... 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: NETLIST_UPDATE
+// TclEventType: STOP_PROGRESS_DIALOG
+// Tcl Message: [Fri Aug 23 07:23:26 2024] impl_1 finished 
+// Tcl Message: wait_on_run: Time (s): cpu = 00:00:52 ; elapsed = 00:23:48 . Memory (MB): peak = 20092.574 ; gain = 0.000 ; free physical = 191256 ; free virtual = 516020 
+// Elapsed time: 30532 seconds
+dismissDialog("Sourcing Tcl script 'scripts/run.tcl'"); // bz
+// TclEventType: STOP_PROGRESS_DIALOG
+// HMemoryUtils.trashcanNow. Engine heap size: 18,021 MB. GUI used memory: 257 MB. Current time: 8/23/24, 7:23:29 AM CEST
+// Tcl Message: INFO: [axi_eth_rule-354] Checking if the object is present to enable block automation :1: 
+// Tcl Message: update_compile_order -fileset sources_1 
+// Tcl Command: 'rdi::info_commands {device::*}'
+// Tcl Command: 'rdi::info_commands {debug::*}'
+// Tcl Command: 'rdi::info_commands {*}'
+// [Engine Memory]: 18,247 MB (+146744kb) [08:29:54]
+// WARNING: HEventQueue.dispatchEvent() is taking  1313 ms.
+// [GUI Memory]: 342 MB (+3584kb) [08:29:56]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// ag (cr): Bitstream Generation Completed: addNotify
+// RouteApi::initDelayMediator elapsed time: 9.2s
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// HMemoryUtils.trashcanNow. Engine heap size: 17,999 MB. GUI used memory: 275 MB. Current time: 8/23/24, 7:53:30 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 18,041 MB. GUI used memory: 273 MB. Current time: 8/23/24, 8:23:30 AM CEST
+// Elapsed time: 4736 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// Run Command: PAResourceCommand.PACommandNames_GOTO_IMPLEMENTED_DESIGN
+// g (cr): Close Design: addNotify
+selectButton(PAResourceAtoD.ClosePlanner_YES, "Yes"); // a
+// bz (cr):  Close : addNotify
+dismissDialog("Close Design"); // g
+// TclEventType: DESIGN_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 18,053 MB. GUI used memory: 274 MB. Current time: 8/23/24, 8:42:45 AM CEST
+// Engine heap size: 18,053 MB. GUI used memory: 275 MB. Current time: 8/23/24, 8:42:46 AM CEST
+// WARNING: HEventQueue.dispatchEvent() is taking  5614 ms.
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: close_design 
+// WARNING: HEventQueue.dispatchEvent() is taking  1276 ms.
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // v
+// TclEventType: DESIGN_CLOSE
+// WARNING: HEventQueue.dispatchEvent() is taking  1394 ms.
+// Tcl Message: close_design: Time (s): cpu = 00:00:46 ; elapsed = 00:00:30 . Memory (MB): peak = 20603.988 ; gain = 0.000 ; free physical = 211869 ; free virtual = 536635 
+// bz (cr):  Open Implemented Design : addNotify
+// Elapsed time: 25 seconds
+dismissDialog("Close"); // bz
+// Tcl Message: open_run impl_1 
+// HMemoryUtils.trashcanNow. Engine heap size: 18,119 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:49:30 AM CEST
+// TclEventType: SIGNAL_INTERFACE_ADD
+// TclEventType: SIGNAL_HIERARCHY_CHANGED
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 18,716 MB. GUI used memory: 146 MB. Current time: 8/23/24, 8:51:15 AM CEST
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: PLACEDB_MODIFIY_PRE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 19,281 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:51:35 AM CEST
+// [Engine Memory]: 19,477 MB (+332323kb) [09:58:06]
+// HMemoryUtils.trashcanNow. Engine heap size: 19,683 MB. GUI used memory: 146 MB. Current time: 8/23/24, 8:51:55 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 19,942 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:52:10 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 20,305 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:52:30 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 20,490 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:52:45 AM CEST
+// [Engine Memory]: 20,662 MB (+221553kb) [09:59:23]
+// HMemoryUtils.trashcanNow. Engine heap size: 20,749 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:53:05 AM CEST
+// TclEventType: TIMING_RESULTS_STALE
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 20,810 MB. GUI used memory: 145 MB. Current time: 8/23/24, 8:54:47 AM CEST
+// Xgd.load filename: /usr/pack/vitis-2020.2-kgf/Vivado/2020.2/data/parts/xilinx/virtexuplusHBM/devint/virtexuplusHBM/xcvu37p/xcvu37p.xgd; ZipEntry: xcvu37p_detail.xgd elapsed time: 2.4s
+// DeviceModel: Load Xgds SwingWorker Join Forever elapsed time: 2.7s
+// TclEventType: DESIGN_NEW
+// Device: addNotify
+// DeviceView Instantiated
+// WARNING: HEventQueue.dispatchEvent() is taking  6957 ms.
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:18 ; elapsed = 00:00:16 . Memory (MB): peak = 20603.988 ; gain = 0.000 ; free physical = 210004 ; free virtual = 534769 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 85411 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 4 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2020.2.1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: INFO: [Timing 38-478] Restoring timing data from binary archive. INFO: [Timing 38-479] Binary timing data restore complete. INFO: [Project 1-856] Restoring constraints from binary archive. INFO: [Project 1-853] Binary constraint restore complete. 
+// Tcl Message: Reading XDEF placement. Reading placer database... Reading XDEF routing. 
+// Tcl Message: Read XDEF File: Time (s): cpu = 00:01:54 ; elapsed = 00:01:50 . Memory (MB): peak = 22884.277 ; gain = 1972.418 ; free physical = 203198 ; free virtual = 527964 
+// Tcl Message: Restored from archive | CPU: 121.120000 secs | Memory: 1556.495712 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:01:55 ; elapsed = 00:01:51 . Memory (MB): peak = 22884.277 ; gain = 1972.418 ; free physical = 203206 ; free virtual = 527972 
+// Tcl Message: Generating merged BMM file for the design top 'design_1_wrapper'... Generating merged BMM file for the design top 'design_1_ddr4_0_0'... 
+// Tcl Message: INFO: [Memdata 28-144] Successfully populated the BRAM INIT strings from the following elf files: /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_ddr4_0_0/sw/calibration_0/Debug/calibration_ddr.elf /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.gen/sources_1/bd/design_1/ip/design_1_ddr4_0_0/sw/calibration_0/Debug/calibration_ddr.elf  
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:00.31 ; elapsed = 00:00:00.31 . Memory (MB): peak = 22884.277 ; gain = 0.000 ; free physical = 203387 ; free virtual = 528153 
+// WARNING: HEventQueue.dispatchEvent() is taking  1121 ms.
+// Tcl Message: open_run: Time (s): cpu = 00:16:32 ; elapsed = 00:11:49 . Memory (MB): peak = 22912.301 ; gain = 2308.312 ; free physical = 202960 ; free virtual = 527727 
+// ExpRunCommands.openImplResults elapsed time: 711.4s
+// Device view-level: 0.0
+// TclEventType: DRC_ADDED
+// WARNING: HEventQueue.dispatchEvent() is taking  2486 ms.
+// TclEventType: DRC_ADDED
+// [GUI Memory]: 371 MB (+11819kb) [10:01:29]
+// TclEventType: METHODOLOGY_ADDED
+// RouteApi::initDelayMediator elapsed time: 6.8s
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// TclEventType: POWER_UPDATED
+// [GUI Memory]: 394 MB (+4906kb) [10:01:38]
+// [GUI Memory]: 415 MB (+1389kb) [10:01:48]
+// WARNING: HEventQueue.dispatchEvent() is taking  23677 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 21,067 MB. GUI used memory: 333 MB. Current time: 8/23/24, 8:55:37 AM CEST
+// TclEventType: TIMING_SUMMARY_UPDATED
+// WARNING: HEventQueue.dispatchEvent() is taking  8906 ms.
+// OpenDesignTask elapsed time: 762.8s
+// [GUI Memory]: 437 MB (+1092kb) [10:02:18]
+// 'dV' command handler elapsed time: 807 seconds
+// WARNING: HEventQueue.dispatchEvent() is taking  6090 ms.
+// Elapsed time: 768 seconds
+dismissDialog("Open Implemented Design"); // bz
+// HMemoryUtils.trashcanNow. Engine heap size: 21,110 MB. GUI used memory: 380 MB. Current time: 8/23/24, 8:56:05 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 21,806 MB. GUI used memory: 377 MB. Current time: 8/23/24, 8:56:25 AM CEST
+// [Engine Memory]: 21,822 MB (+133359kb) [10:02:56]
+// HMemoryUtils.trashcanNow. Engine heap size: 22,786 MB. GUI used memory: 377 MB. Current time: 8/23/24, 8:57:15 AM CEST
+// [Engine Memory]: 22,984 MB (+73799kb) [10:03:41]
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi::loadEngineXgdAndInitRouteStorage elapsed time: 161.9s
+// Device view-level: 0.0
+// WARNING: HEventQueue.dispatchEvent() is taking  2362 ms.
+// Elapsed time: 233 seconds
+selectButton(PAResourceAtoD.DeviceView_SHOW_CELL_CONNECTIONS, "Device_showinstanceconnections"); // x: TRUE
+selectButton(RDIResource.HPopupTitle_CLOSE, (String) null); // k
+// WARNING: HEventQueue.dispatchEvent() is taking  2392 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1273 ms.
+// Device view-level: 0.0
+// WARNING: HEventQueue.dispatchEvent() is taking  2084 ms.
+// Device view-level: 0.0
+// HMemoryUtils.trashcanNow. Engine heap size: 23,019 MB. GUI used memory: 413 MB. Current time: 8/23/24, 9:00:45 AM CEST
+// WARNING: HEventQueue.dispatchEvent() is taking  2355 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1200 ms.
+// [GUI Memory]: 461 MB (+2783kb) [10:07:36]
+// HMemoryUtils.trashcanNow. Engine heap size: 22,977 MB. GUI used memory: 379 MB. Current time: 8/23/24, 9:30:50 AM CEST
+// Elapsed time: 3401 seconds
+selectTab((HResource) null, (HResource) null, "Log", 2); // aK
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aK
+selectTab((HResource) null, (HResource) null, "Reports", 3); // aK
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aK
+selectTab((HResource) null, (HResource) null, "Power", 5); // aK
+selectTab((HResource) null, (HResource) null, "DRC", 6); // aK
+selectTab((HResource) null, (HResource) null, "Methodology", 7); // aK
+// HMemoryUtils.trashcanNow. Engine heap size: 23,019 MB. GUI used memory: 368 MB. Current time: 8/23/24, 10:00:50 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 22,977 MB. GUI used memory: 369 MB. Current time: 8/23/24, 10:30:50 AM CEST

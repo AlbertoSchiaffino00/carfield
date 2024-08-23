@@ -46,8 +46,13 @@ module tb_carfield_soc;
   parameter logic [31:0] MBOX_LETTER0_OFFSET       = 32'h80;
   parameter logic [31:0] MBOX_LETTER1_OFFSET       = 32'h84;
 
-  parameter logic [31:0] MBOX_SPATZ_CORE0_ID = 32'h0;
-  parameter logic [31:0] MBOX_SPATZ_CORE1_ID = 32'h1;
+  parameter logic [31:0] MBOX_SPATZ_CL1_CORE0_ID = 32'h0;
+  parameter logic [31:0] MBOX_SPATZ_CL1_CORE1_ID = 32'h1;
+  parameter logic [31:0] MBOX_SPATZ_CL2_CORE0_ID = 32'h2;
+  parameter logic [31:0] MBOX_SPATZ_CL2_CORE1_ID = 32'h3;
+
+
+  parameter logic [31:0] MBOX_SPATZD_CL2_OFFSET = 32'h600;
 
   parameter int unsigned HyperRstCycles = 120100;
 
@@ -431,31 +436,33 @@ module tb_carfield_soc;
     end
   end
 
-  // spatz cluster standalone
-  if (CarfieldIslandsCfg.spatz.enable) begin: gen_spatz_tb
-    // spatz cluster
-    string      spatzd_preload_elf;
-    logic [1:0] spatzd_boot_mode;
-    bit  [31:0] spatzd_exit_code;
-    doub_bt     spatzd_binary_entry;
-    doub_bt     spatzd_reg_value;
+  // spatz cluster1 standalone
+  if (CarfieldIslandsCfg.spatz_cl1.enable) begin: gen_spatz_cl1_tb
+    // spatz cluster1
+    string      spatzd_cl1_preload_elf;
+    logic [1:0] spatzd_cl1_boot_mode;
+    bit  [31:0] spatzd_cl1_exit_code;
+    doub_bt     spatzd_cl1_binary_entry;
+    doub_bt     spatzd_cl1_reg_value;
 
-    localparam int unsigned SpatzdClkEnRegAddr         = 32'h2001007c;
-    localparam int unsigned SpatzdIsolateRegAddr       = 32'h2001004c;
-    localparam int unsigned SpatzdIsolateStatusRegAddr = 32'h20010064;
+    localparam int unsigned SpatzdClkEnRegAddrCl1 = 32'h20010088;
+    localparam int unsigned SpatzdIsolateRegAddrCl1       = 32'h20010050;
+    localparam int unsigned SpatzdIsolateStatusRegAddrCl1 = 32'h2001006c;
 
     initial begin
       // Fetch plusargs or use safe (fail-fast) defaults
-      if (!$value$plusargs("SECURE_BOOT=%d",     secure_boot))        secure_boot        = 0;
-      if (!$value$plusargs("SPATZD_BOOTMODE=%d", spatzd_boot_mode))   spatzd_boot_mode   = 0;
-      if (!$value$plusargs("SPATZD_BINARY=%s",   spatzd_preload_elf)) spatzd_preload_elf = "";
+      if (!$value$plusargs("SECURE_CL1_BOOT=%d",     secure_boot))        secure_boot        = 1; // no hyperbus
+      if (!$value$plusargs("SPATZD_CL1_BOOTMODE=%d", spatzd_cl1_boot_mode))   spatzd_cl1_boot_mode   = 0;
+      if (!$value$plusargs("SPATZD_CL1_BINARY=%s",   spatzd_cl1_preload_elf)) spatzd_cl1_preload_elf = "";
 
       // set secure boot mode
       fix.set_secure_boot(secure_boot);
+      $display("[TB] INFO: Waiting foR reset.");
 
-      if (spatzd_preload_elf != "") begin
+      if (spatzd_cl1_preload_elf != "") begin
 
         // Wait for reset
+        $display("[TB] INFO: Waiting for reset.");
         fix.chs_vip.wait_for_reset();
 
         // Writing max burst length in Hyperbus configuration registers to
@@ -465,78 +472,204 @@ module tb_carfield_soc;
 
         $display("[TB] %t - Enabling spatz clock for stand-alone tests ", $realtime);
         // Clock island after PoR
-        fix.chs_vip.slink_write_32(SpatzdClkEnRegAddr, 32'h1);
+        fix.chs_vip.slink_write_32(SpatzdClkEnRegAddrCl1, 32'h1);
         $display("[TB] %t - De-isolate spatz for stand-alone tests ", $realtime);
         // De-isolate island after PoR
-        fix.chs_vip.slink_write_32(SpatzdIsolateRegAddr, 32'h0);
+        fix.chs_vip.slink_write_32(SpatzdIsolateRegAddrCl1, 32'h0);
 
-        case (spatzd_boot_mode)
+        case (spatzd_cl1_boot_mode)
+          0: begin
+            // JTAG
+            $display("[JTAG SPATZD CL1] Init ");
+            fix.chs_vip.jtag_init();
+            $display("[JTAG SPATZD CL1] Halt the core and load the binary to L2 ");
+            fix.chs_vip.jtag_elf_halt_load(spatzd_cl1_preload_elf, spatzd_cl1_binary_entry );
+
+            // write start address into the csr
+            $display("[JTAG SPATZD CL1] write the CSR %x of spatz with the entry point %x", spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl1_binary_entry);
+            fix.chs_vip.jtag_write_reg(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl1_binary_entry );
+
+            // Set interrupt on mailbox, mailbox id MBOX_SPATZD_CORE0_ID and MBOX_SPATZD_CORE1_ID
+            spatzd_cl1_reg_value = 64'h1;
+            $display("[JTAG SPATZD CL1] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100));
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) , spatzd_cl1_reg_value);
+
+            $display("[JTAG SPATZD CL1] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100));
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) , spatzd_cl1_reg_value);
+
+            // Enable interrupt on mailbox id MBOX_SPATZ_CL1_CORE0_ID and MBOX_SPATZ_CL1_CORE1_ID
+            $display("[JTAG SPATZD CL1] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) ,spatzd_cl1_reg_value);
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) , spatzd_cl1_reg_value);
+
+            $display("[JTAG SPATZD CL1] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) ,spatzd_cl1_reg_value);
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) , spatzd_cl1_reg_value);
+
+            // Poll memory address for Spatz EOC
+            fix.chs_vip.jtag_poll_bit0(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, spatzd_cl1_exit_code, 20);
+            spatzd_cl1_exit_code >>= 1;
+            if (spatzd_cl1_exit_code) $error("[JTAG SPATZ CL1] FAILED: return code %0d", spatzd_cl1_exit_code);
+            else $display("[JTAG SPATZD CL1] SUCCESS");
+          end
+
+          1: begin
+            // Modify return value to check that it actually is modified
+            $display("[SLINK SPATZ CL1] Modify the return value to check that it actually is modified");
+            fix.chs_vip.slink_write_32(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, 32'hfffffff0);
+ 
+            // SERIAL LINK
+            $display("[SLINK SPATZ CL1] Preload the binary to L2 ");
+            fix.chs_vip.slink_elf_preload(spatzd_cl1_preload_elf, spatzd_cl1_binary_entry);
+
+            // write start address into the csr
+            $display("[SLINK SPATZ CL1] Write the CSR 0x%x of spatz cl1 with the entry point 0x%x", spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl1_binary_entry);
+            fix.chs_vip.slink_write_32(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl1_binary_entry);
+
+            // Set interrupt on mailbox ids MBOX_SPATZ_CL1_CORE0_ID and MBOX_SPATZ_CL1_CORE1_ID
+            spatzd_cl1_reg_value = 64'h1;
+            $display("[SLINK SPATZ CL1] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100));
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) , spatzd_cl1_reg_value);
+
+            $display("[SLINK SPATZ CL1] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100));
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) , spatzd_cl1_reg_value);
+
+            // Enable interrupt on mailbox ids MBOX_SPATZ_CL1_CORE0_ID and MBOX_SPATZ_CL1_CORE1_ID
+            $display("[SLINK SPATZ CL1] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) ,spatzd_cl1_reg_value);
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) , spatzd_cl1_reg_value);
+
+            $display("[SLINK SPATZ CL1] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) ,spatzd_cl1_reg_value);
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) , spatzd_cl1_reg_value);
+
+            // Poll memory address for Spatz EOC
+            fix.chs_vip.slink_poll_bit0(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, spatzd_cl1_exit_code, 20);
+            spatzd_cl1_exit_code >>= 1;
+            if (spatzd_cl1_exit_code) $error("[SLINK SPATZ] FAILED: return code %x", spatzd_cl1_exit_code);
+            else $display("[SLINK SPATZ CL1] SUCCESS");
+          end
+
+          default: begin
+            $fatal(1, "Unsupported boot mode %d (reserved)!", spatzd_cl1_boot_mode);
+          end
+        endcase
+
+        $finish;
+      end
+    end
+  end
+
+
+// spatz cluster1 standalone
+  if (CarfieldIslandsCfg.spatz_cl2.enable) begin: gen_spatz_cl2_tb
+    // spatz cluster1
+    string      spatzd_cl2_preload_elf;
+    logic [1:0] spatzd_cl2_boot_mode;
+    bit  [31:0] spatzd_cl2_exit_code;
+    doub_bt     spatzd_cl2_binary_entry;
+    doub_bt     spatzd_cl2_reg_value;
+
+    localparam int unsigned SpatzdClkEnRegAddrCl2 = 32'h20010088;
+    localparam int unsigned SpatzdIsolateRegAddrCl2       = 32'h20010054;
+    localparam int unsigned SpatzdIsolateStatusRegAddrCl2 = 32'h20010070;
+
+    initial begin
+      // Fetch plusargs or use safe (fail-fast) defaults
+      if (!$value$plusargs("SECURE_CL2_BOOT=%d",     secure_boot))        secure_boot        = 1;
+      if (!$value$plusargs("SPATZD_CL2_BOOTMODE=%d", spatzd_cl2_boot_mode))   spatzd_cl2_boot_mode   = 0;
+      if (!$value$plusargs("SPATZD_CL2_BINARY=%s",   spatzd_cl2_preload_elf)) spatzd_cl2_preload_elf = "";
+
+      // set secure boot mode
+      fix.set_secure_boot(secure_boot);
+
+      if (spatzd_cl2_preload_elf != "") begin
+
+        // Wait for reset
+        fix.chs_vip.wait_for_reset();
+
+        // Writing max burst length in Hyperbus configuration registers to
+        // prevent the Verification IPs from triggering timing checks.
+        $display("[TB] INFO: Configuring Hyperbus through serial link.");
+        fix.chs_vip.slink_write_32(HyperbusTburstMax, 32'd128);
+
+        $display("[TB] %t - Enabling spatz cl2 clock for stand-alone tests ", $realtime);
+        // Clock island after PoR
+        fix.chs_vip.slink_write_32(SpatzdClkEnRegAddrCl2, 32'h1);
+        $display("[TB] %t - De-isolate spatz cl2 for stand-alone tests ", $realtime);
+        // De-isolate island after PoR
+        fix.chs_vip.slink_write_32(SpatzdIsolateRegAddrCl2, 32'h0);
+
+        case (spatzd_cl2_boot_mode)
           0: begin
             // JTAG
             $display("[JTAG SPATZD] Init ");
             fix.chs_vip.jtag_init();
             $display("[JTAG SPATZD] Halt the core and load the binary to L2 ");
-            fix.chs_vip.jtag_elf_halt_load(spatzd_preload_elf, spatzd_binary_entry );
+            fix.chs_vip.jtag_elf_halt_load(spatzd_cl2_preload_elf, spatzd_cl2_binary_entry );
 
             // write start address into the csr
-            $display("[JTAG SPATZD] write the CSR %x of spatz with the entry point %x", spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_binary_entry);
-            fix.chs_vip.jtag_write_reg(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_binary_entry );
+            $display("[JTAG SPATZD] write the CSR %x of spatz with the entry point %x", spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl2_binary_entry);
+            fix.chs_vip.jtag_write_reg(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl2_binary_entry );
 
             // Set interrupt on mailbox mailbox id MBOX_SPATZD_CORE0_ID and MBOX_SPATZD_CORE1_ID
-            spatzd_reg_value = 64'h1;
-            $display("[JTAG SPATZD] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100));
-            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100) , spatzd_reg_value);
+            spatzd_cl2_reg_value = 64'h1;
+            $display("[JTAG SPATZD] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL2_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL2_CORE0_ID*32'h100));
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL2_CORE0_ID*32'h100) , spatzd_cl2_reg_value);
 
-            $display("[JTAG SPATZD] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100));
-            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100) , spatzd_reg_value);
+            $display("[JTAG SPATZD] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL2_CORE1_ID*32'h100));
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL2_CORE1_ID*32'h100) , spatzd_cl2_reg_value);
 
-            // Enable interrupt on mailbox id MBOX_SPATZ_CORE0_ID and MBOX_SPATZ_CORE1_ID
-            $display("[JTAG SPATZD] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100) ,spatzd_reg_value);
-            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100) , spatzd_reg_value);
+            // Enable interrupt on mailbox id MBOX_SPATZ_CL2_CORE0_ID and MBOX_SPATZ_CL2_CORE1_ID
+            $display("[JTAG SPATZD] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL2_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL2_CORE0_ID*32'h100) ,spatzd_cl2_reg_value);
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL2_CORE0_ID*32'h100) , spatzd_cl2_reg_value);
 
-            $display("[JTAG SPATZD] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100) ,spatzd_reg_value);
-            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100) , spatzd_reg_value);
+            $display("[JTAG SPATZD] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL2_CORE1_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL2_CORE1_ID*32'h100) ,spatzd_cl2_reg_value);
+            fix.chs_vip.jtag_write_reg32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL2_CORE1_ID*32'h100) , spatzd_cl2_reg_value);
 
             // Poll memory address for Spatz EOC
-            fix.chs_vip.jtag_poll_bit0(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, spatzd_exit_code, 20);
-            spatzd_exit_code >>= 1;
-            if (spatzd_exit_code) $error("[JTAG SPATZ] FAILED: return code %0d", spatzd_exit_code);
+            fix.chs_vip.jtag_poll_bit0(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, spatzd_cl2_exit_code, 20);
+            spatzd_cl2_exit_code >>= 1;
+            if (spatzd_cl2_exit_code) $error("[JTAG SPATZ] FAILED: return code %0d", spatzd_cl2_exit_code);
             else $display("[JTAG SPATZD] SUCCESS");
           end
 
           1: begin
+
+            // Modify return value to check that it actually is modified
+            $display("[SLINK SPATZ CL2] Modify the return value to check that it actually is modified");
+            fix.chs_vip.slink_write_32('h1000000 + spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, 32'hfffffff0);
+ 
             // SERIAL LINK
-            $display("[SLINK SPATZD] Preload the binary to L2 ");
-            fix.chs_vip.slink_elf_preload(spatzd_preload_elf, spatzd_binary_entry);
+            $display("[SLINK SPATZ CL2] Preload the binary to L2 ");
+            fix.chs_vip.slink_elf_preload(spatzd_cl2_preload_elf, spatzd_cl2_binary_entry);
 
             // write start address into the csr
-            $display("[SLINK SPATZD] Write the CSR %x of spatz with the entry point %x", spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_binary_entry);
-            fix.chs_vip.slink_write_32(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_binary_entry);
+            $display("[SLINK SPATZ CL2] Write the CSR %x of spatz with the entry point %x", 'h1000000 + spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl2_binary_entry);
+            fix.chs_vip.slink_write_32('h1000000 + spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_BOOT_CONTROL_OFFSET, spatzd_cl2_binary_entry);
 
-            // Set interrupt on mailbox ids MBOX_SPATZ_CORE0_ID and MBOX_SPATZ_CORE1_ID
-            spatzd_reg_value = 64'h1;
-            $display("[SLINK SPATZD] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100));
-            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100) , spatzd_reg_value);
+            // Set interrupt on mailbox ids MBOX_SPATZ_CL1_CORE0_ID and MBOX_SPATZ_CL1_CORE1_ID
+            spatzd_cl2_reg_value = 64'h1;
+            $display("[SLINK SPATZ CL2] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE0_ID, CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100));
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) , spatzd_cl2_reg_value);
 
-            $display("[SLINK SPATZD] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100));
-            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100) , spatzd_reg_value);
+            $display("[SLINK SPATZ CL2] Set mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100));
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_SET_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) , spatzd_cl2_reg_value);
 
-            // Enable interrupt on mailbox ids MBOX_SPATZ_CORE0_ID and MBOX_SPATZ_CORE1_ID
-            $display("[SLINK SPATZD] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100) ,spatzd_reg_value);
-            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE0_ID*32'h100) , spatzd_reg_value);
+            // Enable interrupt on mailbox ids MBOX_SPATZ_CL1_CORE0_ID and MBOX_SPATZ_CL1_CORE1_ID
+            $display("[SLINK SPATZ CL2] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE0_ID, CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) ,spatzd_cl2_reg_value);
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE0_ID*32'h100) , spatzd_cl2_reg_value);
 
-            $display("[SLINK SPATZD] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CORE0_ID, CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100) ,spatzd_reg_value);
-            fix.chs_vip.slink_write_32(CAR_MBOX_BASE +  MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CORE1_ID*32'h100) , spatzd_reg_value);
+            $display("[SLINK SPATZ CL2] Enable mailbox interrupt ID  %x at %x ",MBOX_SPATZ_CL1_CORE1_ID, CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) ,spatzd_cl2_reg_value);
+            fix.chs_vip.slink_write_32(CAR_MBOX_BASE + MBOX_SPATZD_CL2_OFFSET + MBOX_INT_SND_EN_OFFSET + (MBOX_SPATZ_CL1_CORE1_ID*32'h100) , spatzd_cl2_reg_value);
 
             // Poll memory address for Spatz EOC
-            fix.chs_vip.slink_poll_bit0(spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, spatzd_exit_code, 20);
-            spatzd_exit_code >>= 1;
-            if (spatzd_exit_code) $error("[SLINK SPATZ] FAILED: return code %0d", spatzd_exit_code);
-            else $display("[SLINK SPATZ] SUCCESS");
+            $display("[SLINK SPATZ CL2] Pooling EOC value at address  %x ",'h1000000 + spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET);
+
+            fix.chs_vip.slink_poll_bit0( 'h1000000 + spatz_cluster_pkg::PeriStartAddr + spatz_cluster_peripheral_reg_pkg::SPATZ_CLUSTER_PERIPHERAL_CLUSTER_EOC_EXIT_OFFSET, spatzd_cl2_exit_code, 20);
+            spatzd_cl2_exit_code >>= 1;
+            if (spatzd_cl2_exit_code) $error("[SLINK SPATZ] FAILED: return code %0d", spatzd_cl2_exit_code);
+            else $display("[SLINK SPATZ CL2] SUCCESS");
           end
 
           default: begin
-            $fatal(1, "Unsupported boot mode %d (reserved)!", spatzd_boot_mode);
+            $fatal(1, "Unsupported boot mode %d (reserved)!", spatzd_cl2_boot_mode);
           end
         endcase
 

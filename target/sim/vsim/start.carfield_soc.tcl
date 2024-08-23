@@ -11,21 +11,23 @@ set flags ""
 if {[info exists VSIM_FLAGS]}     { append flags "${VSIM_FLAGS}" }
 
 set pargs ""
-if {[info exists HYP_USER_PRELOAD]} { append pargs "+HYP_USER_PRELOAD=${HYP_USER_PRELOAD} " }
-if {[info exists SECURE_BOOT]}    { append pargs "+SECURE_BOOT=${SECURE_BOOT} "       }
-if {[info exists CHS_BOOTMODE]}   { append pargs "+CHS_BOOTMODE=${CHS_BOOTMODE} "     }
-if {[info exists CHS_PRELMODE]}   { append pargs "+CHS_PRELMODE=${CHS_PRELMODE} "     }
-if {[info exists CHS_BINARY]}     { append pargs "+CHS_BINARY=${CHS_BINARY} "         }
-if {[info exists SECD_BINARY]}    { append pargs "+SECD_BINARY=${SECD_BINARY} "       }
-if {[info exists SECD_BOOTMODE]}  { append pargs "+SECD_BOOTMODE=${SECD_BOOTMODE} "   }
-if {[info exists SECD_IMAGE]}     { append pargs "+SECD_IMAGE=${SECD_IMAGE} "         }
-if {[info exists PULPD_BOOTMODE]} { append pargs "+PULPD_BOOTMODE=${PULPD_BOOTMODE} " }
-if {[info exists PULPD_BINARY]}   { append pargs "+PULPD_BINARY=${PULPD_BINARY} "     }
-if {[info exists SAFED_BOOTMODE]} { append pargs "+SAFED_BOOTMODE=${SAFED_BOOTMODE} " }
-if {[info exists SAFED_BINARY]}   { append pargs "+SAFED_BINARY=${SAFED_BINARY} "     }
-if {[info exists SPATZD_BOOTMODE]} { append pargs "+SPATZD_BOOTMODE=${SPATZD_BOOTMODE} " }
-if {[info exists SPATZD_BINARY]  } { append pargs "+SPATZD_BINARY=${SPATZD_BINARY} "     }
-if {[info exists CHS_IMAGE]}      { append pargs "+CHS_IMAGE=${CHS_IMAGE} "           }
+if {[info exists HYP_USER_PRELOAD]}     { append pargs "+HYP_USER_PRELOAD=${HYP_USER_PRELOAD} " }
+if {[info exists SECURE_BOOT]}          { append pargs "+SECURE_BOOT=${SECURE_BOOT} "       }
+if {[info exists CHS_BOOTMODE]}         { append pargs "+CHS_BOOTMODE=${CHS_BOOTMODE} "     }
+if {[info exists CHS_PRELMODE]}         { append pargs "+CHS_PRELMODE=${CHS_PRELMODE} "     }
+if {[info exists CHS_BINARY]}           { append pargs "+CHS_BINARY=${CHS_BINARY} "         }
+if {[info exists SECD_BINARY]}          { append pargs "+SECD_BINARY=${SECD_BINARY} "       }
+if {[info exists SECD_BOOTMODE]}        { append pargs "+SECD_BOOTMODE=${SECD_BOOTMODE} "   }
+if {[info exists SECD_IMAGE]}           { append pargs "+SECD_IMAGE=${SECD_IMAGE} "         }
+if {[info exists PULPD_BOOTMODE]}       { append pargs "+PULPD_BOOTMODE=${PULPD_BOOTMODE} " }
+if {[info exists PULPD_BINARY]}         { append pargs "+PULPD_BINARY=${PULPD_BINARY} "     }
+if {[info exists SAFED_BOOTMODE]}       { append pargs "+SAFED_BOOTMODE=${SAFED_BOOTMODE} " }
+if {[info exists SAFED_BINARY]}         { append pargs "+SAFED_BINARY=${SAFED_BINARY} "     }
+if {[info exists SPATZD_CL1_BOOTMODE]}  { append pargs "+SPATZD_CL1_BOOTMODE=${SPATZD_CL1_BOOTMODE} " }
+if {[info exists SPATZD_CL1_BINARY]  }  { append pargs "+SPATZD_CL1_BINARY=${SPATZD_CL1_BINARY} "     }
+if {[info exists SPATZD_CL2_BOOTMODE]}  { append pargs "+SPATZD_CL2_BOOTMODE=${SPATZD_CL2_BOOTMODE} " }
+if {[info exists SPATZD_CL2_BINARY]  }  { append pargs "+SPATZD_CL2_BINARY=${SPATZD_CL2_BINARY} "     }
+if {[info exists CHS_IMAGE]}            { append pargs "+CHS_IMAGE=${CHS_IMAGE} "           }
 
 eval "vsim ${TESTBENCH}_opt -t 1ps" ${flags} ${pargs}
 

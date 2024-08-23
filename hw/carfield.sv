@@ -183,7 +183,8 @@ logic    periph_rst_n;
 logic    safety_rst_n;
 logic    security_rst_n;
 logic    pulp_rst_n;
-logic    spatz_rst_n;
+logic    spatz_cl1_rst_n;
+logic    spatz_cl2_rst_n;
 logic    l2_rst_n;
 
 logic    host_pwr_on_rst_n;
@@ -191,20 +192,22 @@ logic    periph_pwr_on_rst_n;
 logic    safety_pwr_on_rst_n;
 logic    security_pwr_on_rst_n;
 logic    pulp_pwr_on_rst_n;
-logic    spatz_pwr_on_rst_n;
+logic    spatz_cl1_pwr_on_rst_n;
+logic    spatz_cl2_pwr_on_rst_n;
 logic    l2_pwr_on_rst_n;
 
 logic  periph_clk;
 logic  safety_clk;
 logic  security_clk;
 logic  pulp_clk;
-logic  spatz_clk;
+logic  spatz_cl1_clk;
+logic  spatz_cl2_clk;
 logic  l2_clk;
 
 // verilog_lint: waive-start line-length
 // Peripheral interrupts
 logic [Cfg.NumExtOutIntrs-1:0]      chs_intrs_distributed;
-logic [Cfg.NumExtIrqHarts-1:0]      chs_mti;
+logic [Cfg.NumExtIrqHarts-1:0]      chs_mti; // 4 interrupts: 2 for each cluster
 logic [CarfieldNumPeriphsIntrs-1:0] car_periph_intrs;
 
 logic       car_sys_timer_lo_intr, car_sys_timer_hi_intr,  car_sys_timer_lo_intr_sync, car_sys_timer_hi_intr_sync;
@@ -282,13 +285,14 @@ localparam int unsigned SecdNumIntHarts     = 1;
 // Number of receiving side mailboxes per subsystem
 // For Cheshire, 4 mailboxes for each application class processor
 localparam int unsigned NumMailboxesHostd      = 4 * CheshireNumIntHarts;
-localparam int unsigned NumMailboxesFPCluster  = spatz_cluster_pkg::NumCores * (CheshireNumIntHarts + SafedNumIntHarts);
+localparam int unsigned NumMailboxesFPCluster1  = spatz_cluster_pkg::NumCores * (CheshireNumIntHarts + SafedNumIntHarts);
+localparam int unsigned NumMailboxesFPCluster2  = spatz_cluster_pkg::NumCores * (CheshireNumIntHarts + SafedNumIntHarts);
 localparam int unsigned NumMailboxesIntCluster = CheshireNumIntHarts + SafedNumIntHarts;
 // For the safety island, consider host domain and security island, and one callback SW interrupt
 // from integer and floating point clusters
-localparam int unsigned NumMailboxesSafed      = CheshireNumIntHarts + SecdNumIntHarts + 1 + 1; //+ IntClusterNumIrq + FPClusterNumIrq;
+localparam int unsigned NumMailboxesSafed      = CheshireNumIntHarts + SecdNumIntHarts + 1 + 1; //+ IntClusterNumIrq + FPClusterNumIrq; TODO: CHECK THESE NUMBERS, EVEN IF THEY ARE NOT USED
 localparam int unsigned NumMailboxesSecd       = CheshireNumIntHarts + SafedNumIntHarts;
-localparam int unsigned NumMailboxes           = NumMailboxesHostd + NumMailboxesFPCluster + NumMailboxesIntCluster + NumMailboxesSafed + NumMailboxesSecd;
+localparam int unsigned NumMailboxes           = NumMailboxesHostd + NumMailboxesFPCluster1 + NumMailboxesFPCluster2 + NumMailboxesIntCluster + NumMailboxesSafed + NumMailboxesSecd;
 // verilog_lint: waive-stop line-length
 
 // Interrupt lines
@@ -296,10 +300,14 @@ logic [NumMailboxes-1:0] snd_mbox_intrs;
 
 // Floating point cluster (Spatz cluster)
 
-// from hostd to spatz cluster
-logic [spatz_cluster_pkg::NumCores-1:0][CheshireNumIntHarts-1:0] hostd_spatzcl_mbox_intr;
-// from safety island to spatz cluster
-logic [spatz_cluster_pkg::NumCores-1:0] safed_spatzcl_mbox_intr;
+// from hostd to spatz cluster1
+logic [spatz_cluster_pkg::NumCores-1:0][CheshireNumIntHarts-1:0] hostd_spatzcl1_mbox_intr;
+// from safety island to spatz cluster1
+logic [spatz_cluster_pkg::NumCores-1:0] safed_spatzcl1_mbox_intr;
+// from hostd to spatz cluster2
+logic [spatz_cluster_pkg::NumCores-1:0][CheshireNumIntHarts-1:0] hostd_spatzcl2_mbox_intr;
+// from safety island to spatz cluster2
+logic [spatz_cluster_pkg::NumCores-1:0] safed_spatzcl2_mbox_intr;
 // Integer cluster (PULP cluster)
 logic [CheshireNumIntHarts-1:0] hostd_pulpcl_mbox_intr;  // from hostd to pulp cluster
 logic                           safed_pulpcl_mbox_intr;  // from safety island to pulp cluster
@@ -307,12 +315,13 @@ logic                           safed_pulpcl_mbox_intr;  // from safety island t
 logic                           safed_secd_mbox_intr;    // from safety island to security island
 logic [CheshireNumIntHarts-1:0] hostd_secd_mbox_intr;    // from (dual) cva6 to security island
 // Safety island
-logic                           spatzcl_safed_mbox_intr; // from spatz cluster to safety island
+logic                           spatzcl_safed_mbox_intr; // from spatz cluster to safety island, TODO: SAFED unused, no need to replicate
 logic                           pulpcl_safed_mbox_intr;  // from pulp cluster to safety island
 logic                           secd_safed_mbox_intr;    // from security island to safety island
 logic [CheshireNumIntHarts-1:0] hostd_safed_mbox_intr;   // from hostd to safety island
 // Host domain
-logic [CheshireNumIntHarts-1:0] spatzcl_hostd_mbox_intr; // from spatz cluster to host domain
+logic [CheshireNumIntHarts-1:0] spatzcl1_hostd_mbox_intr; // from spatz cluster1 to host domain
+logic [CheshireNumIntHarts-1:0] spatzcl2_hostd_mbox_intr; // from spatz cluster2 to host domain
 logic [CheshireNumIntHarts-1:0] pulpcl_hostd_mbox_intr;  // from pulp cluster to hostd domain
 logic [CheshireNumIntHarts-1:0] secd_hostd_mbox_intr;    // from security island to host domain
 logic [CheshireNumIntHarts-1:0] safed_hostd_mbox_intr;   // from safety island to host domain
@@ -495,14 +504,15 @@ end
 //
 // The host is statically always assigned to host_clk_i.
 //
-// Furthermore we have six reset domains:
-// host             (contained in host clock domain, POR only, no SW reset)
-// periph           (sw reset 0)
-// safety           (sw reset 1)
-// security         (sw reset 2)
-// pulp_cluster     (sw reset 3)
-// spatz_cluster    (sw reset 4)
-// shared_l2_memory (sw reset 5)
+// Furthermore we have seven reset domains:
+// host                 (contained in host clock domain, POR only, no SW reset)
+// periph               (sw reset 0)
+// safety               (sw reset 1)
+// security             (sw reset 2)
+// pulp_cluster         (sw reset 3)
+// spatz_cluster1       (sw reset 4)
+// spatz_cluster2       (sw reset 5)
+// shared_l2_memory     (sw reset 6)
 
 // Clock Multiplexing for each sub block
 localparam int unsigned DomainClkDivValueWidth = 24;
@@ -732,7 +742,8 @@ assign chs_ext_intrs  = {
   // Mailboxes
   secd_hostd_mbox_intr,    // 1
   safed_hostd_mbox_intr,   // 1
-  spatzcl_hostd_mbox_intr, // 1
+  spatzcl1_hostd_mbox_intr, // 1
+  spatzcl2_hostd_mbox_intr, // 1
   pulpcl_hostd_mbox_intr,  // 1
   pulpcl_eoc               // from integer cluster
 };
@@ -982,15 +993,31 @@ hyperbus_wrap      #(
 
 // Temporary Mailbox parameters (evaluate if we can move everything here).
 // The best approach would be to move all these parameters to the package.
-localparam int unsigned HostdMboxOffset = (spatz_cluster_pkg::NumCores +
+
+// indexes i= 0,1 from safed to each snitch core. indexes i= 2,3,4,5 from each cva6 core to each snitch core
+// repeat with offset of 5 for each spatz cluster island 
+localparam int unsigned ToSpatzCl1Offset = 0;                               // [0:5] reserved to interrupts to spatz island 1 from hostd and safed(unused)
+
+
+localparam int unsigned ToSpatzCl2Offset = ((spatz_cluster_pkg::NumCores +  // [6:11] reserved to interrupts to spatz island 2 from hostd and safed(unused)
                                            (spatz_cluster_pkg::NumCores *
-                                            CheshireNumIntHarts         )
+                                            CheshireNumIntHarts         ))  
                                            );
 
-localparam int unsigned SpatzMboxOffset = HostdMboxOffset +
-                                          3*CheshireNumIntHarts;
 
-localparam int unsigned PulpclMboxOffset = SpatzMboxOffset +
+localparam int unsigned HostdMboxOffset = ToSpatzCl2Offset +                // [12:17] reserved to interrupts from host to safed(unused) and secured(unused) 
+                                          ((spatz_cluster_pkg::NumCores +
+                                           (spatz_cluster_pkg::NumCores *
+                                            CheshireNumIntHarts         ))  
+                                           );
+
+localparam int unsigned SpatzCl1MboxOffset = HostdMboxOffset +              // [18:21] reserved to interrupts from spatz island 1 to hostd and safed(unused)
+                                           3*CheshireNumIntHarts;
+
+localparam int unsigned SpatzCl2MboxOffset = SpatzCl1MboxOffset +           // [22:25] reserved to interrupts from spatz island 1 to hostd and safed(unused)
+                                           CheshireNumIntHarts + 1;
+
+localparam int unsigned PulpclMboxOffset = SpatzCl2MboxOffset +
                                            CheshireNumIntHarts + 1;
 
 localparam int unsigned SecdMboxOffset = PulpclMboxOffset +
@@ -1463,38 +1490,38 @@ end else begin : gen_no_pulp_cluster
   assign car_regs_hw2reg.pulp_cluster_isolate_status.de = '0;
 
 end
-
-// Floating Point Spatz Cluster
+// TODO: check the addresses offset of mailboxes
+// Floating Point Spatz Cluster 1
 // Spatz cluster interrupts
 // msi (machine software interrupt): hostd, safed
-logic [spatz_cluster_pkg::NumCores-1:0] spatzcl_mbox_intr;
+logic [spatz_cluster_pkg::NumCores-1:0] spatzcl1_mbox_intr;
 // mti (machine timer interrupt) : hostd (RISC-V clint)
 // verilog_lint: waive-start line-length
-logic [spatz_cluster_pkg::NumCores-1:0] spatzcl_timer_intr;
-if (CarfieldIslandsCfg.spatz.enable) begin : gen_spatz_cluster
+logic [spatz_cluster_pkg::NumCores-1:0] spatzcl1_timer_intr;
+if (CarfieldIslandsCfg.spatz_cl1.enable) begin : gen_spatz_cluster1
 
-  assign reset_vector[CarfieldDomainIdx.spatz] = car_regs_reg2hw.spatz_cluster_rst.q;
+  assign reset_vector[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_rst.q;
 
-  assign domain_clk_sel[CarfieldDomainIdx.spatz] = car_regs_reg2hw.spatz_cluster_clk_sel.q;
-  assign spatz_rst_n = rsts_n[CarfieldDomainIdx.spatz];
-  assign spatz_pwr_on_rst_n = pwr_on_rsts_n[CarfieldDomainIdx.spatz];
-  assign spatz_clk = domain_clk_gated[CarfieldDomainIdx.spatz];
-  assign domain_clk_div_value[CarfieldDomainIdx.spatz] = car_regs_reg2hw.spatz_cluster_clk_div_value.q;
-  assign domain_clk_div_changed[CarfieldDomainIdx.spatz] = car_regs_reg2hw.spatz_cluster_clk_div_value.qe;
-  assign domain_clk_en[CarfieldDomainIdx.spatz] = car_regs_reg2hw.spatz_cluster_clk_en.q;
+  assign domain_clk_sel[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_clk_sel.q;
+  assign spatz_cl1_rst_n = rsts_n[CarfieldDomainIdx.spatz_cl1]; //reset different for each spatz cluster
+  assign spatz_cl1_pwr_on_rst_n = pwr_on_rsts_n[CarfieldDomainIdx.spatz_cl1]; //power-on reset different for each spatz cluster
+  assign spatz_cl1_clk = domain_clk_gated[CarfieldDomainIdx.spatz_cl1]; //driven by clk_sel, therefore should be correct
+  assign domain_clk_div_value[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_clk_div_value.q; // divisor value for the clock
+  assign domain_clk_div_changed[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_clk_div_value.qe; // enabler for the divisor value
+  assign domain_clk_en[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_clk_en.q; // clk enabled, equal for both clusters
 
-  assign spatzcl_timer_intr = { chs_mti[FPClusterIntrHart1Idx], chs_mti[FPClusterIntrHart0Idx] };
+  assign spatzcl1_timer_intr = { chs_mti[FPCluster1IntrHart1Idx], chs_mti[FPCluster1IntrHart0Idx] }; // external timer interrupts 2 per cva6 cores x 2 snitch cores (4 total)
 
-  assign slave_isolate_req[FPClusterSlvIdx] = car_regs_reg2hw.spatz_cluster_isolate.q;
-  assign car_regs_hw2reg.spatz_cluster_isolate_status.d = slave_isolated[FPClusterSlvIdx];
-  assign car_regs_hw2reg.spatz_cluster_isolate_status.de = 1'b1;
-  assign car_regs_hw2reg.spatz_cluster_busy.de = 1'b1;
+  assign slave_isolate_req[FPCluster1SlvIdx] = car_regs_reg2hw.spatz_cluster1_isolate.q; // request to isolate the clusters
+  assign car_regs_hw2reg.spatz_cluster1_isolate_status.d = slave_isolated[FPCluster1SlvIdx]; 
+  assign car_regs_hw2reg.spatz_cluster1_isolate_status.de = 1'b1; // always 1
+  assign car_regs_hw2reg.spatz_cluster1_busy.de = 1'b1; // always 1
 
-  assign slave_isolated[FPClusterSlvIdx] = slave_isolated_rsp[FPClusterSlvIdx] &
-                                           master_isolated_rsp[FPClusterMstIdx];
+  assign slave_isolated[FPCluster1SlvIdx] = slave_isolated_rsp[FPCluster1SlvIdx] & //connected to reg that save the status of the isolation of cluster
+                                           master_isolated_rsp[FPCluster1MstIdx];
 
 `ifndef FP_CLUSTER_NETLIST
-  spatz_cluster_wrapper #(
+  (* keep_hierarchy = "yes" *) spatz_cluster_wrapper #(
     .AxiAddrWidth             ( Cfg.AddrWidth           ),
     .AxiDataWidth             ( Cfg.AxiDataWidth        ),
     .AxiUserWidth             ( Cfg.AxiUserWidth        ),
@@ -1532,93 +1559,259 @@ if (CarfieldIslandsCfg.spatz.enable) begin : gen_spatz_cluster
     .AsyncAxiOutWWidth        ( CarfieldAxiMstWWidth  ),
     .AsyncAxiOutBWidth        ( CarfieldAxiMstBWidth  ),
     .AsyncAxiOutArWidth       ( CarfieldAxiMstArWidth ),
-    .AsyncAxiOutRWidth        ( CarfieldAxiMstRWidth  )
-    ) i_fp_cluster_wrapper (
+    .AsyncAxiOutRWidth        ( CarfieldAxiMstRWidth  ),
+    //Base address
+    .BaseAddr                 ( CarfieldIslandsCfg.spatz_cl1.base ),
+    .HartId                   ( 10'h10 ) 
+    ) i_fp_cluster_wrapper_1 (
 `else
-  spatz_cluster_wrapper i_fp_cluster_wrapper (
+  spatz_cluster_wrapper i_fp_cluster_wrapper_1 (
 `endif
-    .clk_i           ( spatz_clk            ),
-    .rst_ni          ( spatz_rst_n          ),
-    .pwr_on_rst_ni   ( spatz_pwr_on_rst_n   ),
+    .clk_i           ( spatz_cl1_clk            ),
+    .rst_ni          ( spatz_cl1_rst_n          ),
+    .pwr_on_rst_ni   ( spatz_cl1_pwr_on_rst_n   ),
     .meip_i          ( '0 /* Unconnected */ ),
-    .msip_i          ( spatzcl_mbox_intr         ),
-    .mtip_i          ( spatzcl_timer_intr        ),
-    .debug_req_i     ( car_regs_reg2hw.spatz_cluster_debug_req ),
+    .msip_i          ( spatzcl1_mbox_intr         ),
+    .mtip_i          ( spatzcl1_timer_intr        ),
+    .debug_req_i     ( car_regs_reg2hw.spatz_cluster_debug_req ), //same for both clusters, is it correct?
     //AXI Isolate
-    .axi_isolate_i         ( slave_isolate_req [FPClusterSlvIdx]   ),
-    .axi_isolated_o        ( master_isolated_rsp [FPClusterMstIdx] ),
+    .axi_isolate_i         ( slave_isolate_req [FPCluster1SlvIdx]   ),
+    .axi_isolated_o        ( master_isolated_rsp [FPCluster1MstIdx] ),
 
     //AXI FP Cluster Slave Port <- Carfield Master Port
-    .async_axi_in_aw_data_i ( axi_slv_ext_aw_data [FPClusterSlvIdx] ),
-    .async_axi_in_aw_wptr_i ( axi_slv_ext_aw_wptr [FPClusterSlvIdx] ),
-    .async_axi_in_aw_rptr_o ( axi_slv_ext_aw_rptr [FPClusterSlvIdx] ),
-    .async_axi_in_w_data_i  ( axi_slv_ext_w_data  [FPClusterSlvIdx] ),
-    .async_axi_in_w_wptr_i  ( axi_slv_ext_w_wptr  [FPClusterSlvIdx] ),
-    .async_axi_in_w_rptr_o  ( axi_slv_ext_w_rptr  [FPClusterSlvIdx] ),
-    .async_axi_in_b_data_o  ( axi_slv_ext_b_data  [FPClusterSlvIdx] ),
-    .async_axi_in_b_wptr_o  ( axi_slv_ext_b_wptr  [FPClusterSlvIdx] ),
-    .async_axi_in_b_rptr_i  ( axi_slv_ext_b_rptr  [FPClusterSlvIdx] ),
-    .async_axi_in_ar_data_i ( axi_slv_ext_ar_data [FPClusterSlvIdx] ),
-    .async_axi_in_ar_wptr_i ( axi_slv_ext_ar_wptr [FPClusterSlvIdx] ),
-    .async_axi_in_ar_rptr_o ( axi_slv_ext_ar_rptr [FPClusterSlvIdx] ),
-    .async_axi_in_r_data_o  ( axi_slv_ext_r_data  [FPClusterSlvIdx] ),
-    .async_axi_in_r_wptr_o  ( axi_slv_ext_r_wptr  [FPClusterSlvIdx] ),
-    .async_axi_in_r_rptr_i  ( axi_slv_ext_r_rptr  [FPClusterSlvIdx] ),
+    .async_axi_in_aw_data_i ( axi_slv_ext_aw_data [FPCluster1SlvIdx] ),
+    .async_axi_in_aw_wptr_i ( axi_slv_ext_aw_wptr [FPCluster1SlvIdx] ),
+    .async_axi_in_aw_rptr_o ( axi_slv_ext_aw_rptr [FPCluster1SlvIdx] ),
+    .async_axi_in_w_data_i  ( axi_slv_ext_w_data  [FPCluster1SlvIdx] ),
+    .async_axi_in_w_wptr_i  ( axi_slv_ext_w_wptr  [FPCluster1SlvIdx] ),
+    .async_axi_in_w_rptr_o  ( axi_slv_ext_w_rptr  [FPCluster1SlvIdx] ),
+    .async_axi_in_b_data_o  ( axi_slv_ext_b_data  [FPCluster1SlvIdx] ),
+    .async_axi_in_b_wptr_o  ( axi_slv_ext_b_wptr  [FPCluster1SlvIdx] ),
+    .async_axi_in_b_rptr_i  ( axi_slv_ext_b_rptr  [FPCluster1SlvIdx] ),
+    .async_axi_in_ar_data_i ( axi_slv_ext_ar_data [FPCluster1SlvIdx] ),
+    .async_axi_in_ar_wptr_i ( axi_slv_ext_ar_wptr [FPCluster1SlvIdx] ),
+    .async_axi_in_ar_rptr_o ( axi_slv_ext_ar_rptr [FPCluster1SlvIdx] ),
+    .async_axi_in_r_data_o  ( axi_slv_ext_r_data  [FPCluster1SlvIdx] ),
+    .async_axi_in_r_wptr_o  ( axi_slv_ext_r_wptr  [FPCluster1SlvIdx] ),
+    .async_axi_in_r_rptr_i  ( axi_slv_ext_r_rptr  [FPCluster1SlvIdx] ),
     //AXI FP Cluster Master Port -> Carfield Slave Port
-    .async_axi_out_aw_data_o ( axi_mst_ext_aw_data [FPClusterMstIdx] ),
-    .async_axi_out_aw_wptr_o ( axi_mst_ext_aw_wptr [FPClusterMstIdx] ),
-    .async_axi_out_aw_rptr_i ( axi_mst_ext_aw_rptr [FPClusterMstIdx] ),
-    .async_axi_out_w_data_o  ( axi_mst_ext_w_data  [FPClusterMstIdx] ),
-    .async_axi_out_w_wptr_o  ( axi_mst_ext_w_wptr  [FPClusterMstIdx] ),
-    .async_axi_out_w_rptr_i  ( axi_mst_ext_w_rptr  [FPClusterMstIdx] ),
-    .async_axi_out_b_data_i  ( axi_mst_ext_b_data  [FPClusterMstIdx] ),
-    .async_axi_out_b_wptr_i  ( axi_mst_ext_b_wptr  [FPClusterMstIdx] ),
-    .async_axi_out_b_rptr_o  ( axi_mst_ext_b_rptr  [FPClusterMstIdx] ),
-    .async_axi_out_ar_data_o ( axi_mst_ext_ar_data [FPClusterMstIdx] ),
-    .async_axi_out_ar_wptr_o ( axi_mst_ext_ar_wptr [FPClusterMstIdx] ),
-    .async_axi_out_ar_rptr_i ( axi_mst_ext_ar_rptr [FPClusterMstIdx] ),
-    .async_axi_out_r_data_i  ( axi_mst_ext_r_data  [FPClusterMstIdx] ),
-    .async_axi_out_r_wptr_i  ( axi_mst_ext_r_wptr  [FPClusterMstIdx] ),
-    .async_axi_out_r_rptr_o  ( axi_mst_ext_r_rptr  [FPClusterMstIdx] ),
-    .cluster_probe_o         ( car_regs_hw2reg.spatz_cluster_busy.d  )
+    .async_axi_out_aw_data_o ( axi_mst_ext_aw_data [FPCluster1MstIdx] ),
+    .async_axi_out_aw_wptr_o ( axi_mst_ext_aw_wptr [FPCluster1MstIdx] ),
+    .async_axi_out_aw_rptr_i ( axi_mst_ext_aw_rptr [FPCluster1MstIdx] ),
+    .async_axi_out_w_data_o  ( axi_mst_ext_w_data  [FPCluster1MstIdx] ),
+    .async_axi_out_w_wptr_o  ( axi_mst_ext_w_wptr  [FPCluster1MstIdx] ),
+    .async_axi_out_w_rptr_i  ( axi_mst_ext_w_rptr  [FPCluster1MstIdx] ),
+    .async_axi_out_b_data_i  ( axi_mst_ext_b_data  [FPCluster1MstIdx] ),
+    .async_axi_out_b_wptr_i  ( axi_mst_ext_b_wptr  [FPCluster1MstIdx] ),
+    .async_axi_out_b_rptr_o  ( axi_mst_ext_b_rptr  [FPCluster1MstIdx] ),
+    .async_axi_out_ar_data_o ( axi_mst_ext_ar_data [FPCluster1MstIdx] ),
+    .async_axi_out_ar_wptr_o ( axi_mst_ext_ar_wptr [FPCluster1MstIdx] ),
+    .async_axi_out_ar_rptr_i ( axi_mst_ext_ar_rptr [FPCluster1MstIdx] ),
+    .async_axi_out_r_data_i  ( axi_mst_ext_r_data  [FPCluster1MstIdx] ),
+    .async_axi_out_r_wptr_i  ( axi_mst_ext_r_wptr  [FPCluster1MstIdx] ),
+    .async_axi_out_r_rptr_o  ( axi_mst_ext_r_rptr  [FPCluster1MstIdx] ),
+    .cluster_probe_o         ( car_regs_hw2reg.spatz_cluster1_busy.d  )
   );
 
-  for (genvar i = 0; i < spatz_cluster_pkg::NumCores; i++ ) begin : gen_spatzcl_mbox_intrs_spatz_harts
-    assign safed_spatzcl_mbox_intr[i] = snd_mbox_intrs[i];
-    for (genvar j = 0; j < CheshireNumIntHarts; j++ ) begin :  gen_spatzcl_mbox_intrs_host_harts
-      assign hostd_spatzcl_mbox_intr[i][j] = snd_mbox_intrs[spatz_cluster_pkg::NumCores + (spatz_cluster_pkg::NumCores * j) + i];
+  for (genvar i = 0; i < spatz_cluster_pkg::NumCores; i++ ) begin : gen_spatzcl1_mbox_intrs_spatz_harts //for each one of the Sntich cores of spatz = 2
+    assign safed_spatzcl1_mbox_intr[i] = snd_mbox_intrs[ToSpatzCl1Offset + i]; // indexes:0,1 of the snd_mbox_intrs, useless safed not used
+    for (genvar j = 0; j < CheshireNumIntHarts; j++ ) begin :  gen_spatzcl_mbox_intrs_host_harts // for each one of the cva6 cores = 2
+       // indexes hostd_spatzcl1_mbox_intr i=0,1 j=0,1. indexes snd_mbox_intrs = 2,4,3,5
+      assign hostd_spatzcl1_mbox_intr[i][j] = snd_mbox_intrs[ToSpatzCl1Offset + spatz_cluster_pkg::NumCores + (spatz_cluster_pkg::NumCores * j) + i];// interrupts for each snitch core from each cva6 core
     end
   end
 
-  for (genvar i = 0; i < CheshireNumIntHarts; i++ ) begin : gen_spatzcl_mbox_intrs
-    assign spatzcl_hostd_mbox_intr[i] = snd_mbox_intrs[SpatzMboxOffset + i];
+  for (genvar i = 0; i < CheshireNumIntHarts; i++ ) begin : gen_spatzcl1_mbox_intrs //for each one of the cva6 cores = 2
+    assign spatzcl1_hostd_mbox_intr[i] = snd_mbox_intrs[SpatzCl1MboxOffset + i]; // indexes: SpatzCl1MboxOffset + 0,1. Interrupt from spatz to each cva6 core
   end
-  assign spatzcl_safed_mbox_intr = snd_mbox_intrs[SpatzMboxOffset + CheshireNumIntHarts];
+  assign spatzcl1_safed_mbox_intr = snd_mbox_intrs[SpatzCl1MboxOffset + CheshireNumIntHarts]; // useless safed not used
 
-  logic [spatz_cluster_pkg::NumCores-1:0] hostd_spatzcl_mbox_intr_ored;
+  logic [spatz_cluster_pkg::NumCores-1:0] hostd_spatzcl1_mbox_intr_ored; // shared interrupt for each snitch core, 2 in total
   // Floating point cluster
-  for (genvar i = 0; i < spatz_cluster_pkg::NumCores; i++ ) begin : gen_spatzcl_mbox_intrs_or
-    assign hostd_spatzcl_mbox_intr_ored[i] = |hostd_spatzcl_mbox_intr[i];
+  for (genvar i = 0; i < spatz_cluster_pkg::NumCores; i++ ) begin : gen_spatzcl1_mbox_intrs_or// 2 iterations
+    assign hostd_spatzcl1_mbox_intr_ored[i] = |hostd_spatzcl1_mbox_intr[i]; // OR the interrupts from each cva6 core to each snitch core
   end
   // For the spatz FP cluster SW interrupt in machine mode (msi), OR together interrupts coming from the
   // host domain and the safe domain
-  assign spatzcl_mbox_intr = hostd_spatzcl_mbox_intr_ored | safed_spatzcl_mbox_intr;
+  assign spatzcl1_mbox_intr = hostd_spatzcl1_mbox_intr_ored | safed_spatzcl1_mbox_intr; // one global interrupt per snitch core, directly as input
   // verilog_lint: waive-stop line-length
-end else begin : gen_no_spatz_cluster
-  assign spatzcl_mbox_intr = '0;
-  assign spatzcl_timer_intr = '0;
-  assign car_regs_hw2reg.spatz_cluster_isolate_status.d = 1'b0;
-  assign car_regs_hw2reg.spatz_cluster_isolate_status.de = 1'b0;
-  assign car_regs_hw2reg.spatz_cluster_busy.d = '0;
-  assign car_regs_hw2reg.spatz_cluster_busy.de = 1'b0;
-  assign safed_spatzcl_mbox_intr = '0;
-  assign hostd_spatzcl_mbox_intr = '0;
-  assign spatzcl_hostd_mbox_intr = '0;
-  assign spatzcl_safed_mbox_intr = '0;
-  assign spatz_rst_n = '0;
-  assign spatz_pwr_on_rst_n = '0;
-  assign spatz_clk = '0;
+end else begin : gen_no_spatz_cluster1
+  assign spatzcl1_mbox_intr = '0;
+  assign spatzcl1_timer_intr = '0;
+  assign car_regs_hw2reg.spatz_cluster1_isolate_status.d = 1'b0;
+  assign car_regs_hw2reg.spatz_cluster1_isolate_status.de = 1'b0;
+  assign car_regs_hw2reg.spatz_cluster1_busy.d = '0;
+  assign car_regs_hw2reg.spatz_cluster1_busy.de = 1'b0;
+  assign safed_spatzcl1_mbox_intr = '0;
+  assign hostd_spatzcl1_mbox_intr = '0;
+  assign spatzcl1_hostd_mbox_intr = '0;
+  assign spatzcl1_safed_mbox_intr = '0;
+  assign spatz_cl1_rst_n = '0;
+  assign spatz_cl1_pwr_on_rst_n = '0;
+  assign spatz_cl1_clk = '0;
 end
+
+// Floating Point Spatz Cluster 2
+// Spatz cluster interrupts
+// msi (machine software interrupt): hostd, safed
+logic [spatz_cluster_pkg::NumCores-1:0] spatzcl2_mbox_intr;
+// mti (machine timer interrupt) : hostd (RISC-V clint)
+// verilog_lint: waive-start line-length
+logic [spatz_cluster_pkg::NumCores-1:0] spatzcl2_timer_intr;
+if (CarfieldIslandsCfg.spatz_cl1.enable) begin : gen_spatz_cluster2
+
+  assign reset_vector[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_rst.q;
+
+  assign domain_clk_sel[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_clk_sel.q;
+  assign spatz_cl2_rst_n = rsts_n[CarfieldDomainIdx.spatz_cl2]; 
+  assign spatz_cl2_pwr_on_rst_n = pwr_on_rsts_n[CarfieldDomainIdx.spatz_cl2]; 
+  assign spatz_cl2_clk = domain_clk_gated[CarfieldDomainIdx.spatz_cl2]; 
+  assign domain_clk_div_value[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_clk_div_value.q;
+  assign domain_clk_div_changed[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_clk_div_value.qe;
+  assign domain_clk_en[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_clk_en.q;
+
+  assign spatzcl2_timer_intr = { chs_mti[FPCluster2IntrHart1Idx], chs_mti[FPCluster2IntrHart0Idx] };
+
+  assign slave_isolate_req[FPCluster2SlvIdx] = car_regs_reg2hw.spatz_cluster2_isolate.q;
+  assign car_regs_hw2reg.spatz_cluster2_isolate_status.d = slave_isolated[FPCluster2SlvIdx];
+  assign car_regs_hw2reg.spatz_cluster2_isolate_status.de = 1'b1;
+  assign car_regs_hw2reg.spatz_cluster2_busy.de = 1'b1;
+
+  assign slave_isolated[FPCluster2SlvIdx] = slave_isolated_rsp[FPCluster2SlvIdx] &
+                                           master_isolated_rsp[FPCluster2MstIdx];
+
+`ifndef FP_CLUSTER_NETLIST
+  (* keep_hierarchy = "yes" *) spatz_cluster_wrapper #(
+    .AxiAddrWidth             ( Cfg.AddrWidth           ),
+    .AxiDataWidth             ( Cfg.AxiDataWidth        ),
+    .AxiUserWidth             ( Cfg.AxiUserWidth        ),
+    .AxiInIdWidth             ( AxiSlvIdWidth           ),
+    .AxiOutIdWidth            ( Cfg.AxiMstIdWidth       ),
+    .IwcAxiIdOutWidth         ( FpClustIwcAxiIdOutWidth ),
+    .LogDepth                 ( LogDepth                ),
+    .CdcSyncStages            ( SyncStages              ),
+    .SyncStages               ( SyncStages              ),
+    .AxiMaxOutTrans           ( FpClustAxiMaxOutTrans   ),
+    // AXI type IN
+    .axi_in_resp_t            ( carfield_axi_slv_rsp_t     ),
+    .axi_in_req_t             ( carfield_axi_slv_req_t     ),
+    .axi_in_aw_chan_t         ( carfield_axi_slv_aw_chan_t ),
+    .axi_in_w_chan_t          ( carfield_axi_slv_w_chan_t  ),
+    .axi_in_b_chan_t          ( carfield_axi_slv_b_chan_t  ),
+    .axi_in_ar_chan_t         ( carfield_axi_slv_ar_chan_t ),
+    .axi_in_r_chan_t          ( carfield_axi_slv_r_chan_t  ),
+    // AXI type OUT
+    .axi_out_resp_t           ( carfield_axi_mst_rsp_t     ),
+    .axi_out_req_t            ( carfield_axi_mst_req_t     ),
+    .axi_out_aw_chan_t        ( carfield_axi_mst_aw_chan_t ),
+    .axi_out_w_chan_t         ( carfield_axi_mst_w_chan_t  ),
+    .axi_out_b_chan_t         ( carfield_axi_mst_b_chan_t  ),
+    .axi_out_ar_chan_t        ( carfield_axi_mst_ar_chan_t ),
+    .axi_out_r_chan_t         ( carfield_axi_mst_r_chan_t  ),
+    //CDC AXI Slv parameters
+    .AsyncAxiInAwWidth        ( CarfieldAxiSlvAwWidth  ),
+    .AsyncAxiInWWidth         ( CarfieldAxiSlvWWidth   ),
+    .AsyncAxiInBWidth         ( CarfieldAxiSlvBWidth   ),
+    .AsyncAxiInArWidth        ( CarfieldAxiSlvArWidth  ),
+    .AsyncAxiInRWidth         ( CarfieldAxiSlvRWidth   ),
+    //CDC AXI Mst parameters
+    .AsyncAxiOutAwWidth       ( CarfieldAxiMstAwWidth ),
+    .AsyncAxiOutWWidth        ( CarfieldAxiMstWWidth  ),
+    .AsyncAxiOutBWidth        ( CarfieldAxiMstBWidth  ),
+    .AsyncAxiOutArWidth       ( CarfieldAxiMstArWidth ),
+    .AsyncAxiOutRWidth        ( CarfieldAxiMstRWidth  ),
+    //Base address
+    .BaseAddr                 ( CarfieldIslandsCfg.spatz_cl2.base ),
+    .HartId                   ( 10'h12 )
+
+
+    ) i_fp_cluster_wrapper_2 (
+`else
+  spatz_cluster_wrapper i_fp_cluster_wrapper (
+`endif
+    .clk_i           ( spatz_cl2_clk            ),
+    .rst_ni          ( spatz_cl2_rst_n          ),
+    .pwr_on_rst_ni   ( spatz_cl2_pwr_on_rst_n   ),
+    .meip_i          ( '0 /* Unconnected */ ),
+    .msip_i          ( spatzcl2_mbox_intr         ),
+    .mtip_i          ( spatzcl2_timer_intr        ),
+    .debug_req_i     ( car_regs_reg2hw.spatz_cluster_debug_req ),
+    //AXI Isolate
+    .axi_isolate_i         ( slave_isolate_req [FPCluster2SlvIdx]   ),
+    .axi_isolated_o        ( master_isolated_rsp [FPCluster2MstIdx] ),
+
+    //AXI FP Cluster Slave Port <- Carfield Master Port
+    .async_axi_in_aw_data_i ( axi_slv_ext_aw_data [FPCluster2SlvIdx] ),
+    .async_axi_in_aw_wptr_i ( axi_slv_ext_aw_wptr [FPCluster2SlvIdx] ),
+    .async_axi_in_aw_rptr_o ( axi_slv_ext_aw_rptr [FPCluster2SlvIdx] ),
+    .async_axi_in_w_data_i  ( axi_slv_ext_w_data  [FPCluster2SlvIdx] ),
+    .async_axi_in_w_wptr_i  ( axi_slv_ext_w_wptr  [FPCluster2SlvIdx] ),
+    .async_axi_in_w_rptr_o  ( axi_slv_ext_w_rptr  [FPCluster2SlvIdx] ),
+    .async_axi_in_b_data_o  ( axi_slv_ext_b_data  [FPCluster2SlvIdx] ),
+    .async_axi_in_b_wptr_o  ( axi_slv_ext_b_wptr  [FPCluster2SlvIdx] ),
+    .async_axi_in_b_rptr_i  ( axi_slv_ext_b_rptr  [FPCluster2SlvIdx] ),
+    .async_axi_in_ar_data_i ( axi_slv_ext_ar_data [FPCluster2SlvIdx] ),
+    .async_axi_in_ar_wptr_i ( axi_slv_ext_ar_wptr [FPCluster2SlvIdx] ),
+    .async_axi_in_ar_rptr_o ( axi_slv_ext_ar_rptr [FPCluster2SlvIdx] ),
+    .async_axi_in_r_data_o  ( axi_slv_ext_r_data  [FPCluster2SlvIdx] ),
+    .async_axi_in_r_wptr_o  ( axi_slv_ext_r_wptr  [FPCluster2SlvIdx] ),
+    .async_axi_in_r_rptr_i  ( axi_slv_ext_r_rptr  [FPCluster2SlvIdx] ),
+    //AXI FP Cluster Master Port -> Carfield Slave Port
+    .async_axi_out_aw_data_o ( axi_mst_ext_aw_data [FPCluster2MstIdx] ),
+    .async_axi_out_aw_wptr_o ( axi_mst_ext_aw_wptr [FPCluster2MstIdx] ),
+    .async_axi_out_aw_rptr_i ( axi_mst_ext_aw_rptr [FPCluster2MstIdx] ),
+    .async_axi_out_w_data_o  ( axi_mst_ext_w_data  [FPCluster2MstIdx] ),
+    .async_axi_out_w_wptr_o  ( axi_mst_ext_w_wptr  [FPCluster2MstIdx] ),
+    .async_axi_out_w_rptr_i  ( axi_mst_ext_w_rptr  [FPCluster2MstIdx] ),
+    .async_axi_out_b_data_i  ( axi_mst_ext_b_data  [FPCluster2MstIdx] ),
+    .async_axi_out_b_wptr_i  ( axi_mst_ext_b_wptr  [FPCluster2MstIdx] ),
+    .async_axi_out_b_rptr_o  ( axi_mst_ext_b_rptr  [FPCluster2MstIdx] ),
+    .async_axi_out_ar_data_o ( axi_mst_ext_ar_data [FPCluster2MstIdx] ),
+    .async_axi_out_ar_wptr_o ( axi_mst_ext_ar_wptr [FPCluster2MstIdx] ),
+    .async_axi_out_ar_rptr_i ( axi_mst_ext_ar_rptr [FPCluster2MstIdx] ),
+    .async_axi_out_r_data_i  ( axi_mst_ext_r_data  [FPCluster2MstIdx] ),
+    .async_axi_out_r_wptr_i  ( axi_mst_ext_r_wptr  [FPCluster2MstIdx] ),
+    .async_axi_out_r_rptr_o  ( axi_mst_ext_r_rptr  [FPCluster2MstIdx] ),
+    .cluster_probe_o         ( car_regs_hw2reg.spatz_cluster2_busy.d  )
+  );
+
+  for (genvar i = 0; i < spatz_cluster_pkg::NumCores; i++ ) begin : gen_spatzcl2_mbox_intrs_spatz_harts
+    assign safed_spatzcl2_mbox_intr[i] = snd_mbox_intrs[ToSpatzCl2Offset + i];//useless indexes = 6,7
+    for (genvar j = 0; j < CheshireNumIntHarts; j++ ) begin :  gen_spatzcl2_mbox_intrs_host_harts
+      assign hostd_spatzcl2_mbox_intr[i][j] = snd_mbox_intrs[ToSpatzCl2Offset + spatz_cluster_pkg::NumCores + (spatz_cluster_pkg::NumCores * j) + i]; //indexes 8,9,10,11
+    end
+  end
+
+  for (genvar i = 0; i < CheshireNumIntHarts; i++ ) begin : gen_spatzcl2_mbox_intrs
+    assign spatzcl2_hostd_mbox_intr[i] = snd_mbox_intrs[SpatzCl2MboxOffset + i];
+  end
+  assign spatzcl2_safed_mbox_intr = snd_mbox_intrs[SpatzCl2MboxOffset + CheshireNumIntHarts];
+
+  logic [spatz_cluster_pkg::NumCores-1:0] hostd_spatzcl2_mbox_intr_ored;
+  // Floating point cluster
+  for (genvar i = 0; i < spatz_cluster_pkg::NumCores; i++ ) begin : gen_spatzcl2_mbox_intrs_or
+    assign hostd_spatzcl2_mbox_intr_ored[i] = |hostd_spatzcl2_mbox_intr[i];
+  end
+  // For the spatz FP cluster SW interrupt in machine mode (msi), OR together interrupts coming from the
+  // host domain and the safe domain
+  assign spatzcl2_mbox_intr = hostd_spatzcl2_mbox_intr_ored | safed_spatzcl2_mbox_intr;
+  // verilog_lint: waive-stop line-length
+end else begin : gen_no_spatz_cluster2
+  assign spatzcl2_mbox_intr = '0;
+  assign spatzcl2_timer_intr = '0;
+  assign car_regs_hw2reg.spatz_cluster2_isolate_status.d = 1'b0;
+  assign car_regs_hw2reg.spatz_cluster2_isolate_status.de = 1'b0;
+  assign car_regs_hw2reg.spatz_cluster2_busy.d = '0;
+  assign car_regs_hw2reg.spatz_cluster2_busy.de = 1'b0;
+  assign safed_spatzcl2_mbox_intr = '0;
+  assign hostd_spatzcl2_mbox_intr = '0;
+  assign spatzcl2_hostd_mbox_intr = '0;
+  assign spatzcl2_safed_mbox_intr = '0;
+  assign spatz_cl2_rst_n = '0;
+  assign spatz_cl2_pwr_on_rst_n = '0;
+  assign spatz_cl2_clk = '0;
+end
+
 
 // Security Island
 logic secd_mbox_intr;

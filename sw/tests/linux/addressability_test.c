@@ -218,16 +218,16 @@ int main(int argc, char *argv[]) {
     } else printf("NOT FOUND car_integer_cluster\n");
 
     // FP Cluster
-    if (car_spatz_cluster) {
+    if (car_spatz_cluster1) {
         errors += probe_range_lfsr_wrwr(
-            (uint64_t *)CAR_FP_CLUSTER_SPM_BASE_ADDR(car_spatz_cluster),
-            (uint64_t *)CAR_FP_CLUSTER_SPM_END_ADDR(car_spatz_cluster),
+            (uint64_t *)CAR_FP_CLUSTER_SPM_BASE_ADDR(car_spatz_cluster1),
+            (uint64_t *)CAR_FP_CLUSTER_SPM_END_ADDR(car_spatz_cluster1),
             N_SAMPLES);
         if (errors) {
-            printf("ERROR on car_spatz_cluster\n");
+            printf("ERROR on car_spatz_cluster1\n");
         }
-        DUMP_REGION(CAR_FP_CLUSTER_SPM_BASE_ADDR(car_spatz_cluster), 64, 8);
-    } else printf("NOT FOUND car_spatz_cluster\n");
+        DUMP_REGION(CAR_FP_CLUSTER_SPM_BASE_ADDR(car_spatz_cluster1), 64, 8);
+    } else printf("NOT FOUND car_spatz_cluster1\n");
 
     return errors;
 }

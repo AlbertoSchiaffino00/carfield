@@ -6,7 +6,7 @@
 
 `include "axi/typedef.svh"
 
-module spatz_cluster_wrapper
+(* keep_hierarchy = "yes" *) module spatz_cluster_wrapper
  import spatz_cluster_pkg::*;
  import fpnew_pkg::fpu_implementation_t;
  import snitch_pma_pkg::snitch_pma_t;
@@ -75,6 +75,11 @@ module spatz_cluster_wrapper
                                               axi_pkg::r_width(AxiDataWidth,
                                                                AxiInIdWidth,
                                                                AxiUserWidth),
+
+  // Base Address
+  parameter logic [47:0] BaseAddr = 48'h51000000,
+  parameter logic [9:0] HartId = 10'h10, 
+
   // Local parameters
   localparam int unsigned AxiStrbWidth = AxiDataWidth / 8
 )(
@@ -454,7 +459,9 @@ module spatz_cluster_wrapper
     .RegisterExt              ( 0                        ),
     .XbarLatency              ( axi_pkg::CUT_ALL_PORTS   ),
     .MaxMstTrans              ( 4                        ),
-    .MaxSlvTrans              ( 4                        )
+    .MaxSlvTrans              ( 4                        ),
+    .BaseAddr                 ( BaseAddr                 ),
+    .HartId                   ( HartId                   )
   ) i_cluster (
     .clk_i,
     .rst_ni,
@@ -462,14 +469,14 @@ module spatz_cluster_wrapper
     .meip_i,
     .mtip_i,
     .msip_i,
-    .hart_base_id_i          ( 10'h10                    ),
-    .cluster_base_addr_i     ( 48'h51000000              ),
+    .hart_base_id_i          ( HartId                   ),
+    .cluster_base_addr_i     ( BaseAddr                  ),
     .axi_core_default_user_i ( 10'h7                     ),
     .cluster_probe_o,
     // AXI Slave Port
     .axi_in_req_i            ( axi_to_cluster_req        ),
     .axi_in_resp_o           ( axi_to_cluster_resp       ),
-    // AXI Master Port
+    // AXI Master Port            
     .axi_out_req_o           ( axi_from_cluster_iwc_req  ),
     .axi_out_resp_i          ( axi_from_cluster_iwc_resp )
   );

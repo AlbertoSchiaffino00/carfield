@@ -37,7 +37,8 @@ typedef struct packed {
   islands_properties_t safed;
   islands_properties_t ethernet;
   islands_properties_t periph;
-  islands_properties_t spatz;
+  islands_properties_t spatz_cl1;
+  islands_properties_t spatz_cl2;
   islands_properties_t pulp;
   islands_properties_t secured;
   islands_properties_t mbox;
@@ -61,14 +62,16 @@ typedef struct packed {
   byte_bt safed;
   byte_bt ethernet;
   byte_bt periph;
-  byte_bt spatz;
+  byte_bt spatz_cl1;
+  byte_bt spatz_cl2;
   byte_bt pulp;
   byte_bt mbox;
 } carfield_slave_idx_t;
 
 typedef struct packed {
   byte_bt safed;
-  byte_bt spatz;
+  byte_bt spatz_cl1;
+  byte_bt spatz_cl2;
   byte_bt secured;
   byte_bt pulp;
 } carfield_master_idx_t;
@@ -85,7 +88,8 @@ function automatic int unsigned gen_num_axi_slave(islands_cfg_t island_cfg);
   if (island_cfg.safed.enable   ) begin ret++; end
   if (island_cfg.periph.enable  ) begin ret++; end
   if (island_cfg.ethernet.enable) begin ret++; end
-  if (island_cfg.spatz.enable   ) begin ret++; end
+  if (island_cfg.spatz_cl1.enable   ) begin ret++; end
+  if (island_cfg.spatz_cl2.enable   ) begin ret++; end
   if (island_cfg.pulp.enable    ) begin ret++; end
   if (island_cfg.mbox.enable    ) begin ret++; end
   return ret;
@@ -108,8 +112,10 @@ function automatic carfield_slave_idx_t carfield_gen_axi_slave_idx(islands_cfg_t
   end else begin ret.ethernet = MaxExtAxiSlv + j; j++; end
   if (island_cfg.periph.enable) begin ret.periph = i; i++;
   end else begin ret.periph = MaxExtAxiSlv + j; j++; end
-  if (island_cfg.spatz.enable) begin ret.spatz = i; i++;
-  end else begin ret.spatz = MaxExtAxiSlv + j; j++; end
+  if (island_cfg.spatz_cl1.enable) begin ret.spatz_cl1 = i; i++;
+  end else begin ret.spatz_cl1 = MaxExtAxiSlv + j; j++; end
+  if (island_cfg.spatz_cl2.enable) begin ret.spatz_cl2 = i; i++;
+  end else begin ret.spatz_cl2 = MaxExtAxiSlv + j; j++; end
   if (island_cfg.pulp.enable) begin ret.pulp = i; i++;
   end else begin ret.pulp = MaxExtAxiSlv + j; j++; end
   if (island_cfg.mbox.enable) begin ret.mbox = i; i++;
@@ -122,7 +128,8 @@ endfunction
 function automatic int unsigned gen_num_axi_master(islands_cfg_t island_cfg);
   int unsigned ret = 0; // Number of masters starts from 0
   if (island_cfg.safed.enable  ) begin ret++; end
-  if (island_cfg.spatz.enable  ) begin ret++; end
+  if (island_cfg.spatz_cl1.enable  ) begin ret++; end
+  if (island_cfg.spatz_cl2.enable  ) begin ret++; end
   if (island_cfg.pulp.enable   ) begin ret++; end
   if (island_cfg.secured.enable) begin ret++; end
   return ret;
@@ -138,8 +145,10 @@ function automatic carfield_master_idx_t carfield_gen_axi_master_idx(islands_cfg
   end else begin ret.safed = MaxExtAxiMst + j; j++; end
   if (island_cfg.secured.enable) begin ret.secured = i; i++;
   end else begin ret.secured = MaxExtAxiMst + j; j++; end
-  if (island_cfg.spatz.enable) begin ret.spatz = i; i++;
-  end else begin ret.spatz = MaxExtAxiMst + j; j++; end
+  if (island_cfg.spatz_cl1.enable) begin ret.spatz_cl1 = i; i++;
+  end else begin ret.spatz_cl1 = MaxExtAxiMst + j; j++; end
+  if (island_cfg.spatz_cl2.enable) begin ret.spatz_cl2 = i; i++;
+  end else begin ret.spatz_cl2 = MaxExtAxiMst + j; j++; end
   if (island_cfg.pulp.enable) begin ret.pulp = i; i++;
   end else begin ret.pulp = MaxExtAxiMst + j; j++; end
   return ret;
@@ -181,10 +190,16 @@ function automatic axi_struct_t carfield_gen_axi_map(int unsigned NumSlave  ,
     ret.AxiEnd[i] = island_cfg.periph.base + island_cfg.periph.size;
     if (i < NumSlave - 1) i++;
   end
-  if (island_cfg.spatz.enable) begin
-    ret.AxiIdx[i] = idx.spatz;
-    ret.AxiStart[i] = island_cfg.spatz.base;
-    ret.AxiEnd[i] = island_cfg.spatz.base + island_cfg.spatz.size;
+  if (island_cfg.spatz_cl1.enable) begin
+    ret.AxiIdx[i] = idx.spatz_cl1;
+    ret.AxiStart[i] = island_cfg.spatz_cl1.base;
+    ret.AxiEnd[i] = island_cfg.spatz_cl1.base + island_cfg.spatz_cl1.size;
+    if (i < NumSlave - 1) i++;
+  end
+  if (island_cfg.spatz_cl2.enable) begin
+    ret.AxiIdx[i] = idx.spatz_cl2;
+    ret.AxiStart[i] = island_cfg.spatz_cl2.base;
+    ret.AxiEnd[i] = island_cfg.spatz_cl2.base + island_cfg.spatz_cl2.size;
     if (i < NumSlave - 1) i++;
   end
   if (island_cfg.pulp.enable) begin
@@ -306,12 +321,12 @@ endfunction
 // Generate number of existent domains
 function automatic int unsigned gen_carfield_domains(islands_cfg_t island_cfg);
   int unsigned ret = 0; // Number of availale domains starts from 0
-  if (island_cfg.l2_port0.enable) begin ret++; end
-  if (island_cfg.safed.enable   ) begin ret++; end
-  if (island_cfg.periph.enable  ) begin ret++; end
-  if (island_cfg.spatz.enable   ) begin ret++; end
-  if (island_cfg.pulp.enable    ) begin ret++; end
-  if (island_cfg.secured.enable ) begin ret++; end
+  if (island_cfg.l2_port0.enable    ) begin ret++; end
+  if (island_cfg.safed.enable       ) begin ret++; end
+  if (island_cfg.periph.enable      ) begin ret++; end
+  if (island_cfg.spatz_cl1.enable | island_cfg.spatz_cl2.enable   ) begin ret++; end
+  if (island_cfg.pulp.enable        ) begin ret++; end
+  if (island_cfg.secured.enable     ) begin ret++; end
   return ret;
 endfunction
 
@@ -321,7 +336,8 @@ localparam islands_cfg_t CarfieldIslandsCfg = '{
   safed:    '{SafetyIslandEnable, SafetyIslandBase, SafetyIslandSize},
   ethernet: '{EthernetEnable, EthernetBase, EthernetSize},
   periph:   '{PeriphEnable, PeriphBase, PeriphSize},
-  spatz:    '{SpatzClusterEnable, SpatzClusterBase, SpatzClusterSize},
+  spatz_cl1:    '{SpatzClusterEnable, SpatzCluster1Base, SpatzCluster1Size},
+  spatz_cl2:    '{SpatzClusterEnable, SpatzCluster2Base, SpatzCluster2Size},
   pulp:     '{PulpClusterEnable, PulpClusterBase, PulpClusterSize},
   secured:  '{SecurityIslandEnable, SecurityIslandBase, SecurityIslandSize},
   mbox:     '{MailboxEnable, MailboxBase, MailboxSize}
@@ -361,7 +377,8 @@ localparam carfield_clk_div_values_t CarfieldClkDivValue = gen_carfield_clk_div_
 
 typedef struct packed {
   byte_bt l2;
-  byte_bt spatz;
+  byte_bt spatz_cl1;
+  byte_bt spatz_cl2;
   byte_bt pulp;
   byte_bt secured;
   byte_bt safed;
@@ -371,12 +388,13 @@ typedef struct packed {
 function automatic carfield_domain_idx_t gen_domain_idx(islands_cfg_t island_cfg);
   carfield_domain_idx_t ret = '{default: '0};
   int unsigned i = 0;
-  if (island_cfg.periph.enable   ) begin ret.periph  = i; i++; end
-  if (island_cfg.safed.enable    ) begin ret.safed   = i; i++; end
-  if (island_cfg.secured.enable  ) begin ret.secured = i; i++; end
-  if (island_cfg.pulp.enable     ) begin ret.pulp    = i; i++; end
-  if (island_cfg.spatz.enable    ) begin ret.spatz   = i; i++; end
-  if (island_cfg.l2_port0.enable ) begin ret.l2      = i; i++; end
+  if (island_cfg.periph.enable        ) begin ret.periph      = i; i++; end
+  if (island_cfg.safed.enable         ) begin ret.safed       = i; i++; end
+  if (island_cfg.secured.enable       ) begin ret.secured     = i; i++; end
+  if (island_cfg.pulp.enable          ) begin ret.pulp        = i; i++; end
+  if (island_cfg.spatz_cl1.enable     ) begin ret.spatz_cl1   = i;      end
+  if (island_cfg.spatz_cl2.enable     ) begin ret.spatz_cl2   = i; i++; end
+  if (island_cfg.l2_port0.enable      ) begin ret.l2          = i; i++; end
   return ret;
 endfunction
 
@@ -387,13 +405,15 @@ localparam carfield_domain_idx_t CarfieldDomainIdx = gen_domain_idx(CarfieldIsla
 *******************************/
 
 localparam int unsigned CarfieldNumExtIntrs           = 32; // Number of external interrupts
-localparam int unsigned CarfieldNumInterruptibleHarts = 2;  // Spatz (2 Snitch cores)
+localparam int unsigned CarfieldNumInterruptibleHarts = 4;  // Spatz (2 Snitch cores) * 2 spatz islands
 localparam int unsigned CarfieldNumRouterTargets      = 1;  // Safety Island
 
 typedef enum int {
-  FPClusterIntrHart0Idx = 'd0,
-  FPClusterIntrHart1Idx = 'd1,
-  SafedIntrHartIdx      = 'd2
+  FPCluster1IntrHart0Idx = 'd0,
+  FPCluster1IntrHart1Idx = 'd1,
+  FPCluster2IntrHart0Idx = 'd2,
+  FPCluster2IntrHart1Idx = 'd3,
+  SafedIntrHartIdx      = 'd4
 } carfield_ext_intr_harts_e;
 
 // Clock dividers integer value after PoR
@@ -410,7 +430,8 @@ typedef enum byte_bt {
   SafetyIslandSlvIdx = CarfieldAxiSlvIdx.safed,
   EthernetSlvIdx     = CarfieldAxiSlvIdx.ethernet,
   PeriphsSlvIdx      = CarfieldAxiSlvIdx.periph,
-  FPClusterSlvIdx    = CarfieldAxiSlvIdx.spatz,
+  FPCluster1SlvIdx    = CarfieldAxiSlvIdx.spatz_cl1,
+  FPCluster2SlvIdx    = CarfieldAxiSlvIdx.spatz_cl2,
   IntClusterSlvIdx   = CarfieldAxiSlvIdx.pulp,
   MailboxSlvIdx      = CarfieldAxiSlvIdx.mbox
 } axi_slv_idx_t;
@@ -418,7 +439,8 @@ typedef enum byte_bt {
 typedef enum byte_bt {
   SafetyIslandMstIdx   = CarfieldMstIdx.safed,
   SecurityIslandMstIdx = CarfieldMstIdx.secured,
-  FPClusterMstIdx      = CarfieldMstIdx.spatz,
+  FPCluster1MstIdx      = CarfieldMstIdx.spatz_cl1,
+  FPCluster2MstIdx      = CarfieldMstIdx.spatz_cl2,
   IntClusterMstIdx     = CarfieldMstIdx.pulp
 } axi_mst_idx_t;
 
@@ -441,6 +463,7 @@ localparam int unsigned SyncStages = 3;
 // Hart IDs
 typedef bit [5:0] hartid_t;
 
+//TODO: Add the hart IDs for the different clusters, maybe
 typedef enum hartid_t {
   ChsHartIdOffs       = 'd0 ,
   OpnTitHartIdOffs    = 'd4 ,
