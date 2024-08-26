@@ -1,0 +1,61 @@
+#-----------------------------------------------------------
+# Vivado v2020.2.1 (64-bit)
+# SW Build 3080587 on Fri Dec 11 14:53:26 MST 2020
+# IP Build 3080454 on Sat Dec 12 02:19:03 MST 2020
+# Start of session at: Sun Aug 25 15:15:23 2024
+# Process ID: 10815
+# Current directory: /scratch2/msc24h6/carfield
+# Command line: vivado
+# Log file: /scratch2/msc24h6/carfield/vivado.log
+# Journal file: /scratch2/msc24h6/carfield/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.xpr
+update_compile_order -fileset sources_1
+create_ip_run [get_files -of_objects [get_fileset sources_1] /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/design_1.bd]
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clks_i[1]}
+get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clks_i[3]}
+get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clks_i[1]}
+get_cells -hier u_spatz_cluster_clk_sel
+highlight_objects
+highlight_objects [get_cells -hier gen_domain_clock[1].i_clk_mux
+highlight_objects [get_cells -hier gen_domain_clock[1].i_clk_mux]
+highlight_objects [get_cells -hier gen_domain_clock_mux[1].i_clk_mux]
+ls
+set clk_sel-path  [get_cells -hier u_spatz_cluster_clk_sel]
+set clk_sel_path  [get_cells -hier u_spatz_cluster_clk_sel]
+set domain_clk_mux [lindex [regexp -inline {[^ ]*gen_domain_clock_mux\[[0-9]*\]} [filter [all_fanout -flat [get_pins $clk_sel_path/q[*]]] -filter {NAME=~*gen_domain_clock_mux*}]] 0]
+ls
+get_pins $domain_clk_mux.i_clk_mux/clk_o
+set domain_clk_mux [lindex [regexp -inline {[^ ]*gen_domain_clock_mux\[[0-9]*\]} [filter [all_fanout -flat [get_pins $clk_sel_path/q[*]]] -filter {NAME=~*gen_domain_clock_mux*}]] 0]
+set domain_clk_mux {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[1]}
+get_pins $domain_clk_mux.i_clk_mux/clk_o
+set domain_clk_mux_2 {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2]}
+get_pins $domain_clk_mux.i_clk_mux_2/clk_o
+get_pins $domain_clk_mux_2.i_clk_mux/clk_o
+{design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o}
+get_pins design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o
+create_generated_clock -source [get_pins $domain_clk_mux.i_clk_mux/clks_i[$clk_sel_val]] -divide_by 1 -name {$clk_name}_2 [get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o}]
+create_generated_clock -source [get_pins $domain_clk_mux.i_clk_mux/clks_i[$clk_sel_val]] -divide_by 1 -name ${clk_name}_2 [get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o}]
+set clk_sel_value 1
+create_generated_clock -source [get_pins $domain_clk_mux.i_clk_mux/clks_i[$clk_sel_val]] -divide_by 1 -name ${clk_name}_2 [get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o}]
+set clk_sel_val 1
+create_generated_clock -source [get_pins $domain_clk_mux.i_clk_mux/clks_i[$clk_sel_val]] -divide_by 1 -name ${clk_name}_2 [get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o}]
+set clk_name spatz_domain_clk
+create_generated_clock -source [get_pins $domain_clk_mux.i_clk_mux/clks_i[$clk_sel_val]] -divide_by 1 -name ${clk_name}_2 [get_pins {design_1_i/carfield_xilinx_ip_0/inst/i_carfield_xilinx/i_carfield/gen_domain_clock_mux[2].i_clk_mux/clk_o}]
+create_generated_clock -source [get_pins $domain_clk_mux.i_clk_mux/clks_i[$clk_sel_val]] -divide_by 1 -name $clk_name [get_pins $domain_clk_mux.i_clk_mux/clk_o]
+set_case_analysis [expr $clk_sel_val >> 0 & 1] [get_pins $clk_sel_path/q[0]]
+    set_case_analysis [expr $clk_sel_val >> 1 & 1] [get_pins $clk_sel_path/q[1]]
+set_max_delay 0 -from [get_clocks -filter "NAME != $clk_name"] -to [get_clocks $clk_name]
+set_max_delay 0 -from [get_clocks $clk_name] -to [get_clocks -filter "NAME != $clk_name"]
+set_max_delay 0 -from [get_clocks $clk_name] -to [get_clocks -filter "NAME != $clk_name"]
+set_max_delay 0 -from [get_clocks -filter "NAME != ${clk_name}_2"] -to [get_clocks ${clk_name}_2]
+set_max_delay 0 -from [get_clocks ${clk_name}_2] -to [get_clocks -filter "NAME != ${clk_name}_2"]
+create_ip_run [get_files -of_objects [get_fileset sources_1] /usr/scratch2/badile40/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.srcs/sources_1/bd/design_1/design_1.bd]
+refresh_design
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1

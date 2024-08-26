@@ -324,7 +324,8 @@ function automatic int unsigned gen_carfield_domains(islands_cfg_t island_cfg);
   if (island_cfg.l2_port0.enable    ) begin ret++; end
   if (island_cfg.safed.enable       ) begin ret++; end
   if (island_cfg.periph.enable      ) begin ret++; end
-  if (island_cfg.spatz_cl1.enable | island_cfg.spatz_cl2.enable   ) begin ret++; end
+  if (island_cfg.spatz_cl1.enable   ) begin ret++; end
+  if (island_cfg.spatz_cl2.enable   ) begin ret++; end
   if (island_cfg.pulp.enable        ) begin ret++; end
   if (island_cfg.secured.enable     ) begin ret++; end
   return ret;
@@ -392,7 +393,7 @@ function automatic carfield_domain_idx_t gen_domain_idx(islands_cfg_t island_cfg
   if (island_cfg.safed.enable         ) begin ret.safed       = i; i++; end
   if (island_cfg.secured.enable       ) begin ret.secured     = i; i++; end
   if (island_cfg.pulp.enable          ) begin ret.pulp        = i; i++; end
-  if (island_cfg.spatz_cl1.enable     ) begin ret.spatz_cl1   = i;      end
+  if (island_cfg.spatz_cl1.enable     ) begin ret.spatz_cl1   = i; i++; end
   if (island_cfg.spatz_cl2.enable     ) begin ret.spatz_cl2   = i; i++; end
   if (island_cfg.l2_port0.enable      ) begin ret.l2          = i; i++; end
   return ret;

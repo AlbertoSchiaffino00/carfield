@@ -13,8 +13,8 @@
 #include "car_util.h"
 
 #define TEST_VECTOR 1
-#include "test-spatzBenchmarks-dp-fdotp_M4096_vector.h"
-// #include "test-spatzBenchmarks-dp-fdotp_M128.h"
+// #include "test-spatzBenchmarks-dp-fdotp_M4096_vector.h"
+#include "test-spatzBenchmarks-dp-fdotp_M128_vector.h"
 
 int diyprintf(char *str, int size) {
     // char str[] = "Hello World!\r\n";

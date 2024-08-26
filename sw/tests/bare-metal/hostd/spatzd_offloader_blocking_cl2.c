@@ -13,7 +13,7 @@
 #include "test-snRuntime-simple.h"
 
 #define TEST_VECTOR 1
-#include "test-spatzBenchmarks-dp-fdotp_M4096_vector.h"
+#include "test-snRuntime-simple_vector.h"
 // #include "test-spatzBenchmarks-dp-fdotp_M128.h"
 
 

@@ -1500,7 +1500,7 @@ logic [spatz_cluster_pkg::NumCores-1:0] spatzcl1_mbox_intr;
 logic [spatz_cluster_pkg::NumCores-1:0] spatzcl1_timer_intr;
 if (CarfieldIslandsCfg.spatz_cl1.enable) begin : gen_spatz_cluster1
 
-  assign reset_vector[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_rst.q;
+  assign reset_vector[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster1_rst.q;
 
   assign domain_clk_sel[CarfieldDomainIdx.spatz_cl1] = car_regs_reg2hw.spatz_cluster_clk_sel.q;
   assign spatz_cl1_rst_n = rsts_n[CarfieldDomainIdx.spatz_cl1]; //reset different for each spatz cluster
@@ -1660,7 +1660,7 @@ logic [spatz_cluster_pkg::NumCores-1:0] spatzcl2_mbox_intr;
 logic [spatz_cluster_pkg::NumCores-1:0] spatzcl2_timer_intr;
 if (CarfieldIslandsCfg.spatz_cl1.enable) begin : gen_spatz_cluster2
 
-  assign reset_vector[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_rst.q;
+  assign reset_vector[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster2_rst.q;
 
   assign domain_clk_sel[CarfieldDomainIdx.spatz_cl2] = car_regs_reg2hw.spatz_cluster_clk_sel.q;
   assign spatz_cl2_rst_n = rsts_n[CarfieldDomainIdx.spatz_cl2]; 

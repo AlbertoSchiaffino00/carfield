@@ -1,5 +1,5 @@
 # This script was generated automatically by bender.
-set ROOT "/usr/scratch2/badile40/msc24h6/carfield"
+set ROOT "/scratch2/msc24h6/carfield"
 
 set_property include_dirs [list \
     $ROOT/.bender/git/checkouts/apb-b4001f257d213e88/include \

@@ -1,0 +1,16 @@
+#-----------------------------------------------------------
+# Vivado v2020.2.1 (64-bit)
+# SW Build 3080587 on Fri Dec 11 14:53:26 MST 2020
+# IP Build 3080454 on Sat Dec 12 02:19:03 MST 2020
+# Start of session at: Mon Aug 26 09:34:18 2024
+# Process ID: 19614
+# Current directory: /scratch2/msc24h6/carfield
+# Command line: vivado
+# Log file: /scratch2/msc24h6/carfield/vivado.log
+# Journal file: /scratch2/msc24h6/carfield/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /scratch2/msc24h6/carfield/target/xilinx/flavor_bd/carfield_vcu128/carfield_vcu128.xpr
+update_compile_order -fileset sources_1
+open_run synth_1 -name synth_1
+report_utilization -name utilization_1

@@ -12,7 +12,8 @@ PERIPH_RST,1,rw,hro,0,0,"Periph Domain reset -active high, inverted in HW-"
 SAFETY_ISLAND_RST,1,rw,hro,0,0,"Safety Island reset -active high, inverted in HW-"
 SECURITY_ISLAND_RST,1,rw,hro,0,0,"Security Island reset -active high, inverted in HW-"
 PULP_CLUSTER_RST,1,rw,hro,0,0,"PULP Cluster reset -active high, inverted in HW-"
-SPATZ_CLUSTER_RST,1,rw,hro,0,0,"Spatz Cluster reset -active high, inverted in HW-"
+SPATZ_CLUSTER1_RST,1,rw,hro,0,0,"Spatz Cluster 1 reset -active high, inverted in HW-"
+SPATZ_CLUSTER2_RST,1,rw,hro,0,0,"Spatz Cluster 2 reset -active high, inverted in HW-"
 L2_RST,1,rw,hro,0,0,"L2 reset -active high, inverted in HW-"
 PERIPH_ISOLATE,1,rw,hro,0,0,Periph Domain  AXI isolate
 SAFETY_ISLAND_ISOLATE,1,rw,hro,0,1,Safety Island AXI isolate

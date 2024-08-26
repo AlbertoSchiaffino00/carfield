@@ -13,8 +13,8 @@
 #include "car_util.h"
 
 #define TEST_VECTOR 1
-#include "test-spatzBenchmarks-dp-fdotp_M128_vector.h"
-// #include "test-spatzBenchmarks-dp-fdotp_M128.h"
+// #include "test-spatzBenchmarks-dp-fdotp_M128_vector.h"
+#include "test-snRuntime-simple_vector.h"
 
 #define MBOX_CL2_OFFSET 0x600
 
