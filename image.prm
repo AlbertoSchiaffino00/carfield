@@ -1,0 +1,14 @@
+===================================
+Configuration Memory information
+===================================
+File Format        MCS
+Interface          SPIX4
+Size               256M
+Start Address      0x00000000
+End Address        0x0FFFFFFF
+Checksum           0xB2E449A7
+Fill Value         0xFF
+
+Addr1         Addr2         Date                    File(s)                                                                Checksum
+0x00000000    0x003FFFFF    Sep  9 14:38:22 2024    /scratch2/msc24h6/carfield/sw/boot/linux_carfield_bd_vcu128.gpt.bin    0x02A449A7
+File Checksum Total                                                                                                        0x02A449A7

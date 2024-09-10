@@ -4,13 +4,13 @@
 //
 // Cyril Koenig <cykoenig@iis.ee.ethz.ch>
 
-  reserved-memory {
-    ranges;
-    // Keep 1GiB memory for explicit management
-    reserved_dev_buffer: l3_buffer@0xc0000000 {
-      reg = <0x0 0xc0000000 0x0 0x40000000>;
-    };
-  };
+//  reserved-memory {
+//    ranges;
+//    // Keep 1GiB memory for explicit management
+//    reserved_dev_buffer: l3-buffer@c0000000 {
+//      reg = <0x0 0xc0000000 0x0 0x40000000>;
+//    };
+//  };
 
   cpus {
     #address-cells = <1>;
@@ -151,27 +151,33 @@
       compatible = "l2-cont,carfield";
       reg = <0x0 0x78300000 0x0 0x100000>;
     };
-    safety-island@60000000 {
-      compatible = "safety-island,carfield";
-      reg = <0x0 0x60000000 0x0 0x800000>;
-      // Link to the buffer for this device
-      memory-region = <&reserved_dev_buffer>;
-    };
-    integer-cluster@50000000 {
-      compatible = "integer-cluster,carfield";
-      reg = <0x0 0x50000000 0x0 0x800000>;
-      // Link to the buffer for this device
-      memory-region = <&reserved_dev_buffer>;
-    };
-    spatz-cluster@51000000 {
+    //    safety-island@60000000 {
+    //      compatible = "safety-island,carfield";
+    //      reg = <0x0 0x60000000 0x0 0x800000>;
+    //      // Link to the buffer for this device
+    //      memory-region = <&reserved_dev_buffer>;
+    //    };
+    //    integer-cluster@50000000 {
+    //      compatible = "integer-cluster,carfield";
+    //      reg = <0x0 0x50000000 0x0 0x800000>;
+    //      // Link to the buffer for this device
+    //      memory-region = <&reserved_dev_buffer>;
+    //    };
+    spatz-cluster-1@51000000 {
       compatible = "spatz-cluster,carfield";
       reg = <0x0 0x51000000 0x0 0x800000>;
       // Link to the buffer for this device
-      memory-region = <&reserved_dev_buffer>;
+      // memory-region = <&reserved_dev_buffer>;
     };
-    l3_buffer@c0000000 {
+    spatz-cluster-2@52000000 {
+      compatible = "spatz-cluster,carfield";
+      reg = <0x0 0x52000000 0x0 0x800000>;
+      // Link to the buffer for this device
+      // memory-region = <&reserved_dev_buffer>;
+    };
+    l3-buffer@c0000000 {
       compatible = "l3-buffer,carfield";
       reg = <0x0 0xc0000000 0x0 0x40000000>;
-      memory-region = <&reserved_dev_buffer>;
+      // memory-region = <&reserved_dev_buffer>;
     };
   };
